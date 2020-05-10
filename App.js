@@ -1,19 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import LoginComponent from "./src/Components/Authentication/LoginComponent";
+import SignUp from "./src/Components/Authentication/SignUp";
+import ForgotPassrod from "./src/Components/Authentication/ForgotPassword";
+import ResetPassword from "./src/Components/Authentication/ResetPassword";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Test mockup-ui</Text>
-    </View>
+    //<LoginComponent></LoginComponent>
+    //<SignUp></SignUp>
+      //<ForgotPassrod></ForgotPassrod>
+      <ResetPassword></ResetPassword>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
