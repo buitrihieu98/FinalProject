@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, StyleSheet, ScrollView, Text} from 'react-native';
 import SectionCourses from "./SectionCourses";
+import PathList from "./PathList";
+import SeeAllButton from "../Global/SeeAllButton";
 
 const Home = () => {
   return (
@@ -10,7 +12,7 @@ const Home = () => {
           </View>
           <ScrollView style={styles.scrollView}>
               <SectionCourses title={'Continue Learning'}></SectionCourses>
-              <SectionCourses title={'Path'}></SectionCourses>
+              <PathList title={'Path'}></PathList>
               <SectionCourses title={'Channel'}></SectionCourses>
               <SectionCourses title={'Bookmarks'}></SectionCourses>
           </ScrollView>

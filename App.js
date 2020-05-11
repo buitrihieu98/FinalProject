@@ -21,6 +21,5 @@ export default function App() {
       //<SettingComponent></SettingComponent>
       //<ChangeAccountInfo></ChangeAccountInfo>
       <Home></Home>
-
   );
 }

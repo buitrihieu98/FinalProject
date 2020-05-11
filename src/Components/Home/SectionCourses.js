@@ -2,6 +2,7 @@ import React from 'react';
 import {Text,ScrollView, View, StyleSheet } from 'react-native';
 import SectionCoursesItem from "./SectionCoursesItem";
 import ListCoursesItem from "../ListCourses/ListCoursesItem";
+import SeeAllButton from "../Global/SeeAllButton";
 
 
 const SectionCourses = (props) => {
@@ -43,8 +44,9 @@ const SectionCourses = (props) => {
     }
   return (
       <View>
-          <View>
+          <View style={{justifyContent:'center'}}>
             <Text style={styles.title}>{props.title}</Text>
+              <SeeAllButton></SeeAllButton>
           </View>
           <ScrollView horizontal={true}>
             {renderCoursesList(courses)}
