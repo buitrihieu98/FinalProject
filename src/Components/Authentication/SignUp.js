@@ -8,7 +8,7 @@ const SignUp = () => {
     const unmatched =<Text style={styles.warningText}>Confirm password and password must be matched</Text>
     const matched=<Text style={[styles.warningText,{color:'white'}]}> </Text>
     return (
-      <ImageBackground source={require('../../../assets/background-login.jpg')} style={styles.container}>
+      <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
           <Text style={styles.title}>Sign Up</Text>
           <TextInput style={styles.input} placeholder= {'Username'}/>
           <TextInput style={styles.input} placeholder= {'Email'}/>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title:{
-        marginBottom:70,
+        marginBottom:30,
         fontSize: 60,
         fontWeight:'bold',
         color:'white'

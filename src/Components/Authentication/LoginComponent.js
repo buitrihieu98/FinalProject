@@ -4,7 +4,7 @@ import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacit
 const LoginComponent = () => {
     const [hidePass, setHidePass] = useState(true)
     return (
-      <ImageBackground source={require('../../../assets/background-login.jpg')} style={styles.container}>
+      <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
           <Image source={require('../../../assets/logo.png')} style={styles.logo}>
           </Image>
           <TextInput style={styles.input} placeholder= {'Username'}/>
@@ -39,9 +39,9 @@ const LoginComponent = () => {
 
 const styles = StyleSheet.create({
     logo:{
-        marginTop:20,
-        width: 200,
-        height: 200,
+        marginTop:80,
+        width: 250,
+        height: 250,
     },
     container:{
         flex:1,

@@ -1,10 +1,13 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
 import BackButton from "../Global/BackButton";
 import SettingItem from "./SettingItem";
 import SettingItemWithSwitch from "./SettingItemWithSwitch";
 
 const SettingComponent = () => {
+    const [isRequiredWiFiStreaming,setIsRequiredWiFiStreaming]=useState(true)
+    const [isRequireWiFiDownloading,setIsRequiredWiFiDownloading]=useState(true)
+    const [appVersion,setAppVersion]=useState('1.0')
   return (
       <View style={styles.container}>
           <View style={styles.titleContainer}>
@@ -12,7 +15,7 @@ const SettingComponent = () => {
               <Text style={styles.title}>Setting</Text>
           </View>
           <ScrollView>
-              <SettingItem name={'Account'}></SettingItem>
+              <SettingItem name={'Change Account Info'}></SettingItem>
               <SettingItem name={'Subscription'}></SettingItem>
               <SettingItem name={'Communication Preferences'}></SettingItem>
               <SettingItem name={'Theme'}></SettingItem>

@@ -8,7 +8,7 @@ const ResetPassword = () => {
     const unmatched =<Text style={styles.warningText}>Confirm password and password must be matched</Text>
     const matched=<Text style={[styles.warningText,{color:'white'}]}> </Text>
     return (
-        <ImageBackground source={require('../../../assets/background-login.jpg')} style={styles.container}>
+        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Image source={require('../../../assets/icon-reset.png')} style={styles.logo}>
             </Image>
             <Text style={styles.title}>Reset your password</Text>

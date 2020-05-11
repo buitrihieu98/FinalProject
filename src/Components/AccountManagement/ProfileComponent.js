@@ -5,7 +5,8 @@ import Tag from "../Global/Tag"
 
 const ProfileComponent = () => {
     const interestTagList = ['JavaScript','C#','C++','PHP','Python','Java']
-
+    const[username,setUsername] =useState('Username')
+    const[email,setEmail] =useState('email@gmail.com')
     const [totalActiveDays,setTotalActiveDays] = useState(0)
     const [mostActiveTime,setMostActiveTime] = useState('21:00')
     const [mostViewedSubject,setMostViewedSubject] = useState('Managerial Skills')
@@ -17,7 +18,9 @@ const ProfileComponent = () => {
           </View>
           <View style={styles.avatarContainer}>
               <Image style={styles.avatar} source={require('../../../assets/icon-avatar.png')}></Image>
-              <Text style={styles.username}>Username</Text>
+              <Text style={styles.username}>{username}</Text>
+              <Text style={styles.email}>{email}
+              </Text>
           </View>
           <View>
               <Text style={styles.subtitle}>Interest</Text>
@@ -63,12 +66,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     avatar:{
+        marginTop:10,
         height: 100,
         width:100,
     },
     username:{
-        margin:10,
+        margin:5,
         fontSize: 30,
+        fontWeight: 'bold',
+    },
+    email:{
+        fontSize: 20,
         fontWeight: 'bold',
     },
     subtitle:{

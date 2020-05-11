@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
 
-const ForgotPassrod = () => {
+const ForgotPassword = () => {
     const [email,setEmail]=useState('')
     return (
-        <ImageBackground source={require('../../../assets/background-login.jpg')} style={styles.container}>
+        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Image source={require('../../../assets/icon-forgotpass.png')} style={styles.logo}>
             </Image>
             <Text style={styles.title}>Forgot your password?</Text>
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
         color:'white'
     },
 });
-export default ForgotPassrod
+export default ForgotPassword
