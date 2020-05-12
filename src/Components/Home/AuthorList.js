@@ -1,21 +1,20 @@
 import React from 'react';
 import {Text, View, StyleSheet, ScrollView } from 'react-native';
-import PathItem from "./PathItem";
-import SeeAllButton from "../Global/SeeAllButton";
-const PathList = (props) => {
-    const renderCoursesList =(pathList) =>{
-        let pathListArray=[]
-        pathListArray=pathListArray.concat(pathList)
-        return pathListArray.map(item=> <PathItem item={item}></PathItem>)
+import AuthorItems from "./AuthorItems";
+
+const AuthorList = (props) => {
+    const renderAuthorList =(authorList) =>{
+        let authorListArray=[]
+        authorListArray=authorListArray.concat(authorList)
+        return authorListArray.map(item=> <AuthorItems item={item}></AuthorItems>)
     }
     return (
         <View>
             <View style={{justifyContent:'center'}}>
                 <Text style={styles.title}>{props.title}</Text>
-                <SeeAllButton></SeeAllButton>
             </View>
             <ScrollView horizontal={true}>
-                {renderCoursesList(props.pathList)}
+                {renderAuthorList(props.authorList)}
             </ScrollView>
         </View>
     )
@@ -33,4 +32,4 @@ const styles = StyleSheet.create({
 
 
 
-export default PathList
+export default AuthorList

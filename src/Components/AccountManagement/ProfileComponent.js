@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View,StyleSheet,Image,ScrollView } from 'react-native';
+import {Avatar} from "react-native-elements";
 import BackButton from "../Global/BackButton";
 import Tag from "../Global/Tag"
 
@@ -17,7 +18,8 @@ const ProfileComponent = () => {
               <Text style={styles.title}>Profile</Text>
           </View>
           <View style={styles.avatarContainer}>
-              <Image style={styles.avatar} source={require('../../../assets/icon-avatar.png')}></Image>
+              {<Avatar rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
+              }></Avatar>}
               <Text style={styles.username}>{username}</Text>
               <Text style={styles.email}>{email}
               </Text>

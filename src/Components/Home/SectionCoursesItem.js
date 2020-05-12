@@ -1,7 +1,8 @@
 import React from 'react';
-import {TouchableOpacity, Image, View, StyleSheet,Text } from 'react-native';
+import {TouchableOpacity,Image, View, StyleSheet,Text } from 'react-native';
+import {Rating} from 'react-native-elements';
 import SectionCourses from "./SectionCourses";
-import Rating from "./Rating";
+//import Rating from "./Rating";
 
 const SectionCoursesItem = (props) => {
   return (
@@ -14,7 +15,11 @@ const SectionCoursesItem = (props) => {
               <Text style={styles.coreInfo}>{props.item.author}</Text>
               <Text style={styles.subInfo}>{`${props.item.level} . ${props.item.releasedDate}`}</Text>
               <Text style={styles.subInfo}>{props.item.duration}</Text>
-              <Rating rate={props.item.rating}></Rating>
+              <View style={{flexDirection:'row'}}>
+                  <Rating imageSize={18} tintColor={'linen'} readonly={true} ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
+                  <Text style={{marginTop:4,color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
+              </View>
+              {/*<Rating rate={props.item.rating}></Rating>*/}
           </View>
       </TouchableOpacity>
 
@@ -38,7 +43,12 @@ const styles = StyleSheet.create({
     subInfo:{
         fontSize: 15,
         color:'darkgray'
+    },
+    rating:{
+        margin:5,
+        alignSelf:'flex-start'
     }
+
 });
 
 

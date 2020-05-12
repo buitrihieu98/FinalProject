@@ -8,7 +8,7 @@ import ProfileComponent from "./src/Components/AccountManagement/ProfileComponen
 import SettingComponent from "./src/Components/AccountManagement/SettingComponent";
 import ChangeAccountInfo from "./src/Components/AccountManagement/ChangeAccountInfo";
 import Home from "./src/Components/Home/Home";
-
+import SplashScreen from "./src/Components/Global/SplashScreen";
 
 
 export default function App() {
@@ -21,5 +21,6 @@ export default function App() {
       //<SettingComponent></SettingComponent>
       //<ChangeAccountInfo></ChangeAccountInfo>
       <Home></Home>
+      //<SplashScreen></SplashScreen>
   );
 }
