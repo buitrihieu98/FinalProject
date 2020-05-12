@@ -9,6 +9,9 @@ import SettingComponent from "./src/Components/AccountManagement/SettingComponen
 import ChangeAccountInfo from "./src/Components/AccountManagement/ChangeAccountInfo";
 import Home from "./src/Components/Home/Home";
 import SplashScreen from "./src/Components/Global/SplashScreen";
+import Download from "./src/Components/Download/Download";
+import Search from "./src/Components/Search/Search";
+import Browse from "./src/Components/Browse/Browse";
 
 
 export default function App() {
@@ -20,7 +23,10 @@ export default function App() {
       //<ProfileComponent></ProfileComponent>
       //<SettingComponent></SettingComponent>
       //<ChangeAccountInfo></ChangeAccountInfo>
-      <Home></Home>
+      //<Home></Home>
       //<SplashScreen></SplashScreen>
+      //<Download></Download>
+      //<Search></Search>
+      <Browse></Browse>
   );
 }
