@@ -1,22 +1,25 @@
 import React from 'react';
-import {Text, View, StyleSheet, ScrollView } from 'react-native';
+import {Text, View, StyleSheet, ScrollView, FlatList} from 'react-native';
 import ListCoursesItem from "../ListCourses/ListCoursesItem";
+import AuthorItems from "../Home/AuthorItems";
 
 const SearchedCoursesList = (props) => {
-    const renderList =(List) =>{
-        let Array=[]
-        Array=Array.concat(List)
-        return Array.map(item=> <ListCoursesItem item={item}></ListCoursesItem>)
-    }
+    // const renderList =(List) =>{
+    //     let Array=[]
+    //     Array=Array.concat(List)
+    //     return Array.map(item=> <ListCoursesItem item={item}></ListCoursesItem>)
+    // }
     return (
         <View style={styles.container}>
             <View style={{flexDirection:'row'}}>
                 <Text style={styles.title}>Courses</Text>
-                <Text style={styles.result}>{props.List.length} result(s)</Text>
+                <Text style={styles.result}>{props.list.length} result(s)</Text>
             </View>
-            <ScrollView>
-                {renderList(props.List)}
-            </ScrollView>
+            {/*<ScrollView>*/}
+            {/*    {renderList(props.List)}*/}
+            {/*</ScrollView>*/}
+            <FlatList  data={props.list}
+                       renderItem={({item, index, separators}) => (<ListCoursesItem item={item}></ListCoursesItem>)}/>
         </View>
     )
 };

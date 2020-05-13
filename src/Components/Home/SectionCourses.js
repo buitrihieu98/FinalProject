@@ -1,24 +1,26 @@
 import React from 'react';
-import {Text,ScrollView, View, StyleSheet } from 'react-native';
+import {Text, ScrollView, View, StyleSheet, FlatList} from 'react-native';
 import SectionCoursesItem from "./SectionCoursesItem";
 import ListCoursesItem from "../ListCourses/ListCoursesItem";
 import SeeAllButton from "../Global/SeeAllButton";
 const SectionCourses = (props) => {
 
-    const renderCoursesList =(courses) =>{
-        let coursesListArray=[]
-        coursesListArray = coursesListArray.concat(courses)
-        return coursesListArray.map(item=> <SectionCoursesItem item={item}></SectionCoursesItem>)
-    }
+    // const renderCoursesList =(courses) =>{
+    //     let coursesListArray=[]
+    //     coursesListArray = coursesListArray.concat(courses)
+    //     return coursesListArray.map(item=> <SectionCoursesItem item={item}></SectionCoursesItem>)
+    // }
   return (
       <View>
           <View style={{justifyContent:'center'}}>
             <Text style={styles.title}>{props.title}</Text>
               <SeeAllButton></SeeAllButton>
           </View>
-          <ScrollView horizontal={true}>
-            {renderCoursesList(props.coursesList)}
-          </ScrollView>
+          {/*<ScrollView horizontal={true}>*/}
+          {/*  {renderCoursesList(props.coursesList)}*/}
+          {/*</ScrollView>*/}
+          <FlatList horizontal={true} data={props.list}
+                    renderItem={({item, index, separators}) => (<SectionCoursesItem item={item}></SectionCoursesItem>)}/>
       </View>
   )
 };

@@ -45,8 +45,8 @@ const Browse = () => {
                       {tagList.map(value => <Tag name={value}></Tag> )}
                   </ScrollView>
               </View>
-              <PathList pathList={pathList} title={'Paths'}></PathList>
-              <AuthorList authorList={authorList} title={'Top authors'}></AuthorList>
+              <PathList list={pathList} title={'Paths'}></PathList>
+              <AuthorList list={authorList} title={'Top authors'}></AuthorList>
           </ScrollView>
       </View>
 

@@ -1,24 +1,13 @@
 import React from 'react';
-import {Image, View, StyleSheet } from 'react-native';
+import {Image, View, StyleSheet, Text} from 'react-native';
+import {Rating} from 'react-native-elements'
 
-const Rating = (props) => {
-    const yellowStar = <Image source={require('../../../assets/icon-yellowStar.png')} style={styles.icon}></Image>
-    const whiteStar = <Image source={require('../../../assets/icon-whiteStar.png')} style={styles.icon}></Image>
-    const renderStars=(rating)=>{
-        let stars=[]
-        let yellowPoint =rating
-        let whitePoint=5-yellowPoint
-        for(let i=0;i<yellowPoint;i++){
-            stars=stars.concat(true)
-        }
-        for(let j=0;j<whitePoint;j++){
-            stars=stars.concat(false)
-        }
-        return stars.map(value => value===true?yellowStar:whiteStar)
-    }
+const MyRating = (props) => {
   return (
       <View style={styles.container}>
-          {renderStars(props.rate)}
+          <Rating imageSize={20} tintColor={'azure'} readonly={true}
+                  ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
+          <Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
       </View>
   )
 };
@@ -26,14 +15,17 @@ const Rating = (props) => {
 const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
-        height:15,
+        height:20,
     },
     icon:{
         width:15,
         margin:2,
         height:15,
     },
+    rating:{
+        alignSelf:'center',
+    },
 });
 
 
-export default Rating
+export default MyRating

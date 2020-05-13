@@ -36,9 +36,9 @@ const Search = () => {
           ></SearchBar>
           {/*<RecentSearches rSList={rSList}></RecentSearches>*/}
           <ScrollView>
-              <SearchedAuthorList authorList={authorList}></SearchedAuthorList>
-              <SearchedCoursesList List={coursesList}></SearchedCoursesList>
-              <SearchedPathList List={pathList}></SearchedPathList>
+              <SearchedAuthorList list={authorList}></SearchedAuthorList>
+              <SearchedCoursesList list={coursesList}></SearchedCoursesList>
+              <SearchedPathList list={pathList}></SearchedPathList>
           </ScrollView>
 
 

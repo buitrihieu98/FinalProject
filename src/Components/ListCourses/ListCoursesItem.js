@@ -19,7 +19,6 @@ const ListCoursesItem = (props) => {
                     <Rating imageSize={18} tintColor={'linen'} readonly={true} ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
                     <Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
                 </View>
-
             </View>
         </TouchableOpacity>
     )

@@ -17,7 +17,7 @@ import CourseDetail from "./src/Components/Details/CourseDetail";
 
 export default function App() {
   //for testing
-  const author={id:1, username:'Hai Pham', avatar:''}
+  const author=[{id:1, username:'Hai Pham', avatar:''}]
   const course=
     {id:1, title: 'React Native', author: author , level:'Intermediate', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,}
 
@@ -29,11 +29,11 @@ export default function App() {
       //<ProfileComponent></ProfileComponent>
       //<SettingComponent></SettingComponent>
       //<ChangeAccountInfo></ChangeAccountInfo>
-      //<Home></Home>
+      <Home></Home>
       //<SplashScreen></SplashScreen>
       //<Download></Download>
       //<Search></Search>
       //<Browse></Browse>
-      <CourseDetail item={course}></CourseDetail>
+      //<CourseDetail item={course}></CourseDetail>
   );
 }

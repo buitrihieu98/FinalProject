@@ -15,8 +15,8 @@ const AuthorItems = (props) => {
  const styles = StyleSheet.create({
      container:{
          margin:5,
-         height:100,
-         width:100,
+         //height:100,
+         width: 100,
          justifyContent: 'center',
          alignItems: 'center',
      },

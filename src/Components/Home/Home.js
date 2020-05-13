@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet,Image, ScrollView, Text} from 'react-native';
+import {View, StyleSheet, Image, ScrollView, Text, ImageBackground} from 'react-native';
 import SectionCourses from "./SectionCourses";
 import PathList from "./PathList";
 import AuthorList from "./AuthorList";
@@ -23,11 +23,19 @@ const Home = () => {
               <Text style={styles.title}>Home</Text>
           </View>
           <ScrollView>
-              <SectionCourses coursesList={coursesList} title={'Continue Learning'}></SectionCourses>
-              <PathList pathList={pathList} title={'Path'}></PathList>
-              <SectionCourses coursesList={coursesList} title={'IT Operation'}></SectionCourses>
-              <SectionCourses coursesList={coursesList} title={'Software development'}></SectionCourses>
-              <SectionCourses coursesList={coursesList} title={'Data professional'}></SectionCourses>
+              <View style={styles.introContainer}>
+                  <Text style={styles.intro}>Welcome to Exceed!</Text>
+                  <Text style={styles.intro}>Exceed, it means to be greater than a number,an amount,
+                      or to go past an allowed limit. With Exceed,
+                      we hope you can improve your skills,
+                      erase your knowledge's boundary by joining online courses.
+                  </Text>
+              </View>
+              <SectionCourses list={coursesList} title={'Continue Learning'}></SectionCourses>
+              <PathList list={pathList} title={'Path'}></PathList>
+              <SectionCourses list={coursesList} title={'IT Operation'}></SectionCourses>
+              <SectionCourses list={coursesList} title={'Software development'}></SectionCourses>
+              <SectionCourses list={coursesList} title={'Data professional'}></SectionCourses>
           </ScrollView>
       </View>
 
@@ -51,6 +59,12 @@ const styles = StyleSheet.create({
         fontSize:25,
         fontWeight:'bold',
     },
+    intro:{
+        color:'gray',
+        fontSize: 15,
+        margin:5,
+
+    }
 });
 
 
