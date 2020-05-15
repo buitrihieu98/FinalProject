@@ -2,10 +2,32 @@ import React from 'react';
 import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView} from 'react-native';
 import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
-
+import ViewMoreText from 'react-native-view-more-text';
+import LessonList from "./LessionList";
 
 
 const CourseDetail = (props) => {
+
+    const lessons = [
+        {
+            name: 'Course Overview',
+            totalTime: '2:04',
+            contentList: [{name: 'Course Overview', time: '2:04'}],
+        },
+        {
+            name: 'Getting Started with Angular',
+            totalTime: '38:45',
+            contentList: [{name: 'Introduction', time: '2:55'}, {name: 'Practise Exercises', time: '3:25',}, {name: 'Introduction', time: '2:55'}, {name: 'Practise Exercises', time: '3:25'}, {
+                name: 'Introduction',
+                time: '2:55',
+            }, {name: 'Practise Exercises', time: '3:25'}, {
+                name: 'Introduction',
+                time: '2:55',
+            }, {name: 'Practise Exercises', time: '3:25'}, {
+                name: 'Introduction',
+                time: '2:55',
+            }],
+        },]
   return (
       <ScrollView style={styles.container}>
           {/*video*/}
@@ -33,10 +55,19 @@ const CourseDetail = (props) => {
                       <Text style={styles.buttonText}>Download</Text>
                   </TouchableOpacity>
               </View>
-              {/*see more text*/}
-
+              <View style={{marginLeft:10}}>
+                  <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
+                      <Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test
+                          Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test
+                          Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test
+                          Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test
+                          Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test
+                          Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test
+                      </Text>
+                  </ViewMoreText>
+              </View>
+              <LessonList item={lessons}/>
           </View>
-
       </ScrollView>
 
   )
@@ -60,7 +91,7 @@ const styles = StyleSheet.create({
     infoContainer:{
     },
     subInfo:{
-        fontSize: 15,
+        fontSize: 20,
         color:'darkgray'
     },
     subInfoContainer:{

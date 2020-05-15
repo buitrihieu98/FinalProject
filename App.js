@@ -29,11 +29,11 @@ export default function App() {
       //<ProfileComponent></ProfileComponent>
       //<SettingComponent></SettingComponent>
       //<ChangeAccountInfo></ChangeAccountInfo>
-      <Home></Home>
+      //<Home></Home>
       //<SplashScreen></SplashScreen>
       //<Download></Download>
       //<Search></Search>
       //<Browse></Browse>
-      //<CourseDetail item={course}></CourseDetail>
+      <CourseDetail item={course}></CourseDetail>
   );
 }
