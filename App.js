@@ -15,11 +15,12 @@ import Browse from "./src/Components/Browse/Browse";
 import CourseDetail from "./src/Components/Details/CourseDetail";
 import PathDetail from "./src/Components/Details/PathDetail";
 import Subscription from "./src/Components/Subscription/Subscription";
+import AuthorDetail from "./src/Components/Details/AuthorDetail";
 
 
 export default function App() {
   //for testing
-  const author=[{id:1, username:'Hai Pham', avatar:''}]
+  const author=[{id:1, username:'Hai Pham', avatar:'', coursesList :coursesList }]
   const course=
     {id:1, title: 'React Native', author: author , level:'Intermediate', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,}
   const coursesList=[
@@ -43,6 +44,7 @@ export default function App() {
       //<Browse></Browse>
       //<CourseDetail item={course}></CourseDetail>
       //<PathDetail item={path}></PathDetail>
-      <Subscription></Subscription>
+      //<Subscription></Subscription>
+      <AuthorDetail item={author[0]}></AuthorDetail>
   );
 }
