@@ -7,23 +7,20 @@ import ListCourses from "../ListCourses/ListCourses";
 
 
 const AuthorDetail = (props) => {
+    let item=props.route.params.item
+    props.navigation.setOptions({title: item.username})
   return (
-      <View style={styles.container}>
-          <View style={styles.titleContainer}>
-              <BackButton></BackButton>
-              <Text style={styles.title}>Profile</Text>
-          </View>
+      <ScrollView style={styles.container}>
           <View style={styles.avatarContainer}>
               {<Avatar rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
               }></Avatar>}
-              <Text style={styles.username}>{props.item.username}</Text>
-              <Text style={styles.email}>{props.item.email}
-              </Text>
+              <Text style={styles.username}>{item.username}</Text>
+              <Text style={styles.email}>{item.email}</Text>
           </View>
           <TouchableOpacity style={styles.followButton}>
-              <Text style={styles.followText}>Sign out</Text>
+              <Text style={styles.followText}>Follow</Text>
           </TouchableOpacity>
-          <View style={{marginLeft:10}}>
+          <View style={{marginLeft:10,marginTop:5}}>
               <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
                   <Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test
                       Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test
@@ -34,10 +31,9 @@ const AuthorDetail = (props) => {
                   </Text>
               </ViewMoreText>
           </View>
-          <Text style={styles.subTitle}> Path Courses
-          </Text>
-          <ListCourses list={props.item.coursesList}></ListCourses>
-      </View>
+          <Text style={styles.subTitle}>Courses of this author</Text>
+          <ListCourses navigation={props.navigation} list={item.authorCoursesList}></ListCourses>
+      </ScrollView>
   )
 };
 
@@ -47,19 +43,8 @@ const styles = StyleSheet.create({
         flex:1,
         backgroundColor:'azure',
     },
-    titleContainer:{
-        flexDirection:'row',
-        marginTop:24,
-        alignItems:'center',
-        justifyContent:'center',
-        height: 40,
-        backgroundColor: 'beige',
-    },
-    title:{
-        fontSize:25,
-        fontWeight:'bold',
-    },
     avatarContainer:{
+        margin:10,
         height:200,
         justifyContent: 'center',
         alignItems: 'center',
@@ -81,9 +66,8 @@ const styles = StyleSheet.create({
     followButton:{
         alignSelf:'center',
         height: 50,
-        marginTop:60,
         backgroundColor: 'deepskyblue',
-        width:'80%',
+        width:'90%',
         borderRadius: 25,
         alignItems:'center',
         justifyContent:'center'
@@ -93,6 +77,12 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'white'
     },
+    subTitle:{
+        margin:5,
+
+        fontSize:20,
+        fontWeight:'bold'
+    }
 });
 
 

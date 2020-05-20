@@ -2,14 +2,17 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 
 const SearchedPathItem = (props) => {
-    return (<TouchableOpacity style={styles.container}>
+    const onPressItem=()=>{
+        props.navigation.push("PathDetail",{item:props.item})
+    }
+    return (
+        <TouchableOpacity style={styles.container} onPress={onPressItem}>
             <Image style={styles.image}
                    source={require('../../../assets/icon-video.png')}>
             </Image>
             <View style={{margin:5, justifyContent:'center',marginLeft:20}}>
                 <Text style={styles.coreInfo}>{props.item.title}</Text>
                 <Text style={styles.subInfo}>{`${props.item.coursesNumber} courses`}</Text>
-
             </View>
         </TouchableOpacity>
 
@@ -28,10 +31,10 @@ const styles = StyleSheet.create({
         height:100,
     },
     coreInfo:{
-        fontSize:15,
+        fontSize:20,
     },
     subInfo:{
-        fontSize: 15,
+        fontSize: 20,
         color:'darkgray'
     }
 });

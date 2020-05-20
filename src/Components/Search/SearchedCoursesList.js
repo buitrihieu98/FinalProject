@@ -19,7 +19,7 @@ const SearchedCoursesList = (props) => {
             {/*    {renderList(props.List)}*/}
             {/*</ScrollView>*/}
             <FlatList  data={props.list}
-                       renderItem={({item, index, separators}) => (<ListCoursesItem item={item}></ListCoursesItem>)}/>
+                       renderItem={({item, index, separators}) => (<ListCoursesItem navigation={props.navigation} item={item}></ListCoursesItem>)}/>
         </View>
     )
 };

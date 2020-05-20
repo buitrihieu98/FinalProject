@@ -2,7 +2,7 @@ import React from 'react';
 import {Image, Text, StyleSheet,TouchableOpacity } from 'react-native';
 const SeeAllButton = () => {
     return (
-        <TouchableOpacity style={styles.Button}>
+        <TouchableOpacity style={styles.Button} >
             <Text style={styles.Text}>See all</Text>
             <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
         </TouchableOpacity>

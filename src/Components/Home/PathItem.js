@@ -2,7 +2,11 @@ import React from 'react';
 import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
 
 const PathItem = (props) => {
-  return (<TouchableOpacity style={styles.container}>
+    const onPressItem=()=>{
+        props.navigation.push("PathDetail",{item:props.item})
+    }
+  return (
+    <TouchableOpacity style={styles.container} onPress={onPressItem}>
           <Image style={styles.image}
                  source={require('../../../assets/icon-video.png')}>
           </Image>

@@ -20,7 +20,7 @@ const SearchedPathList = (props) => {
             {/*    {renderList(props.list)}*/}
             {/*</ScrollView>*/}
             <FlatList  data={props.list}
-                       renderItem={({item, index, separators}) => (<SearchedPathItem item={item}></SearchedPathItem>)}/>
+                       renderItem={({item, index, separators}) => (<SearchedPathItem navigation={props.navigation} item={item}></SearchedPathItem>)}/>
         </View>
     )
 };

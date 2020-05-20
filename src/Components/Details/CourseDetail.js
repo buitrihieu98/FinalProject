@@ -7,7 +7,8 @@ import LessonList from "./LessionList";
 
 
 const CourseDetail = (props) => {
-
+    let item=props.route.params.item
+    props.navigation.setOptions({title: item.title})
     const lessons = [
         {
             name: 'Course Overview',
@@ -32,14 +33,12 @@ const CourseDetail = (props) => {
       <ScrollView style={styles.container}>
           {/*video*/}
           <Image style={styles.video} source={require('../../../assets/background-2.jpg')}></Image>
-          <Text style={styles.courseTitle}>{props.item.title}</Text>
+          <Text style={styles.courseTitle}>{item.title}</Text>
           <View style={styles.infoContainer}>
-              <AuthorList authorList={props.item.author}></AuthorList>
+              <AuthorList navigation={props.navigation} list={item.author}></AuthorList>
               <View style={styles.subInfoContainer}>
-                  <Text style={styles.subInfo}>{`${props.item.level} . ${props.item.releasedDate} . ${props.item.duration}`}</Text>
-                  {/*<Rating imageSize={20} tintColor={'linen'} readonly={true}*/}
-                  {/*            ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />*/}
-                  <MyRating item={props.item}></MyRating>
+                  <Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>
+                  <MyRating item={item}></MyRating>
               </View>
               <View style={styles.buttonsContainer}>
                   <TouchableOpacity style={styles.button}>
@@ -79,7 +78,6 @@ const styles = StyleSheet.create({
         backgroundColor:'azure',
     },
     video:{
-        marginTop:24,
         height:200,
         width:'100%',
     },

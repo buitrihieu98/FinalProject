@@ -3,12 +3,13 @@ import {Text, StyleSheet,TouchableOpacity } from 'react-native';
 
 
 const Tag = (props) => {
+    const onPressItem=()=>{
+        props.navigation.push("TopicDetail")
+    }
   return (
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={onPressItem} style={styles.button}>
           <Text>{props.name}</Text>
       </TouchableOpacity>
-
-
   )
 };
 

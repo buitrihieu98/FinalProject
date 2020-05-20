@@ -5,14 +5,17 @@ import SectionCourses from "./SectionCourses";
 //import Rating from "./Rating";
 
 const SectionCoursesItem = (props) => {
+    const onPressItem=()=>{
+        props.navigation.push("CourseDetail", {item:props.item})
+    }
   return (
-      <TouchableOpacity style={styles.container}>
+      <TouchableOpacity style={styles.container} onPress={onPressItem}>
           <Image style={styles.video}
               source={require('../../../assets/icon-video.png')}>
           </Image>
           <View style={{margin:5}}>
               <Text style={styles.coreInfo}>{props.item.title}</Text>
-              <Text style={styles.coreInfo}>{props.item.author}</Text>
+              <Text style={styles.coreInfo}>{props.item.author.length===1?props.item.author[0].username:`${props.item.author[0].username} +${props.item.author.length-1}`}</Text>
               <Text style={styles.subInfo}>{`${props.item.level} . ${props.item.releasedDate}`}</Text>
               <Text style={styles.subInfo}>{props.item.duration}</Text>
               <View style={{flexDirection:'row'}}>

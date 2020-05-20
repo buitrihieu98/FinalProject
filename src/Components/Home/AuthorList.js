@@ -17,7 +17,7 @@ const AuthorList = (props) => {
             {/*<ScrollView horizontal={true}>*/}
             {/*    {renderAuthorList(props.authorList)}*/}
             {/*</ScrollView>*/}
-            <FlatList horizontal={true} data={props.list} renderItem={({item, index, separators}) => (<AuthorItems item={item}></AuthorItems>)}/>
+            <FlatList horizontal={true} data={props.list} renderItem={({item, index, separators}) => (<AuthorItems navigation={props.navigation} item={item}></AuthorItems>)}/>
         </View>
     )
 };

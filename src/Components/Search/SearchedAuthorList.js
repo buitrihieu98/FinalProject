@@ -20,7 +20,7 @@ const SearchedAuthorList = (props) => {
             {/*    {renderAuthorList(props.authorList)}*/}
             {/*</ScrollView>*/}
             <FlatList  data={props.list}
-                      renderItem={({item, index, separators}) => (<SearchedAuthorItem item={item}></SearchedAuthorItem>)}/>
+                      renderItem={({item, index, separators}) => (<SearchedAuthorItem navigation={props.navigation} item={item}></SearchedAuthorItem>)}/>
         </View>
     )
 };

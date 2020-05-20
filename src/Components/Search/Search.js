@@ -7,7 +7,7 @@ import SearchedAuthorList from "./SearchedAuthorList";
 import SearchedCoursesList from "./SearchedCoursesList";
 import SearchedPathList from "./SearchedPathList";
 
-const Search = () => {
+const Search = (props) => {
     const [searching,setSearching]=useState('')
     const [recentSearchesList,setRecentSearchesList] = useState([])
     const [result,setResult]=useState([])
@@ -36,9 +36,9 @@ const Search = () => {
           ></SearchBar>
           {/*<RecentSearches rSList={rSList}></RecentSearches>*/}
           <ScrollView>
-              <SearchedAuthorList list={authorList}></SearchedAuthorList>
-              <SearchedCoursesList list={coursesList}></SearchedCoursesList>
-              <SearchedPathList list={pathList}></SearchedPathList>
+              <SearchedAuthorList navigation={props.navigation} list={authorList}></SearchedAuthorList>
+              <SearchedCoursesList navigation={props.navigation} list={coursesList}></SearchedCoursesList>
+              <SearchedPathList navigation={props.navigation} list={pathList}></SearchedPathList>
           </ScrollView>
 
 
@@ -53,8 +53,6 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'azure',
-        marginTop:24,
-
     },
     search:{
         backgroundColor: 'beige',

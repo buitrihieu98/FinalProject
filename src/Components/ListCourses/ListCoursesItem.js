@@ -4,14 +4,17 @@ import {Rating} from "react-native-elements";
 //import Rating from "../Home/Rating";
 
 const ListCoursesItem = (props) => {
+    const onItemPress=()=>{
+        props.navigation.push("CourseDetail", {item:props.item})
+    }
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onItemPress}>
             <Image style={styles.image}
                    source={require('../../../assets/icon-courses.png')}>
             </Image>
             <View style={{margin:5}}>
                 <Text style={styles.coreInfo}>{props.item.title}</Text>
-                <Text style={styles.coreInfo}>{props.item.author}</Text>
+                <Text style={styles.coreInfo}>{props.item.author.length===1?props.item.author[0].username:`${props.item.author[0].username}+${props.item.author.length-1}`}</Text>
                 <Text style={styles.subInfo}>{`${props.item.level} . ${props.item.releasedDate}`}</Text>
                 <Text style={styles.subInfo}>{props.item.duration}</Text>
                 {/*<Rating rate={props.item.rating}></Rating>*/}
@@ -23,7 +26,6 @@ const ListCoursesItem = (props) => {
         </TouchableOpacity>
     )
 };
-
 const styles = StyleSheet.create({
     container:{
         margin:5,
@@ -45,5 +47,4 @@ const styles = StyleSheet.create({
       marginTop:2,
     }
 });
-
 export default ListCoursesItem

@@ -4,6 +4,7 @@ import ViewMoreText from "react-native-view-more-text";
 import ListCourses from "../ListCourses/ListCourses";
 
 const PathDetail = (props) => {
+    let item=props.route.params.item;
   return (
       <ScrollView style={styles.container}>
           <View style={styles.titleContainer}>
@@ -11,8 +12,8 @@ const PathDetail = (props) => {
                      source={require('../../../assets/icon-video.png')}>
               </Image>
               <View style={{margin:5}}>
-                  <Text style={styles.title}>{props.item.title}</Text>
-                  <Text style={styles.subInfo}>{`${props.item.coursesNumber} courses`}</Text>
+                  <Text style={styles.title}>{item.title}</Text>
+                  <Text style={styles.subInfo}>{`${item.coursesNumber} courses`}</Text>
 
               </View>
           </View>
@@ -27,18 +28,17 @@ const PathDetail = (props) => {
                   </Text>
               </ViewMoreText>
           </View>
-          <Text style={styles.subTitle}>{`Your Progress: ${props.item.progress}%`}
+          <Text style={styles.subTitle}>{`Your Progress: ${item.progress}%`}
           </Text>
           <Text style={styles.subTitle}> Path Courses
           </Text>
-          <ListCourses list={props.item.coursesList}></ListCourses>
+          <ListCourses navigation={props.navigation} list={item.coursesList}></ListCourses>
       </ScrollView>
   )
 };
 
 const styles = StyleSheet.create({
     container:{
-        marginTop:24,
         flex:1,
         backgroundColor:'azure',
     },
