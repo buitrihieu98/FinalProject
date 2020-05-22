@@ -1,8 +1,17 @@
 import React, {useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
 
-const LoginComponent = () => {
+const LoginComponent = (props) => {
     const [hidePass, setHidePass] = useState(true)
+    const onPressLogin=()=>{
+        props.navigation.navigate("MainScreen")
+    }
+    const onPressSignUp=()=>{
+        props.navigation.navigate("SignUp")
+    }
+    const onPressForgot=()=>{
+        props.navigation.navigate("Forgot")
+    }
     return (
       <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
           <Image source={require('../../../assets/logo.png')} style={styles.logo}>
@@ -23,14 +32,14 @@ const LoginComponent = () => {
               </TouchableOpacity>
           </View>
           <View style={{flexDirection:'row', marginTop:10}}>
-              <TouchableOpacity style={{marginRight: 50}}>
+              <TouchableOpacity style={{marginRight: 50}} onPress={onPressForgot}>
                   <Text style={styles.normalText}>Forgot password?</Text>
               </TouchableOpacity>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={onPressSignUp}>
                   <Text style={styles.normalText}>Sign up?</Text>
               </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.buttonLogin}>
+          <TouchableOpacity style={styles.buttonLogin} onPress={onPressLogin}>
               <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
       </ImageBackground>

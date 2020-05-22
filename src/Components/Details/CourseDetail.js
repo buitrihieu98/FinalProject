@@ -117,12 +117,6 @@ const styles = StyleSheet.create({
     buttonText:{
         margin:5,
         fontSize:15,
-
     }
-
-
 });
-
-
-
 export default CourseDetail

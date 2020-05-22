@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
-const SignUp = () => {
+const SignUp = (props) => {
     const [isMatched,setIsMatched]=useState(true)
     const [pass,setPass]=useState('')
     const [confirmPass,setConfirmPass]=useState('')
     const unmatched =<Text style={styles.warningText}>Confirm password and password must be matched</Text>
     const matched=<Text style={[styles.warningText,{color:'white'}]}> </Text>
+    const onPressBackLogin=()=>{
+        props.navigation.navigate("Login")
+    }
     return (
       <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
           <Text style={styles.title}>Sign Up</Text>
@@ -31,11 +34,11 @@ const SignUp = () => {
                          }
                      }}/>
           {isMatched===false? unmatched:matched}
+          <TouchableOpacity onPress={onPressBackLogin}>
+              <Text style={styles.backToSignIn}>Already have an account, back to sign in?</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.buttonLogin}>
               <Text style={styles.loginText}>Sign up</Text>
-          </TouchableOpacity>
-          <TouchableOpacity>
-              <Text style={styles.backToSignIn}>Already have an account, back to sign in?</Text>
           </TouchableOpacity>
       </ImageBackground>
     )

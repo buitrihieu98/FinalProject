@@ -1,0 +1,16 @@
+export const screenName={
+    HomeScreen: "Home",
+    CourseDetailScreen: "CourseDetail",
+    AuthorDetailScreen: "AuthorDetail",
+    SeeAllCoursesScreen:"SeeAllCourses",
+    PathDetailScreen:"PathDetail",
+    SeeAllPathScreen:"SeeAllPath",
+    DownloadScreen:"Download",
+    BrowseScreen:"Browse",
+    TopicDetailScreen:"TopicDetail",
+    SearchScreen:"Search",
+    LoginScreen:"Login",
+    SignUpScreen:"SignUp",
+    ForgotScreen:"Forgot",
+    MainScreen:"MainScreen",
+}

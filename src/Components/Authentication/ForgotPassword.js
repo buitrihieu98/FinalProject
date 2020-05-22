@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
 
-const ForgotPassword = () => {
+const ForgotPassword = (props) => {
     const [email,setEmail]=useState('')
+    const onPressBackLogin=()=>{
+        props.navigation.navigate("Login")
+    }
     return (
         <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Image source={require('../../../assets/icon-forgotpass.png')} style={styles.logo}>
@@ -11,6 +14,9 @@ const ForgotPassword = () => {
             <TextInput style={styles.input} placeholder= {'Enter your email to reset password'}
                        onChangeText={e=>setEmail(e)}
             />
+            <TouchableOpacity onPress={onPressBackLogin}>
+                <Text style={styles.backToSignIn}>Remembered your password, back to login?</Text>
+            </TouchableOpacity>
             <TouchableOpacity style={styles.buttonLogin}>
                 <Text style={styles.loginText} >Reset</Text>
             </TouchableOpacity>
@@ -68,5 +74,10 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'white'
     },
+    backToSignIn:{
+        alignSelf:'flex-end',
+        fontSize: 15,
+        color:'white',
+    }
 });
 export default ForgotPassword

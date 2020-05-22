@@ -21,22 +21,24 @@ import {createStackNavigator} from "@react-navigation/stack";
 import{createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import SeeAllCourses from "./src/Components/Home/SeeAllCourses";
 import SeeAllPath from "./src/Components/Home/SeeAllPath";
-import {Ionicons} from '@expo/vector-icons';
 import TopicDetail from "./src/Components/Details/TopicDetail";
-
-
+import {Icon} from "react-native-elements";
+import ProfileButton from "./src/Components/Home/ProfileButton";
 
 const Stack = createStackNavigator();
+const MainStack= createStackNavigator();
 const Tab = createBottomTabNavigator();
-const HomeStack=()=>{
+const HomeStack=(props)=>{
     return (
-            <Stack.Navigator mode={'modal'} screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
-                <Stack.Screen name="Home" component={Home} options={{ title: 'Home' }} />
+            <Stack.Navigator
+                mode={'modal'} screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
+                <Stack.Screen name="Home" navigation={props.navigation} component={Home} options={{ title: 'Home',}} />
                 <Stack.Screen name="CourseDetail" component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
                 <Stack.Screen name="SeeAllCourses" component={SeeAllCourses} options={{ title: '' }} />
                 <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
+                <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
             </Stack.Navigator>
     )
 };
@@ -71,6 +73,41 @@ const SearchStack=()=>{
         </Stack.Navigator>
     )
 };
+const TabRoot=()=>{
+    return (
+        <Tab.Navigator
+            screenOptions={({route}) => ({
+                tabBarIcon: ({color, size}) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName ='home';
+                    }
+                    else if (route.name === 'Download') {
+                        iconName = 'get-app';
+                    }
+                    else if (route.name === 'Browse') {
+                        iconName = 'apps';
+                    }
+                    else if (route.name === 'Search') {
+                        iconName = 'search';
+                    }
+                    return <Icon name={iconName} type={'material-icons'} size={size} color={color}/>;
+                },
+            })}
+            tabBarOptions={{
+                activeTintColor: 'tomato',
+                inactiveTintColor: 'gray',
+            }}
+        >
+            <Tab.Screen name="Home" component={HomeStack} />
+            <Tab.Screen name="Download" component={DownloadStack} />
+            <Tab.Screen name="Browse" component={BrowseStack} />
+            <Tab.Screen name="Search" component={SearchStack} />
+        </Tab.Navigator>
+    )
+
+}
 //for testing
 const author=[{id:1, username:'Hai Pham', avatar:'', coursesList :coursesList }]
 const course=
@@ -84,54 +121,13 @@ const path= {id:1, title: 'React Native', coursesNumber:12, coursesList :courses
 
 export default function App() {
   return (
-      //<LoginComponent></LoginComponent>
-      //<SignUp></SignUp>
-      //<ForgotPassword></ForgotPassword>
-      // <ResetPassword></ResetPassword>
-      //<ProfileComponent></ProfileComponent>
-      //<SettingComponent></SettingComponent>
-      //<ChangeAccountInfo></ChangeAccountInfo>
-      //<Home></Home>
-      //<SplashScreen></SplashScreen>
-      //<Download></Download>
-      //<Search></Search>
-      //<Browse></Browse>
-      //<CourseDetail item={course}></CourseDetail>
-      //<PathDetail item={path}></PathDetail>
-      //<Subscription></Subscription>
-      //<AuthorDetail item={author[0]}></AuthorDetail>
       <NavigationContainer>
-          <Tab.Navigator
-              screenOptions={({ route }) => (
-                  {
-                    tabBarIcon: ({ focused, color, size }) => {
-                    let iconName;
-
-                    if (route.name === 'Home') {
-                      iconName = ''
-                    } else if (route.name === 'Settings') {
-                      iconName = focused ? 'ios-list-box' : 'ios-list';
-                    }
-                  return <Ionicons name={iconName} size={size} color={color}>
-                  </Ionicons>
-              },
-          })}
-              tabBarOptions={{
-                             activeTintColor: 'tomato',
-                             inactiveTintColor: 'gray',
-              }}
-          >
-                      <Tab.Screen name="Home" component={HomeStack} />
-                      <Tab.Screen name="Download" component={DownloadStack} />
-                      <Tab.Screen name="Browse" component={BrowseStack} />
-                      <Tab.Screen name="Search" component={SearchStack} />
-          </Tab.Navigator>
+          <MainStack.Navigator screenOptions={{headerShown:false}} initialRouteName={"Login"} >
+              <MainStack.Screen name={"Login"} component={LoginComponent}  ></MainStack.Screen>
+              <MainStack.Screen name={"SignUp"} component={SignUp} ></MainStack.Screen>
+              <MainStack.Screen name={"Forgot"} component={ForgotPassword} ></MainStack.Screen>
+              <MainStack.Screen name={"MainScreen"} component={TabRoot} ></MainStack.Screen>
+          </MainStack.Navigator>
       </NavigationContainer>
-
   );
-
-
-
-
-
 }
