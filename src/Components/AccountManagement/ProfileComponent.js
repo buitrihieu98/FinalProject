@@ -13,10 +13,6 @@ const ProfileComponent = () => {
     const [mostViewedSubject,setMostViewedSubject] = useState('Managerial Skills')
     return (
       <View style={styles.container}>
-          <View style={styles.titleContainer}>
-              <BackButton></BackButton>
-              <Text style={styles.title}>Profile</Text>
-          </View>
           <View style={styles.avatarContainer}>
               {<Avatar rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
               }></Avatar>}

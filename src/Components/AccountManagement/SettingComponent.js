@@ -1,22 +1,32 @@
 import React,{useState} from 'react';
-import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import BackButton from "../Global/BackButton";
 import SettingItem from "./SettingItem";
 import SettingItemWithSwitch from "./SettingItemWithSwitch";
 
-const SettingComponent = () => {
+const SettingComponent = (props) => {
     const [isRequiredWiFiStreaming,setIsRequiredWiFiStreaming]=useState(true)
     const [isRequireWiFiDownloading,setIsRequiredWiFiDownloading]=useState(true)
     const [appVersion,setAppVersion]=useState('1.0')
+    const onPressChangeInfo=()=>{
+        props.navigation.push("ChangeAccountInfo")
+    }
+    const onPressSubscription=()=>{
+        props.navigation.push("Subscription")
+    }
   return (
       <View style={styles.container}>
-          <View style={styles.titleContainer}>
-              <BackButton></BackButton>
-              <Text style={styles.title}>Setting</Text>
-          </View>
           <ScrollView>
-              <SettingItem name={'Change Account Info'}></SettingItem>
-              <SettingItem name={'Subscription'}></SettingItem>
+              {/*<SettingItem name={'Change Account Info'}></SettingItem>*/}
+              <TouchableOpacity onPress={onPressChangeInfo} style={styles.subContainer}>
+                  <Text style={styles.itemName}>Change Account Info</Text>
+                  <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={onPressSubscription} style={styles.subContainer}>
+                  <Text style={styles.itemName}>Subscription</Text>
+                  <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
+              </TouchableOpacity>
+              {/*<SettingItem name={'Subscription'}></SettingItem>*/}
               <SettingItem name={'Communication Preferences'}></SettingItem>
               <SettingItem name={'Theme'}></SettingItem>
               <SettingItemWithSwitch name={'Require Wi-fi for streaming'}></SettingItemWithSwitch>
@@ -27,7 +37,6 @@ const SettingComponent = () => {
               <TouchableOpacity style={styles.signOutButton}>
                   <Text style={styles.signOutText}>Sign out</Text>
               </TouchableOpacity>
-
           </ScrollView>
 
       </View>
@@ -40,6 +49,13 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'azure',
+    },
+    subContainer:{
+        backgroundColor:'whitesmoke',
+        width: '100%',
+        height: 50,
+        borderBottomWidth:2,
+        justifyContent:'center',
     },
     titleContainer:{
         flexDirection:'row',
@@ -56,7 +72,7 @@ const styles = StyleSheet.create({
     signOutButton:{
         alignSelf:'center',
         height: 50,
-        marginTop:60,
+        margin:10,
         backgroundColor: 'deepskyblue',
         width:'80%',
         borderRadius: 25,
@@ -68,6 +84,17 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
         color:'white'
     },
+    itemName:{
+        margin:5,
+        marginLeft:10,
+        fontSize:20,
+    },
+    icon:{
+        width:10,
+        height:10,
+        position:'absolute',
+        right: 10,
+    }
 
 });
 export default SettingComponent

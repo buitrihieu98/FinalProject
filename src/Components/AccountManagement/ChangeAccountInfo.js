@@ -1,19 +1,15 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput} from 'react-native';
+import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import BackButton from "../Global/BackButton";
 
-const ChangeAccountInfo = () => {
+const ChangeAccountInfo = (props) => {
     const[newUserName,setNewUserName] =useState('')
     const[oldUserName,setOldUserName]=useState('Old Username')
     const[email,setEmail] =useState('email@gmail.com')
     const[newPassword,setNewPassword]=useState('')
     const[confirmPassword,setConfirmPassword]=useState('')
   return (
-      <View style={styles.container}>
-          <View style={styles.titleContainer}>
-              <BackButton></BackButton>
-              <Text style={styles.title}>Change Your Info</Text>
-          </View>
+      <ScrollView style={styles.container}>
           <View style={styles.avatarContainer}>
               <Image style={styles.avatar} source={require('../../../assets/icon-avatar.png')}></Image>
               <TouchableOpacity>
@@ -37,7 +33,7 @@ const ChangeAccountInfo = () => {
                   <Text style={styles.saveText}>Save</Text>
               </TouchableOpacity>
           </View>
-      </View>
+      </ScrollView>
 
   )
 };

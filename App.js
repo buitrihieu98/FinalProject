@@ -38,7 +38,7 @@ const HomeStack=(props)=>{
                 <Stack.Screen name="SeeAllCourses" component={SeeAllCourses} options={{ title: '' }} />
                 <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
-                <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
+                {/*<Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />*/}
             </Stack.Navigator>
     )
 };
@@ -73,6 +73,15 @@ const SearchStack=()=>{
         </Stack.Navigator>
     )
 };
+const SettingStack=()=>{
+    return(
+        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}}>
+            <Stack.Screen name="Setting" component={SettingComponent} />
+            <Stack.Screen name="ChangeAccountInfo" component={ChangeAccountInfo} />
+            <Stack.Screen name="Subscription" component={Subscription} />
+        </Stack.Navigator>
+    )
+}
 const TabRoot=()=>{
     return (
         <Tab.Navigator
@@ -91,6 +100,8 @@ const TabRoot=()=>{
                     }
                     else if (route.name === 'Search') {
                         iconName = 'search';
+                    }else if (route.name === 'Setting') {
+                        iconName = 'settings';
                     }
                     return <Icon name={iconName} type={'material-icons'} size={size} color={color}/>;
                 },
@@ -104,6 +115,7 @@ const TabRoot=()=>{
             <Tab.Screen name="Download" component={DownloadStack} />
             <Tab.Screen name="Browse" component={BrowseStack} />
             <Tab.Screen name="Search" component={SearchStack} />
+            <Tab.Screen name="Setting" component={SettingStack} />
         </Tab.Navigator>
     )
 
