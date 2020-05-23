@@ -1,13 +1,21 @@
 import React from 'react';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
-import {Tile} from "react-native-elements";
+import {Avatar, Tile} from "react-native-elements";
 
 import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 import Tag from "../Global/Tag";
 
 const Browse = (props) => {
+    props.navigation.setOptions({headerRight: () => (
+            <Avatar
+                style={{margin:5,marginRight:10,height:25,width:25}}
+                onPress={() => props.navigation.navigate("Profile")}
+                source={require("../../../assets/icon-avatar.png")}
+            />
+        ),})
     //authorList for testing
+
     const authorCoursesList=[{id:1, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
         {id:2, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
         {id:3, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
@@ -29,6 +37,11 @@ const Browse = (props) => {
         {id:2, title: 'Java',coursesList:coursesList, coursesNumber:25, progress:80},
         {id:3, title: 'PHP',coursesList:coursesList, coursesNumber:12, progress:80},]
     const tagList = ['JavaScript','C#','C++','PHP','Python','Java']
+    const interestTagList = [{name:'JavaScript', authorList:authorList, coursesList:coursesList,pathList:pathList},
+        {name:'C#', authorList:authorList, coursesList:coursesList,pathList:pathList},
+        {name:'PHP', authorList:authorList, coursesList:coursesList,pathList:pathList},
+        {name:'React', authorList:authorList, coursesList:coursesList,pathList:pathList}
+    ]
   return (
       <View style={styles.container}>
           <ScrollView>
@@ -45,7 +58,7 @@ const Browse = (props) => {
               <Text style={styles.subtitle}>Popular skills</Text>
               <View style={{flexDirection: 'row', margin:5}}>
                   <ScrollView horizontal={true}>
-                      {tagList.map(value => <Tag navigation={props.navigation} name={value}></Tag> )}
+                      {interestTagList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
                   </ScrollView>
               </View>
               <PathList navigation={props.navigation} list={pathList} title={'Paths'}></PathList>

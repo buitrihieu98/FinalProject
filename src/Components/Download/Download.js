@@ -4,8 +4,16 @@ import SectionCourses from "../Home/SectionCourses";
 import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 import ListCourses from "../ListCourses/ListCourses";
+import {Avatar} from "react-native-elements";
 
 const Download = (props) => {
+    props.navigation.setOptions({headerRight: () => (
+            <Avatar
+                style={{margin:5,marginRight:10,height:25,width:25}}
+                onPress={() => props.navigation.navigate("Profile")}
+                source={require("../../../assets/icon-avatar.png")}
+            />
+        ),})
     //authorList for testing
     const authorCoursesList=[{id:1, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
         {id:2, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},

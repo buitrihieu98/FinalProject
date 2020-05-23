@@ -3,8 +3,16 @@ import {View, StyleSheet, Image, ScrollView, Text, ImageBackground} from 'react-
 import SectionCourses from "./SectionCourses";
 import PathList from "./PathList";
 import AuthorList from "./AuthorList";
+import {Avatar} from "react-native-elements";
 const Home = (props) => {
     //authorList for testing
+    props.navigation.setOptions({headerRight: () => (
+            <Avatar
+                style={{margin:5,marginRight:10,height:25,width:25}}
+                onPress={() => props.navigation.navigate("Profile")}
+                source={require("../../../assets/icon-avatar.png")}
+            />
+        ),})
     const authorCoursesList=[{id:1, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
         {id:2, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
         {id:3, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},

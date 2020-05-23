@@ -5,6 +5,7 @@ import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 
 const TopicDetail = (props) => {
+    let item=props.route.params.item
     //authorList for testing
     const authorCoursesList=[{id:1, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
         {id:2, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
@@ -28,20 +29,16 @@ const TopicDetail = (props) => {
         {id:3, title: 'PHP',coursesList:coursesList, coursesNumber:12, progress:80},]
   return (
       <ScrollView style={styles.container}>
-          <PathList navigation={props.navigation} list={pathList} title={'Path'}></PathList>
-          <SectionCourses navigation={props.navigation} list={coursesList} title={'IT Operation'}></SectionCourses>
-          <SectionCourses navigation={props.navigation} list={coursesList} title={'Software development'}></SectionCourses>
-          <SectionCourses navigation={props.navigation} list={coursesList} title={'Data professional'}></SectionCourses>
-          <AuthorList navigation={props.navigation} list={authorList}></AuthorList>
+          <PathList navigation={props.navigation}  list={item.pathList} title={`Path in ${item.name}`}></PathList>
+          <SectionCourses navigation={props.navigation} list={item.coursesList} title={`New in ${item.name}`}></SectionCourses>
+          <SectionCourses navigation={props.navigation} list={item.coursesList} title={`Trending ${item.name}`}></SectionCourses>
+          <AuthorList navigation={props.navigation} list={item.authorList}></AuthorList>
       </ScrollView>
   )
 };
-
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'azure',
     }
 });
-
-
 export default TopicDetail
