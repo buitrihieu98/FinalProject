@@ -38,7 +38,8 @@ const HomeStack=(props)=>{
                 <Stack.Screen name="SeeAllCourses" component={SeeAllCourses} options={{ title: '' }} />
                 <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
-                {/*<Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />*/}
+                <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
+                <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
             </Stack.Navigator>
     )
 };
@@ -48,6 +49,8 @@ const DownloadStack=()=>{
                 <Stack.Screen name="Download" component={Download} />
                 <Stack.Screen name="CourseDetail" component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
+                <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
+                <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
             </Stack.Navigator>
     )
 };
@@ -57,9 +60,10 @@ const BrowseStack=()=>{
             <Stack.Screen name="Browse" component={Browse} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
             <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
-            <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: route.params.item.title})} />
+            <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
             <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
+            <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
         </Stack.Navigator>
     )
 };
