@@ -16,7 +16,7 @@ const SeeAllCourses = (props) => {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'azure',
+        backgroundColor:'white',
     },
     title:{
         fontSize:20,

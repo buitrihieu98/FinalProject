@@ -56,7 +56,7 @@ const Download = (props) => {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'azure',
+        backgroundColor:'white',
     },
     titleContainer:{
         flexDirection:'row',

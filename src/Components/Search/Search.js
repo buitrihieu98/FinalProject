@@ -52,7 +52,7 @@ const Search = (props) => {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'azure',
+        backgroundColor:'white',
     },
     search:{
         backgroundColor: 'beige',

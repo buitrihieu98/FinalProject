@@ -38,7 +38,7 @@ const TopicDetail = (props) => {
 };
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'azure',
+        backgroundColor:'white',
     }
 });
 export default TopicDetail

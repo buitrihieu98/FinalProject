@@ -24,7 +24,7 @@ const SettingItemWithSwitch = (props) => {
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor:'whitesmoke',
+        backgroundColor:'white',
         width: '100%',
         height: 50,
         borderBottomWidth:2,

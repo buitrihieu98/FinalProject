@@ -41,7 +41,7 @@ const AuthorDetail = (props) => {
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'azure',
+        backgroundColor:'white',
     },
     avatarContainer:{
         margin:10,
