@@ -1,10 +1,34 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
+import {login} from "../../Core/Services/AuthenticationService";
 
 const LoginComponent = (props) => {
+    const [username, setUsername]=useState('')
+    const [password, setPassword]=useState('')
+    const [status, setStatus]=useState(null)
+
+    const renderLoginStatus = (status)=>{
+        if(!status){
+            return <View></View>
+        }
+        else if(status.status ===200){
+            return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>Login successfully</Text>)
+        }
+        else{
+            return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>{status.errorString}</Text>)
+        }
+    }
+    useEffect(()=>{
+        if(status && status.status===200){
+            props.navigation.navigate("MainScreen", {params:{status}})
+        }
+    },[status])
+
     const [hidePass, setHidePass] = useState(true)
+
     const onPressLogin=()=>{
-        props.navigation.navigate("MainScreen")
+        setStatus(login(username,password))
+        //props.navigation.navigate("MainScreen")
     }
     const onPressSignUp=()=>{
         props.navigation.navigate("SignUp")
@@ -16,9 +40,11 @@ const LoginComponent = (props) => {
       <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
           <Image source={require('../../../assets/logo.png')} style={styles.logo}>
           </Image>
-          <TextInput style={styles.input} placeholder= {'Username'}/>
+          <TextInput onChangeText={text => setUsername(text)} defaultValue={username} style={styles.input} placeholder= {'Username'}/>
           <View style={styles.inputContainer}>
               <TextInput
+                  onChangeText={text => setPassword(text)}
+                  defaultValue={password}
                   style={styles.input}
                   placeholder= {'Password'}
                   secureTextEntry={hidePass}
@@ -39,6 +65,7 @@ const LoginComponent = (props) => {
                   <Text style={styles.normalText}>Sign up?</Text>
               </TouchableOpacity>
           </View>
+          {renderLoginStatus(status)}
           <TouchableOpacity style={styles.buttonLogin} onPress={onPressLogin}>
               <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
@@ -84,7 +111,7 @@ const styles = StyleSheet.create({
         marginRight:15
     },
     buttonLogin:{
-        marginTop:30,
+        marginTop:20,
         marginBottom:10,
         height: 50,
         width: '40%',

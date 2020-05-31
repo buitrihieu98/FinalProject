@@ -31,7 +31,8 @@ const TopicDetail = (props) => {
       <ScrollView style={styles.container}>
           <PathList navigation={props.navigation}  list={item.pathList} title={`Path in ${item.name}`}></PathList>
           <SectionCourses navigation={props.navigation} list={item.coursesList} title={`New in ${item.name}`}></SectionCourses>
-          <SectionCourses navigation={props.navigation} list={item.coursesList} title={`Trending ${item.name}`}></SectionCourses>
+          <SectionCourses navigation={props.navigation} list={item.coursesList} title={`Trending in ${item.name}`}></SectionCourses>
+          <Text style={styles.title}>Authors in {item.name}</Text>
           <AuthorList navigation={props.navigation} list={item.authorList}></AuthorList>
       </ScrollView>
   )
@@ -39,6 +40,11 @@ const TopicDetail = (props) => {
 const styles = StyleSheet.create({
     container:{
         backgroundColor:'white',
-    }
+    },
+    title:{
+        marginLeft:5,
+        fontWeight:'bold',
+        fontSize:20,
+    },
 });
 export default TopicDetail

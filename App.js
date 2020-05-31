@@ -32,14 +32,14 @@ const HomeStack=(props)=>{
     return (
             <Stack.Navigator
                 mode={'modal'} screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
-                <Stack.Screen name="Home" navigation={props.navigation} component={Home} options={{ title: 'Home',}} />
-                <Stack.Screen name="CourseDetail" component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
-                <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
-                <Stack.Screen name="SeeAllCourses" component={SeeAllCourses} options={{ title: '' }} />
-                <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
-                <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
-                <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
-                <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
+                <Stack.Screen name="Home"  navigation={props.navigation} component={Home} options={{ title: 'Home',}} />
+                <Stack.Screen name="CourseDetail" navigation={props.navigation} component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
+                <Stack.Screen name="AuthorDetail" navigation={props.navigation} component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
+                <Stack.Screen name="SeeAllCourses" navigation={props.navigation} component={SeeAllCourses} options={{ title: '' }} />
+                <Stack.Screen name="PathDetail" navigation={props.navigation} component={PathDetail} options={({route})=>({title: route.params.item.title})} />
+                <Stack.Screen name="SeeAllPath" navigation={props.navigation} component={SeeAllPath} options={{ title: '' }} />
+                <Stack.Screen name="Profile" navigation={props.navigation} component={ProfileComponent} options={{ title: '' }} />
+                <Stack.Screen name="TopicDetail" navigation={props.navigation} component={TopicDetail} options={({route})=>({title: ''})} />
             </Stack.Navigator>
     )
 };
@@ -104,7 +104,8 @@ const TabRoot=()=>{
                     }
                     else if (route.name === 'Search') {
                         iconName = 'search';
-                    }else if (route.name === 'Setting') {
+                    }
+                    else if (route.name === 'Setting') {
                         iconName = 'settings';
                     }
                     return <Icon name={iconName} type={'material-icons'} size={size} color={color}/>;
@@ -139,10 +140,11 @@ export default function App() {
   return (
       <NavigationContainer>
           <MainStack.Navigator screenOptions={{headerShown:false}} initialRouteName={"Login"} >
+              {/*<MainStack.Screen name={"SplashScreen"} component={SplashScreen}  ></MainStack.Screen>*/}
               <MainStack.Screen name={"Login"} component={LoginComponent}  ></MainStack.Screen>
               <MainStack.Screen name={"SignUp"} component={SignUp} ></MainStack.Screen>
               <MainStack.Screen name={"Forgot"} component={ForgotPassword} ></MainStack.Screen>
-              <MainStack.Screen name={"MainScreen"} component={TabRoot} ></MainStack.Screen>
+              <MainStack.Screen name={"MainScreen"}  component={TabRoot} ></MainStack.Screen>
           </MainStack.Navigator>
       </NavigationContainer>
   );

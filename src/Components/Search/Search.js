@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
     },
     search:{
-        backgroundColor: 'beige',
+        backgroundColor: 'white',
     },
     subTitleContainer:{
         flexDirection:'row',

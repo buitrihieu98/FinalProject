@@ -41,7 +41,7 @@ const Home = (props) => {
           <ScrollView>
               <View >
                   <Text style={styles.intro}>Welcome to Exceed!</Text>
-                  <Text style={styles.intro}>Exceed, it means to be greater than a number,an amount,
+                  <Text style={styles.intro}>Exceed, it means to be greater than a number, an amount,
                       or to go past an allowed limit. With Exceed,
                       we hope you can improve your skills,
                       erase your knowledge's boundary by joining online courses.
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         height: 40,
-        backgroundColor: 'beige',
+        backgroundColor: 'white',
     },
     title:{
         fontSize:25,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     },
     intro:{
         color:'gray',
-        fontSize: 15,
+        fontSize: 20,
         margin:5,
 
     }
