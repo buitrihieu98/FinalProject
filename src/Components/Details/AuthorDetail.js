@@ -22,12 +22,7 @@ const AuthorDetail = (props) => {
           </TouchableOpacity>
           <View style={{marginLeft:10,marginTop:5}}>
               <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
-                  <Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test
-                      Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test
-                      Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test
-                      Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test
-                      Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test
-                      Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test
+                  <Text>{item.description}
                   </Text>
               </ViewMoreText>
           </View>

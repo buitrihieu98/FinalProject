@@ -25,6 +25,9 @@ import TopicDetail from "./src/Components/Details/TopicDetail";
 import {Icon} from "react-native-elements";
 import ProfileButton from "./src/Components/Home/ProfileButton";
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/AuthenticationProvider";
+import {LocalDataContext, LocalDataProvider} from "./src/provider/localDataProvider";
+import NewRelease from "./src/Components/Browse/NewRelease";
+import Recommended from "./src/Components/Browse/Recommended";
 
 const Stack = createStackNavigator();
 const MainStack= createStackNavigator();
@@ -32,7 +35,7 @@ const Tab = createBottomTabNavigator();
 const HomeStack=(props)=>{
     return (
             <Stack.Navigator
-                mode={'modal'} screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
+                mode={'modal'} screenOptions={{headerStyle:{backgroundColor:'white'},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
                 <Stack.Screen name="Home"  navigation={props.navigation} component={Home} options={{ title: 'Home',}} />
                 <Stack.Screen name="CourseDetail" navigation={props.navigation} component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="AuthorDetail" navigation={props.navigation} component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
@@ -46,7 +49,7 @@ const HomeStack=(props)=>{
 };
 const DownloadStack=()=>{
     return (
-            <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}}>
+            <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'white'},headerTitleStyle:{fontWeight:'bold'}}}>
                 <Stack.Screen name="Download" component={Download} />
                 <Stack.Screen name="CourseDetail" component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
@@ -57,8 +60,10 @@ const DownloadStack=()=>{
 };
 const BrowseStack=()=>{
     return (
-        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}}>
+        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'white'},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Browse" component={Browse} />
+            <Stack.Screen name="NewRelease" component={NewRelease} />
+            <Stack.Screen name="Recommended" component={Recommended} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
             <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
             <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
@@ -70,7 +75,7 @@ const BrowseStack=()=>{
 };
 const SearchStack=()=>{
     return (
-        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}}>
+        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'white'},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
             <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
@@ -80,7 +85,7 @@ const SearchStack=()=>{
 };
 const SettingStack=()=>{
     return(
-        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'azure'},headerTitleStyle:{fontWeight:'bold'}}}>
+        <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:'white'},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Setting" component={SettingComponent} />
             <Stack.Screen name="ChangeAccountInfo" component={ChangeAccountInfo} />
             <Stack.Screen name="Subscription" component={Subscription} />
@@ -141,17 +146,20 @@ const path= {id:1, title: 'React Native', coursesNumber:12, coursesList :courses
 
 export default function App() {
   return (
-      <AuthenticationProvider>
-          <NavigationContainer>
-              <MainStack.Navigator screenOptions={{headerShown:false}} initialRouteName={"Login"} >
-                  {/*<MainStack.Screen name={"SplashScreen"} component={SplashScreen}  ></MainStack.Screen>*/}
-                  <MainStack.Screen name={"Login"} component={LoginComponent}  ></MainStack.Screen>
-                  <MainStack.Screen name={"SignUp"} component={SignUp} ></MainStack.Screen>
-                  <MainStack.Screen name={"Forgot"} component={ForgotPassword} ></MainStack.Screen>
-                  <MainStack.Screen name={"MainScreen"}  component={TabRoot} ></MainStack.Screen>
-              </MainStack.Navigator>
-          </NavigationContainer>
-      </AuthenticationProvider>
+      <LocalDataProvider>
+          <AuthenticationProvider>
+              <NavigationContainer>
+                  <MainStack.Navigator screenOptions={{headerShown:false}} initialRouteName={"Login"} >
+                      {/*<MainStack.Screen name={"SplashScreen"} component={SplashScreen}  ></MainStack.Screen>*/}
+                      <MainStack.Screen name={"Login"} component={LoginComponent}  ></MainStack.Screen>
+                      <MainStack.Screen name={"SignUp"} component={SignUp} ></MainStack.Screen>
+                      <MainStack.Screen name={"Forgot"} component={ForgotPassword} ></MainStack.Screen>
+                      <MainStack.Screen name={"MainScreen"}  component={TabRoot} ></MainStack.Screen>
+                  </MainStack.Navigator>
+              </NavigationContainer>
+          </AuthenticationProvider>
+      </LocalDataProvider>
+
 
   );
 }

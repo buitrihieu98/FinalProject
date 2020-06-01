@@ -6,7 +6,8 @@ import Tag from "../Global/Tag"
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const ProfileComponent = (props) => {
-    const userInfo = useContext(AuthenticationContext)
+    const {authentication} = useContext(AuthenticationContext)
+    const userInfo=authentication.userInfo
     // const authorList=[
     //     {id:1,username:'Hai Pham',email:'thisisanemail@gmail.com', avatar:'', authorCoursesList:authorCoursesList},
     //     {id:2,email:'thisisanemail@gmail.com', username:'Hieu', avatar:'',authorCoursesList:authorCoursesList},
@@ -61,13 +62,11 @@ const ProfileComponent = (props) => {
               <Text style={styles.value}>{userInfo.mostActiveTime}</Text>
               <Text style={styles.heading}>Most viewed subject</Text>
               <Text style={styles.value}>{userInfo.mostViewedSubject}</Text>
+              {console.log(userInfo.interestTopicList)}
           </View>
       </View>
-
     )
 };
-
-
 const styles = StyleSheet.create({
     container:{
         flex:1,

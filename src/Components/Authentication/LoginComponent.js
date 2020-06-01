@@ -27,11 +27,11 @@ const LoginComponent = (props) => {
 
     const [hidePass, setHidePass] = useState(true)
 
-    const onPressLogin=()=>{
-        setStatus(login(username,password))
-
-        //props.navigation.navigate("MainScreen")
-    }
+    // const onPressLogin=()=>{
+    //     setStatus(login(username,password))
+    //     setAuthentication(login(username,password))
+    //     //props.navigation.navigate("MainScreen")
+    // }
     const onPressSignUp=()=>{
         props.navigation.navigate("SignUp")
     }
@@ -42,7 +42,7 @@ const LoginComponent = (props) => {
         <AuthenticationContext.Consumer>
             {
                 ({setAuthentication})=>{
-                return(
+               return(
                     <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
                         <Image source={require('../../../assets/logo.png')} style={styles.logo}>
                         </Image>
@@ -75,14 +75,14 @@ const LoginComponent = (props) => {
                         <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
                             setStatus(login(username,password))
                             setAuthentication(login(username,password))
-                        }}>
+                        }
+                        }>
                             <Text style={styles.loginText}>Login</Text>
                         </TouchableOpacity>
                     </ImageBackground>
-                )
-            }}
+               )
+           }}
         </AuthenticationContext.Consumer>
-
     )
 };
 

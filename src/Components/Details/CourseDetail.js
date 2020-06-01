@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         margin:15,
         justifyContent:'center',
         alignItems: 'center',
-        backgroundColor: 'azure',
+        backgroundColor: 'white',
         height:80,
     },
     icon:{
