@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
 import {login} from "../../Core/Services/AuthenticationService";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const LoginComponent = (props) => {
     const [username, setUsername]=useState('')
@@ -28,6 +29,7 @@ const LoginComponent = (props) => {
 
     const onPressLogin=()=>{
         setStatus(login(username,password))
+
         //props.navigation.navigate("MainScreen")
     }
     const onPressSignUp=()=>{
@@ -37,39 +39,50 @@ const LoginComponent = (props) => {
         props.navigation.navigate("Forgot")
     }
     return (
-      <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
-          <Image source={require('../../../assets/logo.png')} style={styles.logo}>
-          </Image>
-          <TextInput onChangeText={text => setUsername(text)} defaultValue={username} style={styles.input} placeholder= {'Username'}/>
-          <View style={styles.inputContainer}>
-              <TextInput
-                  onChangeText={text => setPassword(text)}
-                  defaultValue={password}
-                  style={styles.input}
-                  placeholder= {'Password'}
-                  secureTextEntry={hidePass}
-              />
-              <TouchableOpacity style={styles.buttonEye} onPress={()=>{
-                  setHidePass(!hidePass)
-              }}
-              >
-                  <Image source={require('../../../assets/icon-eye.png')} style={{height:'100%', width:'100%'}}>
-                  </Image>
-              </TouchableOpacity>
-          </View>
-          <View style={{flexDirection:'row', marginTop:10}}>
-              <TouchableOpacity style={{marginRight: 50}} onPress={onPressForgot}>
-                  <Text style={styles.normalText}>Forgot password?</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={onPressSignUp}>
-                  <Text style={styles.normalText}>Sign up?</Text>
-              </TouchableOpacity>
-          </View>
-          {renderLoginStatus(status)}
-          <TouchableOpacity style={styles.buttonLogin} onPress={onPressLogin}>
-              <Text style={styles.loginText}>Login</Text>
-          </TouchableOpacity>
-      </ImageBackground>
+        <AuthenticationContext.Consumer>
+            {
+                ({setAuthentication})=>{
+                return(
+                    <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
+                        <Image source={require('../../../assets/logo.png')} style={styles.logo}>
+                        </Image>
+                        <TextInput onChangeText={text => setUsername(text)} defaultValue={username} style={styles.input} placeholder= {'Username'}/>
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                onChangeText={text => setPassword(text)}
+                                defaultValue={password}
+                                style={styles.input}
+                                placeholder= {'Password'}
+                                secureTextEntry={hidePass}
+                            />
+                            <TouchableOpacity style={styles.buttonEye} onPress={()=>{
+                                setHidePass(!hidePass)
+                            }}
+                            >
+                                <Image source={require('../../../assets/icon-eye.png')} style={{height:'100%', width:'100%'}}>
+                                </Image>
+                            </TouchableOpacity>
+                        </View>
+                        <View style={{flexDirection:'row', marginTop:10}}>
+                            <TouchableOpacity style={{marginRight: 50}} onPress={onPressForgot}>
+                                <Text style={styles.normalText}>Forgot password?</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={onPressSignUp}>
+                                <Text style={styles.normalText}>Sign up?</Text>
+                            </TouchableOpacity>
+                        </View>
+                        {renderLoginStatus(status)}
+                        <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
+                            setStatus(login(username,password))
+                            setAuthentication(login(username,password))
+                        }}>
+                            <Text style={styles.loginText}>Login</Text>
+                        </TouchableOpacity>
+                    </ImageBackground>
+                )
+            }}
+        </AuthenticationContext.Consumer>
+
     )
 };
 

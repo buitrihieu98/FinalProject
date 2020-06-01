@@ -5,7 +5,9 @@ import PathList from "./PathList";
 import AuthorList from "./AuthorList";
 import {Avatar} from "react-native-elements";
 const Home = (props) => {
+
     //authorList for testing
+    console.log()
     props.navigation.setOptions({headerRight: () => (
             <Avatar
                 style={{margin:5,marginRight:10,height:25,width:25}}
@@ -51,7 +53,7 @@ const Home = (props) => {
               <PathList navigation={props.navigation} list={pathList} title={'Path'}></PathList>
               <SectionCourses navigation={props.navigation} list={coursesList} title={'IT Operation'}></SectionCourses>
               <SectionCourses navigation={props.navigation} list={coursesList} title={'Software development'}></SectionCourses>
-              <SectionCourses navigation={props.navigation} list={coursesList} title={'Data professional'}></SectionCourses>
+              <SectionCourses navigation={props.navigation} list={coursesList} title={'Favorites'}></SectionCourses>
           </ScrollView>
       </View>
 

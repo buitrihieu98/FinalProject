@@ -1,5 +1,3 @@
-import {useState} from "react";
-
 //local data
 const description = 'Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test\n' +
     '                      Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test\n' +
@@ -67,24 +65,9 @@ const lessons = [
 //     {id:2, title: 'Java',coursesList:coursesList, coursesNumber:25, progress:80},
 //     {id:3, title: 'PHP',coursesList:coursesList, coursesNumber:12, progress:80},]
 
-export const login = (username,password) =>{
-    const [favoritesList,setFavoritesList] = useState([])
-    if(username.toLowerCase()==='hieu'){
-        if(password.toLowerCase()==='thao'){
-            return {status: 200, userInfo:{username:username,email:'buitrihieu@gmail.com',
-                    continueList: [courseJava,courseMobile,courseGameDevelopment,courseCSharp],
-                    totalActiveDays:20, mostActiveTime:'8pm',
-                    mostViewedSubject:'Managerial Skills',
-                    interestTopicList:topicList,
-                    favoritesList:{favoritesList,setFavoritesList}}
-        }}
-        else {
-            return {status:404, errorString: 'Wrong password'}
-        }
-    }
-    else
-        {
-            return {status:404, errorString: 'This username is not existed '}
-        }
 
-}
+
+
+
+
+

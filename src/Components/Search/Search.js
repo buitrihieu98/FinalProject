@@ -17,8 +17,8 @@ const Search = (props) => {
     //coursesList for testing
     const coursesList=[
         {id:1, title: 'React Native', author: 'Hai Pham' , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
-        {id:2, title: 'Java', author: 'Hai Pham' , level:'Beginner', releasedDate: 'July 2019', rating : 5,ratingNumber: 709,},
-        {id:3, title: 'Game Development', author: 'ABC' , level:'Beginner', releasedDate: 'Sept 2019', duration: '50 hours', rating : 3, ratingNumber: 1307,},]
+        {id:2, title: 'Java', author: 'Hai Pham' , level:'Beginner', releasedDate: 'July 2019', rating : 5,ratingNumber: 2811,},
+        {id:3, title: 'Game Development', author: 'ABC' , level:'Beginner', releasedDate: 'Sept 2019', duration: '50 hours', rating : 3, ratingNumber: 2811,},]
     //recentSearchesList for testing
     const rSList=[{id:1, value:'hieu'},{id:2, value:'vi'},{id:3, value:'nam'},{id:4, value:'courses'}]
     //pathList for testing
@@ -40,11 +40,7 @@ const Search = (props) => {
               <SearchedCoursesList navigation={props.navigation} list={coursesList}></SearchedCoursesList>
               <SearchedPathList navigation={props.navigation} list={pathList}></SearchedPathList>
           </ScrollView>
-
-
       </View>
-
-
   )
 };
 
