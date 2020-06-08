@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView} from 'react-native';
 import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
 import ViewMoreText from 'react-native-view-more-text';
 import LessonList from "./LessionList";
+import {LocalDataContext} from "../../provider/localDataProvider";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 
 const CourseDetail = (props) => {
     let item=props.route.params.item
+    const {authentication} = useContext(AuthenticationContext)
+    const userInfo=authentication.userInfo
+    const [bookmarked,setBookmarked] = useState(item.bookmark)
+    const [faveList,setFaveList] = useState(userInfo.favoritesList)
     props.navigation.setOptions({title: item.title})
     const lessons = [
         {
@@ -29,6 +35,36 @@ const CourseDetail = (props) => {
                 time: '2:55',
             }],
         },]
+
+    const onPressBookmark = ()=>{
+        if(item.bookmark===false){
+            if(faveList.includes(item)===false){
+                setFaveList(faveList.push(item))
+                item.bookmark=true
+            }
+        }
+        setBookmarked(!bookmarked)
+    }
+    const onPressUnbookmark =()=>{
+        if(faveList.length>0){
+            let index = faveList.indexOf(item)
+            if(index>-1){
+                setFaveList(faveList.splice(index, 1))
+            }
+            item.bookmark=false
+            setBookmarked(!bookmarked)
+            console.log(faveList.length)
+        }
+
+    }
+    const buttonBookmark=<TouchableOpacity onPress={onPressBookmark} style={styles.button}>
+        <Image style={styles.icon} source={require('../../../assets/icon-bookmark.png')}></Image>
+        <Text style={styles.buttonText}>Bookmark</Text>
+    </TouchableOpacity>
+    const buttonBookmarked=<TouchableOpacity onPress={onPressUnbookmark} style={styles.button}>
+        <Image style={styles.icon} source={require('../../../assets/icon-bookmarked.png')}></Image>
+        <Text style={styles.buttonText}>Unbookmark</Text>
+    </TouchableOpacity>
   return (
       <ScrollView style={styles.container}>
           {/*video*/}
@@ -41,10 +77,12 @@ const CourseDetail = (props) => {
                   <MyRating item={item}></MyRating>
               </View>
               <View style={styles.buttonsContainer}>
-                  <TouchableOpacity style={styles.button}>
-                      <Image style={styles.icon} source={require('../../../assets/icon-bookmark.png')}></Image>
-                      <Text style={styles.buttonText}>Bookmark</Text>
-                  </TouchableOpacity>
+                  {/*<TouchableOpacity onPress={onPressBookmark} style={styles.button}>*/}
+                  {/*    <Image style={styles.icon} source={require('../../../assets/icon-bookmark.png')}></Image>*/}
+                  {/*    <Text style={styles.buttonText}>Bookmark</Text>*/}
+                  {/*</TouchableOpacity>*/}
+                  {/*{item.bookmark===false?buttonBookmark:buttonBookmarked}*/}
+                  {bookmarked===false?buttonBookmark:buttonBookmarked}
                   <TouchableOpacity style={styles.button}>
                       <Image style={styles.icon} source={require('../../../assets/icon-channel.png')}></Image>
                       <Text style={styles.buttonText}>Add to Channel</Text>
