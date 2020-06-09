@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {TouchableOpacity, Image, View, StyleSheet,Text } from 'react-native';
 import {Rating} from "react-native-elements";
+import {ThemeContext} from "../../provider/ThemeProvider";
 //import Rating from "../Home/Rating";
 
 const ListCoursesItem = (props) => {
     const onItemPress=()=>{
         props.navigation.push("CourseDetail", {item:props.item})
     }
+    const {theme} = useContext(ThemeContext)
     return (
-        <TouchableOpacity style={styles.container} onPress={onItemPress}>
+        <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onItemPress}>
             <Image style={styles.image}
                    source={require('../../../assets/icon-courses.png')}>
             </Image>
@@ -19,7 +21,7 @@ const ListCoursesItem = (props) => {
                 <Text style={styles.subInfo}>{props.item.duration}</Text>
                 {/*<Rating rate={props.item.rating}></Rating>*/}
                 <View style={{flexDirection:'row'}}>
-                    <Rating imageSize={18} tintColor={'linen'} readonly={true} ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
+                    <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
                     <Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
                 </View>
             </View>

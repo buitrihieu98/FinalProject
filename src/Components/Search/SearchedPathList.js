@@ -13,7 +13,7 @@ const SearchedPathList = (props) => {
     return (
         <View style={styles.container}>
             <View style={{flexDirection:'row'}}>
-                <Text style={styles.title}>Path</Text>
+                <Text style={styles.title}>Paths</Text>
                 <Text style={styles.result}>{props.list.length} result(s)</Text>
             </View>
             {/*<ScrollView horizontal={true}>*/}

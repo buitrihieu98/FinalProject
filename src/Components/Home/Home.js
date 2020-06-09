@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Image, ScrollView, Text, ImageBackground} from 'react-native';
 import SectionCourses from "./SectionCourses";
 import PathList from "./PathList";
@@ -6,8 +6,8 @@ import AuthorList from "./AuthorList";
 import {Avatar} from "react-native-elements";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {LocalDataContext} from "../../provider/localDataProvider";
+import {ThemeContext} from "../../provider/ThemeProvider";
 const Home = (props) => {
-
     props.navigation.setOptions({headerRight: () => (
             <Avatar
                 style={{margin:5,marginRight:10,height:25,width:25}}
@@ -36,15 +36,22 @@ const Home = (props) => {
     //     {id:2, title: 'Java',coursesList:coursesList, coursesNumber:25, progress:80},
     //     {id:3, title: 'PHP',coursesList:coursesList, coursesNumber:12, progress:80},]
     const dataContext = useContext(LocalDataContext)
+    const {theme} = useContext(ThemeContext)
     const data=dataContext.data
-    const {authentication} = useContext(AuthenticationContext)
+    const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
     const userInfo=authentication.userInfo
-    const fave = <SectionCourses navigation={props.navigation} list={userInfo.favoritesList} title={'Favorites'}></SectionCourses>
-
-
+    const renderLoginStatus = (favoritesList)=>{
+        if(favoritesList.length===0){
+            return <View></View>
+        }
+        else{
+            <SectionCourses navigation={props.navigation} list={favoritesList} title={'Favorites'}></SectionCourses>
+        }
+    }
+    const fave = <SectionCourses navigation={props.navigation} list={favoritesList} title={'Favorites'}></SectionCourses>
 
   return (
-      <View style={styles.container}>
+      <View style={{...styles.container,backgroundColor:theme.background}}>
           {/*<View style={styles.titleContainer}>*/}
           {/*    <Text style={styles.title}>Home</Text>*/}
           {/*</View>*/}
@@ -60,10 +67,7 @@ const Home = (props) => {
               <SectionCourses navigation={props.navigation} list={userInfo.continueList} title={'Continue Learning'}></SectionCourses>
               <PathList navigation={props.navigation} list={data.pathList} title={'Path'}></PathList>
               <SectionCourses navigation={props.navigation} list={data.coursesList} title={'Software development'}></SectionCourses>
-              {userInfo.favoritesList.length>0?fave:<View></View>}
-
-
-
+              {favoritesList.length>0?fave:<View></View>}
           </ScrollView>
       </View>
 
@@ -74,14 +78,6 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'white',
-    },
-    titleContainer:{
-        flexDirection:'row',
-        marginTop:24,
-        alignItems:'center',
-        justifyContent:'center',
-        height: 40,
-        backgroundColor: 'white',
     },
     title:{
         fontSize:25,

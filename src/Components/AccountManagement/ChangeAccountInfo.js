@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import BackButton from "../Global/BackButton";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const ChangeAccountInfo = (props) => {
     const[newUserName,setNewUserName] =useState('')
@@ -8,8 +9,9 @@ const ChangeAccountInfo = (props) => {
     const[email,setEmail] =useState('email@gmail.com')
     const[newPassword,setNewPassword]=useState('')
     const[confirmPassword,setConfirmPassword]=useState('')
+    const {theme} = useContext(ThemeContext)
   return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
               <Image style={styles.avatar} source={require('../../../assets/icon-avatar.png')}></Image>
               <TouchableOpacity>
@@ -20,11 +22,11 @@ const ChangeAccountInfo = (props) => {
               <Text style={styles.subtitle}>Email</Text>
               <Text style={styles.value}>{email}</Text>
               <Text style={styles.subtitle}>New Username</Text>
-              <TextInput style={styles.input} onChangeText={newU=>setNewUserName(newU)} placeholder= {oldUserName} />
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={newU=>setNewUserName(newU)} placeholder= {oldUserName} />
               <Text style={styles.subtitle}>New Password</Text>
-              <TextInput style={styles.input} onChangeText={pw=>setNewPassword(pw)} placeholder={'New password'}/>
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={pw=>setNewPassword(pw)} placeholder={'New password'}/>
               <Text style={styles.subtitle}>Confirm Password</Text>
-              <TextInput style={styles.input} onChangeText={cpw=>setConfirmPassword(cpw)} placeholder={'Confirm password'}/>
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={cpw=>setConfirmPassword(cpw)} placeholder={'Confirm password'}/>
 
               <TouchableOpacity style={styles.buttonSave}
                                 onPress={()=>{

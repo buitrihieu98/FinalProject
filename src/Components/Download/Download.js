@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import SectionCourses from "../Home/SectionCourses";
 import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 import ListCourses from "../ListCourses/ListCourses";
 import {Avatar} from "react-native-elements";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const Download = (props) => {
     props.navigation.setOptions({headerRight: () => (
@@ -39,9 +40,10 @@ const Download = (props) => {
     const removeAll=()=>{
         //clear list
     }
+    const {theme} = useContext(ThemeContext)
 
   return (
-      <View style={styles.container}>
+      <View style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.subTitleContainer}>
               <TouchableOpacity style={styles.rmAllButton} onPress={removeAll}>
                   <Text style={styles.rmAllText}>Remove all</Text>

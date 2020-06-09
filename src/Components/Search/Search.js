@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {SearchBar} from "react-native-elements";
 import ListCourses from "../ListCourses/ListCourses";
@@ -6,6 +6,7 @@ import RecentSearches from "./RecentSearches";
 import SearchedAuthorList from "./SearchedAuthorList";
 import SearchedCoursesList from "./SearchedCoursesList";
 import SearchedPathList from "./SearchedPathList";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const Search = (props) => {
     const [searching,setSearching]=useState('')
@@ -24,12 +25,13 @@ const Search = (props) => {
     //pathList for testing
     const pathList=[
         {id:1, title: 'React Native', coursesNumber:12}, {id:2, title: 'Java', coursesNumber:25}, {id:3, title: 'PHP', coursesNumber:12},]
+    const {theme} = useContext(ThemeContext)
 
   return (
-      <View style={styles.container}>
+      <View style={{...styles.container,backgroundColor:theme.background}}>
           <SearchBar
               lightTheme={true}
-              containerStyle={styles.search}
+              containerStyle={{...styles.search,backgroundColor:theme.background}}
               placeholder={'Type Here...'}
               onChangeText={text=>setSearching(text)}
               value={searching}

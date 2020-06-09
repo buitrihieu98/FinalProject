@@ -4,10 +4,12 @@ import {Avatar} from "react-native-elements";
 import BackButton from "../Global/BackButton";
 import Tag from "../Global/Tag"
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const ProfileComponent = (props) => {
     const {authentication} = useContext(AuthenticationContext)
     const userInfo=authentication.userInfo
+    const {theme} = useContext(ThemeContext)
     // const authorList=[
     //     {id:1,username:'Hai Pham',email:'thisisanemail@gmail.com', avatar:'', authorCoursesList:authorCoursesList},
     //     {id:2,email:'thisisanemail@gmail.com', username:'Hieu', avatar:'',authorCoursesList:authorCoursesList},
@@ -40,10 +42,10 @@ const ProfileComponent = (props) => {
     // const [mostActiveTime,setMostActiveTime] = useState('21:00')
     // const [mostViewedSubject,setMostViewedSubject] = useState('Managerial Skills')
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
-              {<Avatar rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
-              }></Avatar>}
+              <Avatar size={"large"}rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')}>
+              </Avatar>
               <Text style={styles.username}>{userInfo.username}</Text>
               <Text style={styles.email}>{userInfo.email}
               </Text>
@@ -85,14 +87,11 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
     },
     avatarContainer:{
-        height:200,
-        justifyContent: 'center',
         alignItems: 'center',
+        marginTop:10,
     },
     avatar:{
-        marginTop:10,
-        height: 100,
-        width:100,
+
     },
     username:{
         margin:5,

@@ -1,12 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View,Text, Switch, StyleSheet} from 'react-native';
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 
 const SettingItemWithSwitch = (props) => {
+    const {theme} = useContext(ThemeContext)
     const [isEnabled,setIsEnabled] = useState(true)
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     return (
-        <View style={styles.container}>
+        <View style={{...styles.container,backgroundColor:theme.background}}>
             <Text style={styles.itemName}>{props.name}</Text>
             <Switch
                 style={styles.switch}

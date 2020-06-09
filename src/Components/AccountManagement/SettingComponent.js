@@ -1,40 +1,50 @@
-import React,{useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
 import BackButton from "../Global/BackButton";
 import SettingItem from "./SettingItem";
 import SettingItemWithSwitch from "./SettingItemWithSwitch";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const SettingComponent = (props) => {
     const [isRequiredWiFiStreaming,setIsRequiredWiFiStreaming]=useState(true)
     const [isRequireWiFiDownloading,setIsRequiredWiFiDownloading]=useState(true)
     const [appVersion,setAppVersion]=useState('1.0')
+    const {theme,changeTheme} = useContext(ThemeContext)
     const onPressChangeInfo=()=>{
         props.navigation.push("ChangeAccountInfo")
     }
     const onPressSubscription=()=>{
         props.navigation.push("Subscription")
     }
+    const onPressChangeTheme=()=>{
+        changeTheme()
+    }
+    const signOut=()=>{
+        props.navigation.popToTop()
+    }
   return (
-      <View style={styles.container}>
+      <View style={{...styles.container,backgroundColor:theme.background}}>
           <ScrollView>
               {/*<SettingItem name={'Change Account Info'}></SettingItem>*/}
-              <TouchableOpacity onPress={onPressChangeInfo} style={styles.subContainer}>
+              <TouchableOpacity onPress={onPressChangeInfo} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Change Account Info</Text>
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
               </TouchableOpacity>
-              <TouchableOpacity onPress={onPressSubscription} style={styles.subContainer}>
+              <TouchableOpacity onPress={onPressSubscription} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Subscription</Text>
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
               </TouchableOpacity>
               {/*<SettingItem name={'Subscription'}></SettingItem>*/}
+              <TouchableOpacity onPress={onPressChangeTheme} style={{...styles.subContainer,backgroundColor:theme.background}}>
+                  <Text style={styles.itemName}>Change theme</Text>
+              </TouchableOpacity>
               <SettingItem name={'Communication Preferences'}></SettingItem>
-              <SettingItem name={'Theme'}></SettingItem>
               <SettingItemWithSwitch name={'Require Wi-fi for streaming'}></SettingItemWithSwitch>
               <SettingItemWithSwitch name={'Require Wi-fi for downloading'}></SettingItemWithSwitch>
               <SettingItem name={'Send feedback'}></SettingItem>
               <SettingItem name={'Contact support'}></SettingItem>
               <SettingItem name={'App version'}></SettingItem>
-              <TouchableOpacity style={styles.signOutButton}>
+              <TouchableOpacity onPress={signOut} style={styles.signOutButton}>
                   <Text style={styles.signOutText}>Sign out</Text>
               </TouchableOpacity>
           </ScrollView>
@@ -90,8 +100,8 @@ const styles = StyleSheet.create({
         fontSize:20,
     },
     icon:{
-        width:10,
-        height:10,
+        width:20,
+        height:20,
         position:'absolute',
         right: 10,
     }

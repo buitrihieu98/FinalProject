@@ -23,8 +23,8 @@ const styles = StyleSheet.create({
         fontSize:15,
     },
     icon:{
-        width:10,
-        height:10
+        width:20,
+        height:20
     }
 });
 export default SeeAllButton

@@ -6,6 +6,7 @@ import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 import Tag from "../Global/Tag";
 import {LocalDataContext} from "../../provider/localDataProvider";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const Browse = (props) => {
     props.navigation.setOptions({headerRight: () => (
@@ -17,6 +18,7 @@ const Browse = (props) => {
         ),})
     const dataContext = useContext(LocalDataContext)
     const data=dataContext.data
+    const {theme} = useContext(ThemeContext)
     //authorList for testing
 
     // const authorCoursesList=[{id:1, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
@@ -46,9 +48,9 @@ const Browse = (props) => {
     //     {name:'React', authorList:authorList, coursesList:coursesList,pathList:pathList}
     // ]
   return (
-      <View style={styles.container}>
+      <View style={{...styles.container,backgroundColor:theme.background}}>
           <ScrollView>
-              <View style={styles.tileContainer}>
+              <View style={{...styles.tileContainer,backgroundColor:theme.background}}>
                   <Tile onPress={()=>{
                       props.navigation.push("NewRelease")
                   }} containerStyle={styles.tile}
@@ -87,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         height: 40,
-        backgroundColor: 'beige',
+        backgroundColor: 'white',
     },
     title:{
         fontSize:25,

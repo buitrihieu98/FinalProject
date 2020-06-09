@@ -41,7 +41,7 @@ const LoginComponent = (props) => {
     return (
         <AuthenticationContext.Consumer>
             {
-                ({setAuthentication})=>{
+                ({setAuthentication,setFavoritesList})=>{
                return(
                     <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
                         <Image source={require('../../../assets/logo.png')} style={styles.logo}>
@@ -75,6 +75,7 @@ const LoginComponent = (props) => {
                         <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
                             setStatus(login(username,password))
                             setAuthentication(login(username,password))
+                            setFavoritesList([])
                         }
                         }>
                             <Text style={styles.loginText}>Login</Text>

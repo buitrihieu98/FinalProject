@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
 import BackButton from "../Global/BackButton";
 import {Avatar} from "react-native-elements";
 import ViewMoreText from "react-native-view-more-text";
 import ListCourses from "../ListCourses/ListCourses";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 
 const AuthorDetail = (props) => {
     let item=props.route.params.item
     props.navigation.setOptions({title: item.username})
+    const {theme} = useContext(ThemeContext)
   return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
-              {<Avatar rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
+              {<Avatar size={"large"} rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
               }></Avatar>}
               <Text style={styles.username}>{item.username}</Text>
               <Text style={styles.email}>{item.email}</Text>
@@ -39,15 +41,10 @@ const styles = StyleSheet.create({
         backgroundColor:'white',
     },
     avatarContainer:{
-        margin:10,
-        height:200,
-        justifyContent: 'center',
+        marginTop:10,
         alignItems: 'center',
     },
     avatar:{
-        marginTop:10,
-        height: 100,
-        width:100,
     },
     username:{
         margin:5,

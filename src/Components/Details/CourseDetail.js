@@ -6,14 +6,16 @@ import ViewMoreText from 'react-native-view-more-text';
 import LessonList from "./LessionList";
 import {LocalDataContext} from "../../provider/localDataProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 
 const CourseDetail = (props) => {
     let item=props.route.params.item
-    const {authentication} = useContext(AuthenticationContext)
+    const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
     const userInfo=authentication.userInfo
+    const {theme} = useContext(ThemeContext)
     const [bookmarked,setBookmarked] = useState(item.bookmark)
-    const [faveList,setFaveList] = useState(userInfo.favoritesList)
+    //const [faveList,setFaveList] = useState(userInfo.favoritesList)
     props.navigation.setOptions({title: item.title})
     const lessons = [
         {
@@ -36,37 +38,65 @@ const CourseDetail = (props) => {
             }],
         },]
 
+    // const onPressBookmark = ()=>{
+    //     if(item.bookmark===false){
+    //         if(userInfo.favoritesList.includes(item)===false){
+    //             userInfo.favoritesList.push(item)
+    //             item.bookmark=true
+    //         }
+    //     }
+    //     setBookmarked(!bookmarked)
+    //
+    // }
+    // const onPressRemove =()=>{
+    //     if(item.bookmark===true){
+    //         if(userInfo.favoritesList.length>0){
+    //             let index = userInfo.favoritesList.indexOf(item)
+    //             if(index>-1){
+    //                 userInfo.favoritesList.splice(index, 1)
+    //             }
+    //             item.bookmark=false
+    //             setBookmarked(!bookmarked)
+    //
+    //         }
+    //     }
+    // }
     const onPressBookmark = ()=>{
+        let list = favoritesList
         if(item.bookmark===false){
-            if(faveList.includes(item)===false){
-                setFaveList(faveList.push(item))
+            if(list.includes(item)===false){
+                list.push(item)
                 item.bookmark=true
+                setFavoritesList(list)
             }
         }
         setBookmarked(!bookmarked)
-    }
-    const onPressUnbookmark =()=>{
-        if(faveList.length>0){
-            let index = faveList.indexOf(item)
-            if(index>-1){
-                setFaveList(faveList.splice(index, 1))
-            }
-            item.bookmark=false
-            setBookmarked(!bookmarked)
-            console.log(faveList.length)
-        }
 
     }
-    const buttonBookmark=<TouchableOpacity onPress={onPressBookmark} style={styles.button}>
+    const onPressRemove =()=>{
+        let list = favoritesList
+        if(item.bookmark===true){
+            if(list.length>0){
+                let index = list.indexOf(item)
+                if(index>-1){
+                    list.splice(index, 1)
+                }
+                item.bookmark=false
+                setBookmarked(!bookmarked)
+                setFavoritesList(list)
+            }
+        }
+    }
+    const buttonBookmark=<TouchableOpacity onPress={onPressBookmark} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-bookmark.png')}></Image>
         <Text style={styles.buttonText}>Bookmark</Text>
     </TouchableOpacity>
-    const buttonBookmarked=<TouchableOpacity onPress={onPressUnbookmark} style={styles.button}>
+    const buttonBookmarked=<TouchableOpacity onPress={onPressRemove} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-bookmarked.png')}></Image>
         <Text style={styles.buttonText}>Unbookmark</Text>
     </TouchableOpacity>
   return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           {/*video*/}
           <Image style={styles.video} source={require('../../../assets/background-2.jpg')}></Image>
           <Text style={styles.courseTitle}>{item.title}</Text>
@@ -83,11 +113,11 @@ const CourseDetail = (props) => {
                   {/*</TouchableOpacity>*/}
                   {/*{item.bookmark===false?buttonBookmark:buttonBookmarked}*/}
                   {bookmarked===false?buttonBookmark:buttonBookmarked}
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-channel.png')}></Image>
                       <Text style={styles.buttonText}>Add to Channel</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button}>
+                  <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-download.png')}></Image>
                       <Text style={styles.buttonText}>Download</Text>
                   </TouchableOpacity>
