@@ -1,12 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, ScrollView, Text, Image, TouchableOpacity} from 'react-native';
 import ViewMoreText from "react-native-view-more-text";
 import ListCourses from "../ListCourses/ListCourses";
+import {ThemeContext} from "../../provider/ThemeProvider";
 
 const PathDetail = (props) => {
+    const {theme} = useContext(ThemeContext)
     let item=props.route.params.item;
   return (
-      <ScrollView style={styles.container}>
+      <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.titleContainer}>
               <Image style={styles.image}
                      source={require('../../../assets/icon-video.png')}>

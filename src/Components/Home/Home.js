@@ -40,7 +40,7 @@ const Home = (props) => {
     const data=dataContext.data
     const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
     const userInfo=authentication.userInfo
-    const renderLoginStatus = (favoritesList)=>{
+    const renderFave = (favoritesList)=>{
         if(favoritesList.length===0){
             return <View></View>
         }
@@ -67,7 +67,7 @@ const Home = (props) => {
               <SectionCourses navigation={props.navigation} list={userInfo.continueList} title={'Continue Learning'}></SectionCourses>
               <PathList navigation={props.navigation} list={data.pathList} title={'Path'}></PathList>
               <SectionCourses navigation={props.navigation} list={data.coursesList} title={'Software development'}></SectionCourses>
-              {favoritesList.length>0?fave:<View></View>}
+              {renderFave(favoritesList)}
           </ScrollView>
       </View>
 
