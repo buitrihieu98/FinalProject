@@ -40,15 +40,24 @@ const Home = (props) => {
     const data=dataContext.data
     const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
     const userInfo=authentication.userInfo
-    const renderFave = (favoritesList)=>{
+    const [faveList,setFaveList] = useState(favoritesList)
+    const renderLoginStatus = (favoritesList)=>{
         if(favoritesList.length===0){
             return <View></View>
         }
         else{
-            <SectionCourses navigation={props.navigation} list={favoritesList} title={'Favorites'}></SectionCourses>
+            <SectionCourses navigation={props.navigation} list={faveList} title={'Favorites'}></SectionCourses>
         }
     }
-    const fave = <SectionCourses navigation={props.navigation} list={favoritesList} title={'Favorites'}></SectionCourses>
+    const fave = <SectionCourses navigation={props.navigation} list={faveList} title={'Favorites'}></SectionCourses>
+    useEffect(()=>{
+        let list=favoritesList
+        list.push(data.coursesList[1])
+        setFaveList(list)
+    },[])
+    useEffect(()=>{
+        setFaveList(favoritesList)
+    },[favoritesList])
 
   return (
       <View style={{...styles.container,backgroundColor:theme.background}}>
@@ -67,7 +76,7 @@ const Home = (props) => {
               <SectionCourses navigation={props.navigation} list={userInfo.continueList} title={'Continue Learning'}></SectionCourses>
               <PathList navigation={props.navigation} list={data.pathList} title={'Path'}></PathList>
               <SectionCourses navigation={props.navigation} list={data.coursesList} title={'Software development'}></SectionCourses>
-              {renderFave(favoritesList)}
+              {faveList.length>0?fave:<View></View>}
           </ScrollView>
       </View>
 

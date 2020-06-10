@@ -72,6 +72,7 @@ const CourseDetail = (props) => {
         }
         setBookmarked(!bookmarked)
 
+
     }
     const onPressRemove =()=>{
         let list = favoritesList

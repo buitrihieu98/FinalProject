@@ -40,7 +40,7 @@ export const login = (username,password) =>{
      const courseJava ={id:2,bookmark: false, description:description, lessons:lessons, title: 'Java', author: [authorHai,authorHieu,authorVi,authorThy] , level:'Beginner', releasedDate: 'May 2020', duration: '50 hours', rating : 5, ratingNumber: 2811,}
      const courseGameDevelopment = {id:3, description:description,bookmark: false, lessons:lessons, title: 'Game Development', author: [authorHieu,authorNam] , level:'Beginner', releasedDate: 'June 2020', duration: '50 hours', rating : 3, ratingNumber: 2811,}
      const courseMobile ={id:4, description:description,bookmark: false, lessons:lessons, title: 'Mobile', author: [authorThy] , level:'Beginner', releasedDate: 'June 2020', duration: '50 hours', rating : 3, ratingNumber: 2811,}
-     const courseCSharp = {id:6, description:description,bookmark: false, lessons:lessons, title: 'C#', author: [authorHieu] , level:'Beginner', releasedDate: 'June 2020', duration: '50 hours', rating : 3, ratingNumber: 2811,}
+     const courseCSharp = {id:6, description:description,bookmark: true, lessons:lessons, title: 'C#', author: [authorHieu] , level:'Beginner', releasedDate: 'June 2020', duration: '50 hours', rating : 3, ratingNumber: 2811,}
     const pathReactNative ={id:1, description:description, title: 'React Native',coursesList:[courseReact,courseMobile] ,coursesNumber:2, progress:80}
     // const pathPHP = {id:2, description:description, title: 'PHP',coursesList:[coursePHP] ,coursesNumber:1, progress:70}
      const pathMobile = {id:3, description:description, title: 'Mobile',coursesList:[courseJava,courseMobile] ,coursesNumber:2, progress:30}

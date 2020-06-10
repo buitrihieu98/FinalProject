@@ -5,7 +5,7 @@ const AuthenticationContext = React.createContext()
 
 const AuthenticationProvider = (props) => {
     const [authentication, setAuthentication] = useState()
-    const [favoritesList, setFavoritesList] = useState()
+    const [favoritesList, setFavoritesList] = useState([])
   return (
       <AuthenticationContext.Provider value={{authentication, setAuthentication,favoritesList, setFavoritesList}} >
           {props.children}

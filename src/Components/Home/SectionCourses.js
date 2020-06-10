@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, ScrollView, View, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
 import SectionCoursesItem from "./SectionCoursesItem";
 import ListCoursesItem from "../ListCourses/ListCoursesItem";
@@ -8,6 +8,10 @@ const SectionCourses = (props) => {
         props.navigation.push("SeeAllCourses",{title: props.title,
                 list: props.list})
     }
+    const[list,setList]=useState(props.list)
+    useEffect(()=>{
+        setList(props.list)
+    },[props.list])
   return (
       <View>
           <View style={{justifyContent:'center'}}>
@@ -17,7 +21,7 @@ const SectionCourses = (props) => {
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
               </TouchableOpacity>
           </View>
-          <FlatList horizontal={true} data={props.list}
+          <FlatList horizontal={true} data={list}
                     renderItem={({item, index, separators}) => (<SectionCoursesItem navigation={props.navigation} item={item}></SectionCoursesItem>)}/>
       </View>
   )
