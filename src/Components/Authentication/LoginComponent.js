@@ -1,90 +1,95 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
-import {login} from "../../Core/Services/AuthenticationService";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const LoginComponent = (props) => {
+
     const [username, setUsername]=useState('')
     const [password, setPassword]=useState('')
     const [status, setStatus]=useState(null)
+    const authenticationContext = useContext(AuthenticationContext)
 
-    const renderLoginStatus = (status)=>{
-        if(!status){
-            return <View></View>
-        }
-        else if(status.status ===200){
-            return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>Login successfully</Text>)
-        }
-        else{
-            return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>{status.errorString}</Text>)
-        }
-    }
+    // const renderLoginStatus = (status)=>{
+    //     if(!status){
+    //         return <View></View>
+    //     }
+    //     else if(status.status ===200){
+    //         return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>Login successfully</Text>)
+    //     }
+    //     else{
+    //         return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>{status.errorString}</Text>)
+    //     }
+    // }
     useEffect(()=>{
-        if(status && status.status===200){
-            props.navigation.navigate("MainScreen", {params:{status}})
+        // if(status && status.status===200){
+        if(authenticationContext.state.authenticated){
+            console.log('use effect',authenticationContext.state.authenticated )
+            // props.navigation.navigate("MainScreen", {params:/*{status}*/authenticationContext.state.userInfo})
+            props.navigation.navigate("MainScreen")
         }
-    },[status])
+    },[authenticationContext.state.authenticated])
 
     const [hidePass, setHidePass] = useState(true)
-
-    // const onPressLogin=()=>{
-    //     setStatus(login(username,password))
-    //     setAuthentication(login(username,password))
-    //     //props.navigation.navigate("MainScreen")
-    // }
+    const onPressLogin=()=>{
+        props.navigation.navigate("MainScreen")
+    }
     const onPressSignUp=()=>{
         props.navigation.navigate("SignUp")
     }
     const onPressForgot=()=>{
         props.navigation.navigate("Forgot")
     }
-    return (
-        <AuthenticationContext.Consumer>
-            {
-                ({setAuthentication,setFavoritesList})=>{
-               return(
-                    <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
-                        <Image source={require('../../../assets/logo.png')} style={styles.logo}>
-                        </Image>
-                        <TextInput onChangeText={text => setUsername(text)} defaultValue={username} style={styles.input} placeholder= {'Username'}/>
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                onChangeText={text => setPassword(text)}
-                                defaultValue={password}
-                                style={styles.input}
-                                placeholder= {'Password'}
-                                secureTextEntry={hidePass}
-                            />
-                            <TouchableOpacity style={styles.buttonEye} onPress={()=>{
-                                setHidePass(!hidePass)
-                            }}
-                            >
-                                <Image source={require('../../../assets/icon-eye.png')} style={{height:'100%', width:'100%'}}>
-                                </Image>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{flexDirection:'row', marginTop:10}}>
-                            <TouchableOpacity style={{marginRight: 50}} onPress={onPressForgot}>
-                                <Text style={styles.normalText}>Forgot password?</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={onPressSignUp}>
-                                <Text style={styles.normalText}>Sign up?</Text>
-                            </TouchableOpacity>
-                        </View>
-                        {renderLoginStatus(status)}
-                        <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
-                            setStatus(login(username,password))
-                            setAuthentication(login(username,password))
-                            setFavoritesList([])
-                        }
-                        }>
-                            <Text style={styles.loginText}>Login</Text>
-                        </TouchableOpacity>
-                    </ImageBackground>
-               )
-           }}
-        </AuthenticationContext.Consumer>
+
+
+    // return (
+    //     <AuthenticationContext.Consumer>
+    //         {
+    //             ({setAuthentication,setFavoritesList})=>{
+    return(
+        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
+            <Image source={require('../../../assets/logo.png')} style={styles.logo}>
+            </Image>
+            <TextInput onChangeText={text => setUsername(text)} defaultValue={username} style={styles.input} placeholder= {'Username'}/>
+            <View style={styles.inputContainer}>
+                <TextInput
+                    onChangeText={text => setPassword(text)}
+                    defaultValue={password}
+                    style={styles.input}
+                    placeholder= {'Password'}
+                    secureTextEntry={hidePass}
+                />
+                <TouchableOpacity style={styles.buttonEye} onPress={()=>{
+                    setHidePass(!hidePass)
+                }}
+                >
+                    <Image source={require('../../../assets/icon-eye.png')} style={{height:'100%', width:'100%'}}>
+                    </Image>
+                </TouchableOpacity>
+            </View>
+            <View style={{flexDirection:'row', marginTop:10}}>
+                <TouchableOpacity style={{marginRight: 50}} onPress={onPressForgot}>
+                    <Text style={styles.normalText}>Forgot password?</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={onPressSignUp}>
+                    <Text style={styles.normalText}>Sign up?</Text>
+                </TouchableOpacity>
+            </View>
+            {/*{renderLoginStatus(status)}*/}
+            <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
+                // setStatus(login(username,password))
+                // setAuthentication(login(username,password))
+                // setFavoritesList([])
+                authenticationContext.login(username,password)
+            }
+            }>
+                <Text style={styles.loginText}>Login</Text>
+            </TouchableOpacity>
+        </ImageBackground>
     )
+        //        }}
+        //     </AuthenticationContext.Consumer>
+        // )
+
 };
 
 const styles = StyleSheet.create({
@@ -113,7 +118,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight:'bold',
         paddingLeft: 35,
-
     },
     buttonEye:{
         position:'absolute',
@@ -125,7 +129,7 @@ const styles = StyleSheet.create({
         marginRight:15
     },
     buttonLogin:{
-        marginTop:20,
+        marginTop:30,
         marginBottom:10,
         height: 50,
         width: '40%',
@@ -143,7 +147,7 @@ const styles = StyleSheet.create({
     normalText:{
         fontSize: 15,
         color:'white',
-    }
+}
 
 
 });

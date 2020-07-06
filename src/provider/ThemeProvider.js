@@ -5,7 +5,7 @@ const ThemeContext = React.createContext()
 
 const ThemeProvider = (props) => {
     const themes = {light:{background:'white', foreground:'black',itemBackground:'linen'}, dark:{background:'dimgray', foreground:'white',itemBackground:'lightcyan'}}
-    const [theme, setTheme] = useState(themes.dark)
+    const [theme, setTheme] = useState(themes.light)
     const changeTheme = ()=>{
         if(theme===themes.light){
             setTheme(themes.dark)

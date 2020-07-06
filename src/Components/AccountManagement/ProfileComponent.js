@@ -7,9 +7,10 @@ import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 
 const ProfileComponent = (props) => {
-    const {authentication} = useContext(AuthenticationContext)
-    const userInfo=authentication.userInfo
-    const {theme} = useContext(ThemeContext)
+
+const authenticationContext = useContext(AuthenticationContext)
+const userInfo=authenticationContext.state.userInfo
+const {theme} = useContext(ThemeContext)
     // const authorList=[
     //     {id:1,username:'Hai Pham',email:'thisisanemail@gmail.com', avatar:'', authorCoursesList:authorCoursesList},
     //     {id:2,email:'thisisanemail@gmail.com', username:'Hieu', avatar:'',authorCoursesList:authorCoursesList},
@@ -36,43 +37,44 @@ const ProfileComponent = (props) => {
     //     {id:3, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
     //     {id:4, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,}]
 
-    // const[username,setUsername] =useState('Username')
-    // const[email,setEmail] =useState('email@gmail.com')
-    // const [totalActiveDays,setTotalActiveDays] = useState(0)
-    // const [mostActiveTime,setMostActiveTime] = useState('21:00')
-    // const [mostViewedSubject,setMostViewedSubject] = useState('Managerial Skills')
+const[username,setUsername] =useState('Username')
+    const[email,setEmail] =useState('email@gmail.com')
+    const [totalActiveDays,setTotalActiveDays] = useState(0)
+    const [mostActiveTime,setMostActiveTime] = useState('21:00')
+const [mostViewedSubject,setMostViewedSubject] = useState('Managerial Skills')
     return (
-      <View style={{...styles.container,backgroundColor:theme.background}}>
+      <View style={styles.container}>
           <View style={styles.avatarContainer}>
               <Avatar size={"large"}rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')}>
               </Avatar>
-              <Text style={styles.username}>{userInfo.username}</Text>
+              <Text style={styles.username}>{userInfo.name}</Text>
               <Text style={styles.email}>{userInfo.email}
               </Text>
           </View>
-          <View>
-              <Text style={styles.subtitle}>Interest</Text>
-              <View style={{flexDirection: 'row', margin:5}}>
-                  <ScrollView horizontal={true}>
-                      {userInfo.interestTopicList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
-                  </ScrollView>
-              </View>
-              <Text style={styles.subtitle}>Activity Insight</Text>
-              <Text style={styles.heading}>Total active days</Text>
-              <Text style={styles.value}>{userInfo.totalActiveDays}</Text>
-              <Text style={styles.heading}>Most active time of day</Text>
-              <Text style={styles.value}>{userInfo.mostActiveTime}</Text>
-              <Text style={styles.heading}>Most viewed subject</Text>
-              <Text style={styles.value}>{userInfo.mostViewedSubject}</Text>
-              {console.log(userInfo.interestTopicList)}
-          </View>
+          {/*<View>*/}
+          {/*    <Text style={styles.subtitle}>Interest</Text>*/}
+          {/*    <View style={{flexDirection: 'row', margin:5}}>*/}
+          {/*        <ScrollView horizontal={true}>*/}
+          {/*            {userInfo.interestTopicList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}*/}
+          {/*        </ScrollView>*/}
+          {/*    </View>*/}
+          {/*    <Text style={styles.subtitle}>Activity Insight</Text>*/}
+          {/*    <Text style={styles.heading}>Total active days</Text>*/}
+          {/*    <Text style={styles.value}>{userInfo.totalActiveDays}</Text>*/}
+          {/*    <Text style={styles.heading}>Most active time of day</Text>*/}
+          {/*    <Text style={styles.value}>{userInfo.mostActiveTime}</Text>*/}
+          {/*    <Text style={styles.heading}>Most viewed subject</Text>*/}
+          {/*    <Text style={styles.value}>{userInfo.mostViewedSubject}</Text>*/}
+          {/*</View>*/}
       </View>
     )
 };
+
+
 const styles = StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:'white',
+        backgroundColor:'azure',
     },
     titleContainer:{
         flexDirection:'row',
@@ -87,11 +89,14 @@ const styles = StyleSheet.create({
         fontWeight:'bold',
     },
     avatarContainer:{
+        height:200,
+        justifyContent: 'center',
         alignItems: 'center',
-        marginTop:10,
     },
     avatar:{
-
+        marginTop:10,
+        height: 100,
+        width:100,
     },
     username:{
         margin:5,
