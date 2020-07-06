@@ -23,7 +23,6 @@ const LoginComponent = (props) => {
     useEffect(()=>{
         // if(status && status.status===200){
         if(authenticationContext.state.authenticated){
-            console.log('use effect',authenticationContext.state.authenticated )
             // props.navigation.navigate("MainScreen", {params:/*{status}*/authenticationContext.state.userInfo})
             props.navigation.navigate("MainScreen")
         }
