@@ -26,6 +26,19 @@ const SectionCoursesItem = (props) => {
               </View>
               {/*<Rating rate={props.item.rating}></Rating>*/}
           </View>
+
+          <Image style={styles.video}
+                 source={{uri: props.item.imageUrl}}>
+          </Image>
+          <View style={{margin:5}}>
+              <Text style={styles.coreInfo}>{props.item.title}</Text>
+              <Text style={styles.coreInfo}>{props.item.instructorName}</Text>
+              <Text style={styles.subInfo}>{`${props.item.price}$ . ${props.item.createdAt}`}</Text>
+              <Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>
+              <View style={{flexDirection:'row'}}>
+                  <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
+              </View>
+          </View>
       </TouchableOpacity>
 
   )

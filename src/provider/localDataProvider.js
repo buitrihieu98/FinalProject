@@ -4,6 +4,7 @@ import React, {useState} from 'react';
 const LocalDataContext = React.createContext()
 
 const LocalDataProvider = (props) => {
+
     const lessons = [
         {
             name: 'Course Overview',
@@ -30,7 +31,44 @@ const LocalDataProvider = (props) => {
         '                      Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test\n' +
         '                      Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test\n' +
         '                      Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test'
-    const courseC ={id:1, bookmark: false, description:description, lessons:lessons, title: 'C', author: [{id:1,username:'Thao'}] , level:'Advance', releasedDate: 'May 2020', duration: '50 hours', rating : 4, ratingNumber: 406,}
+    const courseC ={id:1,
+        bookmark: false,
+        description:description,
+        lessons:lessons,
+        title: 'C',
+        author: [{id:1,username:'Thao'}] ,
+        level:'Advance',
+        releasedDate: 'May 2020',
+        duration: '50 hours',
+        rating : 4,
+        ratingNumber: 406,}
+    // "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //     "title": "string",
+    //     "subtitle": "string",
+    //     "price": 0,
+    //     "description": "string",
+    //     "requirement": [
+    //       "string"
+    //     ],
+    //     "learnWhat": [
+    //       "string"
+    //     ],
+    //     "soldNumber": 0,
+    //     "ratedNumber": 0,
+    //     "videoNumber": 0,
+    //     "totalHours": 0,
+    //     "formalityPoint": 0,
+    //     "contentPoint": 0,
+    //     "presentationPoint": 0,
+    //     "imageUrl": "string",
+    //     "promoVidUrl": "string",
+    //     "status": "PENDING",
+    //     "isDeleted": true,
+    //     "isHidden": true,
+    //     "createdAt": "2020-07-07T06:58:16.442Z",
+    //     "updatedAt": "2020-07-07T06:58:16.442Z",
+    //     "instructorId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //     "typeUploadVideoLesson": 0
     const courseAlgorithms ={id:2, bookmark: false, description:description, lessons:lessons, title: 'Algorithms', author: [{id:1,username:'Thao'}] , level:'Advance', releasedDate: 'May 2020', duration: '50 hours', rating : 4, ratingNumber: 406,}
     const authorHai ={id:1,username:'Hai Pham',email:'thisisanemail@gmail.com', avatar:'',authorCoursesList:[courseC,courseAlgorithms], description:description}
     const authorHieu= {id:2,email:'thisisanemail@gmail.com', username:'Hieu', avatar:'',authorCoursesList:[courseC,courseAlgorithms],description:description}

@@ -12,7 +12,7 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 const CourseDetail = (props) => {
     let item=props.route.params.item
     const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
-    const userInfo=authentication.userInfo
+    // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
     const [bookmarked,setBookmarked] = useState(item.bookmark)
     //const [faveList,setFaveList] = useState(userInfo.favoritesList)
@@ -26,7 +26,10 @@ const CourseDetail = (props) => {
         {
             name: 'Getting Started with Angular',
             totalTime: '38:45',
-            contentList: [{name: 'Introduction', time: '2:55'}, {name: 'Practise Exercises', time: '3:25',}, {name: 'Introduction', time: '2:55'}, {name: 'Practise Exercises', time: '3:25'}, {
+            contentList: [{name: 'Introduction', time: '2:55'},
+                {name: 'Practise Exercises', time: '3:25',},
+                {name: 'Introduction', time: '2:55'},
+                {name: 'Practise Exercises', time: '3:25'}, {
                 name: 'Introduction',
                 time: '2:55',
             }, {name: 'Practise Exercises', time: '3:25'}, {
@@ -37,6 +40,76 @@ const CourseDetail = (props) => {
                 time: '2:55',
             }],
         },]
+    //"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //     "title": "Lập trình Android toàn tập",
+    //     "subtitle": "Hướng dẫn Reactjs, React Router 4, Animations, Authentication, BDD và nhiều hơn nữa!",
+    //     "price": 249000,
+    //     "description": "Lập trình Android không khó, vì khóa học này sẽ hướng dẫn bạn chi tiết về lập trình Android, cung cấp thủ thuật về ASO giúp bạn tăng thu nhập với lập trình Android.",
+    //     "requirement": [
+    //       "thông minh",
+    //       "đã biết lập trình cơ bản"
+    //     ],
+    //     "learnWhat": [
+    //       "Tự tin phát triển những ứng dụng Android, game Android",
+    //       "Biết cách upload ứng dụng Android lên Google Play",
+    //       "Kiếm tiền từ các ứng dụng trên Google Play",
+    //       "ASO - tối ưu ứng dụng lên TOP tìm kiếm từ khoá"
+    //     ],
+    //     "soldNumber": 5,
+    //     "ratedNumber": 5,
+    //     "videoNumber": 5,
+    //     "totalHours": 5,
+    //     "formalityPoint": 5,
+    //     "contentPoint": 5,
+    //     "presentationPoint": 5,
+    //     "imageUrl": "https://developer.android.com/courses/images/android-for-developers.svg",
+    //     "promoVidUrl": "https://developer.android.com/courses/images/android-for-developers.svg",
+    //     "status": "PENDING",
+    //     "isDeleted": true,
+    //     "isHidden": true,
+    //     "createdAt": "2020-07-07T07:16:46.488Z",
+    //     "updatedAt": "2020-07-07T07:16:46.488Z",
+    //     "instructorId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //     "instructorName": "string",
+    //     "section": [
+    //       {
+    //         "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //         "courseId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //         "numberOrder": 0,
+    //         "name": "string",
+    //         "isDeleted": true,
+    //         "createdAt": "2020-07-07T07:16:46.488Z",
+    //         "updatedAt": "2020-07-07T07:16:46.488Z",
+    //         "lesson": [
+    //           {
+    //             "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //             "courseId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //             "sectionId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //             "numberOrder": 0,
+    //             "name": "string",
+    //             "content": "string",
+    //             "videoName": "string",
+    //             "captionName": "string",
+    //             "hours": 0,
+    //             "isPreview": true,
+    //             "isDeleted": true,
+    //             "createdAt": "2020-07-07T07:16:46.488Z",
+    //             "updatedAt": "2020-07-07T07:16:46.488Z",
+    //             "resource": [
+    //               {
+    //                 "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //                 "lessonId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    //                 "name": "string",
+    //                 "url": "string",
+    //                 "createdAt": "2020-07-07T07:16:46.488Z",
+    //                 "updatedAt": "2020-07-07T07:16:46.488Z"
+    //               }
+    //             ]
+    //           }
+    //         ]
+    //       }
+    //     ]
+
 
     // const onPressBookmark = ()=>{
     //     if(item.bookmark===false){
@@ -89,12 +162,12 @@ const CourseDetail = (props) => {
         }
     }
     const buttonBookmark=<TouchableOpacity onPress={onPressBookmark} style={{...styles.button,backgroundColor:theme.background}}>
-        <Image style={styles.icon} source={require('../../../assets/icon-bookmark.png')}></Image>
-        <Text style={styles.buttonText}>Bookmark</Text>
+        <Image style={styles.icon} source={require('../../../assets/icon-heart.png')}></Image>
+        <Text style={styles.buttonText}>Like</Text>
     </TouchableOpacity>
     const buttonBookmarked=<TouchableOpacity onPress={onPressRemove} style={{...styles.button,backgroundColor:theme.background}}>
-        <Image style={styles.icon} source={require('../../../assets/icon-bookmarked.png')}></Image>
-        <Text style={styles.buttonText}>Unbookmark</Text>
+        <Image style={styles.icon} source={require('../../../assets/icon-hearted.png')}></Image>
+        <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
   return (
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
@@ -103,8 +176,10 @@ const CourseDetail = (props) => {
           <Text style={styles.courseTitle}>{item.title}</Text>
           <View style={styles.infoContainer}>
               <AuthorList navigation={props.navigation} list={item.author}></AuthorList>
+              {/*<AuthorList navigation={props.navigation} list={item.instructorName}></AuthorList>*/}
               <View style={styles.subInfoContainer}>
                   <Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>
+                  {/*<Text style={styles.subInfo}>{`${item.price}$ . ${item.createdAt} . ${item.totalHours} hours`}</Text>*/}
                   <MyRating item={item}></MyRating>
               </View>
               <View style={styles.buttonsContainer}>
@@ -132,9 +207,12 @@ const CourseDetail = (props) => {
                           Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test
                           Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test
                       </Text>
+                      {/*<Text> {item.description}*/}
+                      {/*</Text>*/}
                   </ViewMoreText>
               </View>
               <LessonList item={lessons}/>
+              {/*<LessonList item={item.section}/>*/}
           </View>
       </ScrollView>
 

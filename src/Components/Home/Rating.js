@@ -10,6 +10,8 @@ const MyRating = (props) => {
           <Rating imageSize={20} tintColor={theme.background} readonly={true}
                   ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
           <Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
+          {/*<Rating imageSize={20} tintColor={theme.background} readonly={true}*/}
+          {/*        ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />*/}
       </View>
   )
 };

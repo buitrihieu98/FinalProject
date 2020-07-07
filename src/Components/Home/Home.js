@@ -7,6 +7,8 @@ import {Avatar} from "react-native-elements";
 import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import axios from "axios";
+import {LOGIN_FAILED, LOGIN_SUCCEEDED} from "../../Actions/authentication_action";
 
 const Home = (props) => {
     props.navigation.setOptions({headerRight: () => (
@@ -23,6 +25,23 @@ const Home = (props) => {
     // const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
     const authentication = useContext(AuthenticationContext)
     const userInfo= authentication.state.userInfo
+    // axios.post('https://api.itedu.me/user/login', {
+    //     email: username,  password:password
+    // }).then((response)=>{
+    //     if(response.status===200){
+    //         dispatch({type:LOGIN_SUCCEEDED, data:response.data})
+    //         console.log('login succeeded')
+    //     }
+    //     else{
+    //         console.log('login failed 1: ',response.status)
+    //         dispatch({type:LOGIN_FAILED})
+    //     }
+    // }).catch((error)=>{
+    //     dispatch({type:LOGIN_FAILED})
+    //     console.log('login failed 2',error)
+    // });
+
+
     return (
         <View style={styles.container}>
             {/*<View style={styles.titleContainer}>*/}
