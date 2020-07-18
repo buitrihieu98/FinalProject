@@ -11,32 +11,17 @@ const ListCoursesItem = (props) => {
     return (
         <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onItemPress}>
             <Image style={styles.image}
-                   source={require('../../../assets/icon-courses.png')}>
+                   source={{uri: props.item.imageUrl}}>
             </Image>
             <View style={{margin:5}}>
-                <Text style={styles.coreInfo}>{props.item.title}</Text>
-                <Text style={styles.coreInfo}>{props.item.author.length===1?props.item.author[0].username:`${props.item.author[0].username}+${props.item.author.length-1}`}</Text>
-                <Text style={styles.subInfo}>{`${props.item.level} . ${props.item.releasedDate}`}</Text>
-                <Text style={styles.subInfo}>{props.item.duration}</Text>
-                {/*<Rating rate={props.item.rating}></Rating>*/}
+                <Text style={{...styles.coreInfo, fontWeight:'bold'}}>{props.item.title}</Text>
+                <Text style={styles.coreInfo}>{props.item.learnWhat}</Text>
+                <Text style={styles.subInfo}>{`Price:${props.item.price}`}</Text>
+                <Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>
                 <View style={{flexDirection:'row'}}>
-                    <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
-                    <Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
+                    <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
                 </View>
             </View>
-
-            {/*<Image style={styles.video}*/}
-            {/*       source={{uri: props.item.imageUrl}}>*/}
-            {/*</Image>*/}
-            {/*<View style={{margin:5}}>*/}
-            {/*    <Text style={styles.coreInfo}>{props.item.title}</Text>*/}
-            {/*    <Text style={styles.coreInfo}>{props.item.instructorName}</Text>*/}
-            {/*    <Text style={styles.subInfo}>{`${props.item.price}$ . ${props.item.createdAt}`}</Text>*/}
-            {/*    <Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>*/}
-            {/*    <View style={{flexDirection:'row'}}>*/}
-            {/*        <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />*/}
-            {/*    </View>*/}
-            {/*</View>*/}
         </TouchableOpacity>
     )
 };
@@ -47,8 +32,9 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     image:{
-        width:100,
-        height:100,
+        alignSelf:'center',
+        width:150,
+        height:130,
     },
     coreInfo:{
         fontSize:15,

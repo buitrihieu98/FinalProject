@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView} from 'react-native';
 import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
@@ -7,14 +7,36 @@ import LessonList from "./LessionList";
 import {LocalDataContext} from "../../provider/localDataProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import api from "../../API/api";
+import axios from "axios";
 
 
 const CourseDetail = (props) => {
     let item=props.route.params.item
-    const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
+    const [detail,setDetail]=useState({})
+    const authentication = useContext(AuthenticationContext)
     // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
-    const [bookmarked,setBookmarked] = useState(item.bookmark)
+    const [liked,setLiked]=useState(false)
+    useEffect(()=>{
+        const getDetail=api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token).then()
+        console.log('getDetail',getDetail)
+        if(getDetail.isSuccess){
+            setDetail(getDetail.data.payload)
+        }
+        const getLike=api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
+        if(getLike.isSuccess){
+            setLiked(getLike.data.likeStatus)
+        }
+    },[])
+
+    const onPressLike = ()=>{
+        api.post('https://api.itedu.me/user/like-course',{
+            courseId: detail.id
+        },authentication.state.token)
+        setLiked(!liked)
+    }
+
     //const [faveList,setFaveList] = useState(userInfo.favoritesList)
     props.navigation.setOptions({title: item.title})
     const lessons = [
@@ -161,34 +183,29 @@ const CourseDetail = (props) => {
             }
         }
     }
-    const buttonBookmark=<TouchableOpacity onPress={onPressBookmark} style={{...styles.button,backgroundColor:theme.background}}>
+    const buttonBookmark=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-heart.png')}></Image>
         <Text style={styles.buttonText}>Like</Text>
     </TouchableOpacity>
-    const buttonBookmarked=<TouchableOpacity onPress={onPressRemove} style={{...styles.button,backgroundColor:theme.background}}>
+    const buttonBookmarked=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-hearted.png')}></Image>
         <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
   return (
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           {/*video*/}
-          <Image style={styles.video} source={require('../../../assets/background-2.jpg')}></Image>
-          <Text style={styles.courseTitle}>{item.title}</Text>
+          <Image style={styles.video} source={{uri: detail.imageUrl}}></Image>
+          <Text style={styles.courseTitle}>{detail.title}</Text>
           <View style={styles.infoContainer}>
-              <AuthorList navigation={props.navigation} list={item.author}></AuthorList>
-              {/*<AuthorList navigation={props.navigation} list={item.instructorName}></AuthorList>*/}
+              {/*<AuthorList navigation={props.navigation} list={item.author}></AuthorList>*/}
+              {/*<AuthorList navigation={props.navigation} list={detail.instructorName}></AuthorList>*/}
               <View style={styles.subInfoContainer}>
-                  <Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>
-                  {/*<Text style={styles.subInfo}>{`${item.price}$ . ${item.createdAt} . ${item.totalHours} hours`}</Text>*/}
+                  {/*<Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>*/}
+                  <Text style={styles.subInfo}>{`${detail.price}$ . ${detail.createdAt} . ${detail.totalHours} hours`}</Text>
                   <MyRating item={item}></MyRating>
               </View>
               <View style={styles.buttonsContainer}>
-                  {/*<TouchableOpacity onPress={onPressBookmark} style={styles.button}>*/}
-                  {/*    <Image style={styles.icon} source={require('../../../assets/icon-bookmark.png')}></Image>*/}
-                  {/*    <Text style={styles.buttonText}>Bookmark</Text>*/}
-                  {/*</TouchableOpacity>*/}
-                  {/*{item.bookmark===false?buttonBookmark:buttonBookmarked}*/}
-                  {bookmarked===false?buttonBookmark:buttonBookmarked}
+                  {liked===false?buttonBookmark:buttonBookmarked}
                   <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-channel.png')}></Image>
                       <Text style={styles.buttonText}>Add to Channel</Text>
@@ -200,19 +217,19 @@ const CourseDetail = (props) => {
               </View>
               <View style={{marginLeft:10}}>
                   <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
-                      <Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test
-                          Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test
-                          Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test
-                          Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test
-                          Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test
-                          Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test
-                      </Text>
-                      {/*<Text> {item.description}*/}
+                      {/*<Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test*/}
+                      {/*    Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test*/}
+                      {/*    Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test*/}
+                      {/*    Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test*/}
+                      {/*    Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test*/}
+                      {/*    Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test*/}
                       {/*</Text>*/}
+                      <Text> {detail.description}
+                      </Text>
                   </ViewMoreText>
               </View>
-              <LessonList item={lessons}/>
-              {/*<LessonList item={item.section}/>*/}
+              {/*<LessonList item={lessons}/>*/}
+              <LessonList item={detail.section}/>
           </View>
       </ScrollView>
 

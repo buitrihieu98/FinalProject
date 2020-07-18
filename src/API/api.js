@@ -13,7 +13,7 @@ class BaseApi{
                 return {isSuccess: true, data:response.data}
             })
             .catch((error)=>{
-                return{isSuccess: false, error:error.response.data}
+                // return{isSuccess: false, error:error.response.data}
             })
     }
     get=(pathName,body=undefined,token=undefined)=>
