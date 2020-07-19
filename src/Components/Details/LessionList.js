@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 
-const LessonList = props => {
+const LessonList = (props) => {
     return (
         <View style={styles.container}>
             <FlatList
@@ -10,14 +10,14 @@ const LessonList = props => {
                     <View style={styles.containerLesson}>
                         <View style={styles.containerLessonInfo}>
                             <Text style={styles.titleLesson}>{item.name}</Text>
-                            <Text style={styles.titleLesson}>{item.totalTime}</Text>
+                            {/*<Text style={styles.titleLesson}>{item.totalTime}</Text>*/}
                         </View>
                         <View style={styles.containerContentList}>
                             {
-                                item.contentList.map((content) =>
+                                item.lesson.map((content) =>
                                     <TouchableOpacity style={styles.containerContent}>
                                         <Text >{content.name}</Text>
-                                        <Text >{content.time}</Text>
+                                        <Text >{content.hours}</Text>
                                     </TouchableOpacity>)
                             }
                         </View>
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
         fontSize:15,
         fontWeight:'bold'
     },
-    
+
 });
 export default LessonList;

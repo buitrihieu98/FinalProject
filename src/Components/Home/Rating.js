@@ -7,9 +7,10 @@ const MyRating = (props) => {
     const {theme} = useContext(ThemeContext)
   return (
       <View style={{...styles.container,backgroundColor:theme.background}}>
-          <Rating imageSize={20} tintColor={theme.background} readonly={true}
+          <Rating imageSize={30} tintColor={theme.background} readonly={true}
+                  ratingBackgroundColor={theme.foreground} type={'custom'}
                   ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />
-          <Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>
+          {/*<Text style={{color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>*/}
           {/*<Rating imageSize={20} tintColor={theme.background} readonly={true}*/}
           {/*        ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />*/}
       </View>

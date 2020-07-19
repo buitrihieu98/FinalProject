@@ -29,6 +29,7 @@ import {LocalDataContext, LocalDataProvider} from "./src/provider/localDataProvi
 import NewRelease from "./src/Components/Browse/NewRelease";
 import Recommended from "./src/Components/Browse/Recommended";
 import {ThemeContext, ThemeProvider} from "./src/provider/ThemeProvider";
+import CourseDetailToBuy from "./src/Components/Home/CourseDetailToBuy";
 
 const Stack = createStackNavigator();
 const MainStack= createStackNavigator();
@@ -46,6 +47,7 @@ const HomeStack=(props)=>{
                 <Stack.Screen name="SeeAllPath" navigation={props.navigation} component={SeeAllPath} options={{ title: '' }} />
                 <Stack.Screen name="Profile" navigation={props.navigation} component={ProfileComponent} options={{ title: '' }} />
                 <Stack.Screen name="TopicDetail" navigation={props.navigation} component={TopicDetail} options={({route})=>({title: ''})} />
+                <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
             </Stack.Navigator>
     )
 };
@@ -58,6 +60,7 @@ const DownloadStack=()=>{
                 <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
                 <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
                 <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
+                <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
             </Stack.Navigator>
     )
 };
@@ -74,6 +77,7 @@ const BrowseStack=()=>{
             <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
             <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
+            <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
         </Stack.Navigator>
     )
 };
@@ -83,6 +87,7 @@ const SearchStack=()=>{
         <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
+            <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
             <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
         </Stack.Navigator>

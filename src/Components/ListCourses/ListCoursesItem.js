@@ -1,11 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {TouchableOpacity, Image, View, StyleSheet,Text } from 'react-native';
 import {Rating} from "react-native-elements";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import api from "../../API/api";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const ListCoursesItem = (props) => {
+    const authentication = useContext(AuthenticationContext)
+    const[didBuy,setDidBuy]=useState(false)
     const onItemPress=()=>{
-        props.navigation.push("CourseDetail", {item:props.item})
+        api.get(`https://api.itedu.me/payment​/get-course-info​//${props.item.id}`,{},authentication.state.token)
+            .then((response)=>{if(response.isSuccess){
+                setDidBuy(response.data.didUserBuyCourse)
+            }})
+            .catch((error)=>{console.log('error',error)})
+        if(didBuy){
+            props.navigation.push("CourseDetail", {item:props.item})
+        }
+        else{
+            props.navigation.push("CourseDetailToBuy", {item:props.item})
+        }
     }
     const {theme} = useContext(ThemeContext)
     return (
@@ -19,7 +33,7 @@ const ListCoursesItem = (props) => {
                 <Text style={styles.subInfo}>{`Price:${props.item.price}`}</Text>
                 <Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>
                 <View style={{flexDirection:'row'}}>
-                    <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
+                    <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
                 </View>
             </View>
         </TouchableOpacity>

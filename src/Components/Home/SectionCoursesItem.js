@@ -1,14 +1,30 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {TouchableOpacity,Image, View, StyleSheet,Text } from 'react-native';
 import {Rating} from 'react-native-elements';
 import SectionCourses from "./SectionCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import api from "../../API/api";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 //import Rating from "./Rating";
 
 const SectionCoursesItem = (props) => {
     const {theme} = useContext(ThemeContext)
+    const authentication = useContext(AuthenticationContext)
+    const[didBuy,setDidBuy]=useState(false)
+
     const onPressItem=()=>{
-        props.navigation.push("CourseDetail", {item:props.item})
+        //api check own courses
+        api.get(`https://api.itedu.me/payment​/get-course-info​//${props.item.id}`,{},authentication.state.token)
+            .then((response)=>{if(response.isSuccess){
+                setDidBuy(response.data.didUserBuyCourse)
+            }})
+            .catch((error)=>{console.log('error',error)})
+        if(didBuy){
+            props.navigation.push("CourseDetail", {item:props.item})
+        }
+        else{
+            props.navigation.push("CourseDetailToBuy", {item:props.item})
+        }
     }
   return (
       <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
@@ -33,7 +49,7 @@ const SectionCoursesItem = (props) => {
               <Text style={styles.coreInfo}>{props.item.title}</Text>
               <Text style={styles.subInfo}>{`Price: ${props.item.price} . Total hours:${props.item.totalHours}`}</Text>
               <View style={{flexDirection:'row'}}>
-                  <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
+                  <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
               </View>
 
           </View>

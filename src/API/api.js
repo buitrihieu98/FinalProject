@@ -10,10 +10,14 @@ class BaseApi{
             headers
         })
             .then((response)=>{
-                return {isSuccess: true, data:response.data}
+                console.log('status',response.status)
+                if(response.status===200){
+                     return {isSuccess: true, data:response.data}
+                }
+                else{console.log('faileddddd')}
             })
             .catch((error)=>{
-                // return{isSuccess: false, error:error.response.data}
+                 return{isSuccess: false, error:error.response.data}
             })
     }
     get=(pathName,body=undefined,token=undefined)=>

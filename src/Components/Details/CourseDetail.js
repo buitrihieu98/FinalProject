@@ -8,7 +8,6 @@ import {LocalDataContext} from "../../provider/localDataProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
-import axios from "axios";
 
 
 const CourseDetail = (props) => {
@@ -18,16 +17,20 @@ const CourseDetail = (props) => {
     // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
     const [liked,setLiked]=useState(false)
+    const [free,setFree]=useState(false)
+
     useEffect(()=>{
-        const getDetail=api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token).then()
-        console.log('getDetail',getDetail)
-        if(getDetail.isSuccess){
-            setDetail(getDetail.data.payload)
-        }
-        const getLike=api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
-        if(getLike.isSuccess){
-            setLiked(getLike.data.likeStatus)
-        }
+        api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
+            .then((response)=>{if(response.isSuccess){
+            setDetail(response.data.payload)
+        }})
+            .catch((error)=>{console.log('error',error)})
+
+        api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
+            .then((response)=>{if(response.isSuccess){
+            setLiked(response.data.likeStatus)
+        }})
+
     },[])
 
     const onPressLike = ()=>{
@@ -39,29 +42,29 @@ const CourseDetail = (props) => {
 
     //const [faveList,setFaveList] = useState(userInfo.favoritesList)
     props.navigation.setOptions({title: item.title})
-    const lessons = [
-        {
-            name: 'Course Overview',
-            totalTime: '2:04',
-            contentList: [{name: 'Course Overview', time: '2:04'}],
-        },
-        {
-            name: 'Getting Started with Angular',
-            totalTime: '38:45',
-            contentList: [{name: 'Introduction', time: '2:55'},
-                {name: 'Practise Exercises', time: '3:25',},
-                {name: 'Introduction', time: '2:55'},
-                {name: 'Practise Exercises', time: '3:25'}, {
-                name: 'Introduction',
-                time: '2:55',
-            }, {name: 'Practise Exercises', time: '3:25'}, {
-                name: 'Introduction',
-                time: '2:55',
-            }, {name: 'Practise Exercises', time: '3:25'}, {
-                name: 'Introduction',
-                time: '2:55',
-            }],
-        },]
+    // const lessons = [
+    //     {
+    //         name: 'Course Overview',
+    //         totalTime: '2:04',
+    //         contentList: [{name: 'Course Overview', time: '2:04'}],
+    //     },
+    //     {
+    //         name: 'Getting Started with Angular',
+    //         totalTime: '38:45',
+    //         contentList: [{name: 'Introduction', time: '2:55'},
+    //             {name: 'Practise Exercises', time: '3:25',},
+    //             {name: 'Introduction', time: '2:55'},
+    //             {name: 'Practise Exercises', time: '3:25'}, {
+    //             name: 'Introduction',
+    //             time: '2:55',
+    //         }, {name: 'Practise Exercises', time: '3:25'}, {
+    //             name: 'Introduction',
+    //             time: '2:55',
+    //         }, {name: 'Practise Exercises', time: '3:25'}, {
+    //             name: 'Introduction',
+    //             time: '2:55',
+    //         }],
+    //     },]
     //"id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     //     "title": "Lập trình Android toàn tập",
     //     "subtitle": "Hướng dẫn Reactjs, React Router 4, Animations, Authentication, BDD và nhiều hơn nữa!",
@@ -156,33 +159,33 @@ const CourseDetail = (props) => {
     //         }
     //     }
     // }
-    const onPressBookmark = ()=>{
-        let list = favoritesList
-        if(item.bookmark===false){
-            if(list.includes(item)===false){
-                list.push(item)
-                item.bookmark=true
-                setFavoritesList(list)
-            }
-        }
-        setBookmarked(!bookmarked)
-
-
-    }
-    const onPressRemove =()=>{
-        let list = favoritesList
-        if(item.bookmark===true){
-            if(list.length>0){
-                let index = list.indexOf(item)
-                if(index>-1){
-                    list.splice(index, 1)
-                }
-                item.bookmark=false
-                setBookmarked(!bookmarked)
-                setFavoritesList(list)
-            }
-        }
-    }
+    // const onPressBookmark = ()=>{
+    //     let list = favoritesList
+    //     if(item.bookmark===false){
+    //         if(list.includes(item)===false){
+    //             list.push(item)
+    //             item.bookmark=true
+    //             setFavoritesList(list)
+    //         }
+    //     }
+    //     setBookmarked(!bookmarked)
+    //
+    //
+    // }
+    // const onPressRemove =()=>{
+    //     let list = favoritesList
+    //     if(item.bookmark===true){
+    //         if(list.length>0){
+    //             let index = list.indexOf(item)
+    //             if(index>-1){
+    //                 list.splice(index, 1)
+    //             }
+    //             item.bookmark=false
+    //             setBookmarked(!bookmarked)
+    //             setFavoritesList(list)
+    //         }
+    //     }
+    // }
     const buttonBookmark=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-heart.png')}></Image>
         <Text style={styles.buttonText}>Like</Text>
@@ -201,7 +204,7 @@ const CourseDetail = (props) => {
               {/*<AuthorList navigation={props.navigation} list={detail.instructorName}></AuthorList>*/}
               <View style={styles.subInfoContainer}>
                   {/*<Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>*/}
-                  <Text style={styles.subInfo}>{`${detail.price}$ . ${detail.createdAt} . ${detail.totalHours} hours`}</Text>
+                  <Text style={styles.subInfo}>{`Price: ${detail.price}$ . Total hours: ${detail.totalHours}`}</Text>
                   <MyRating item={item}></MyRating>
               </View>
               <View style={styles.buttonsContainer}>
@@ -216,7 +219,7 @@ const CourseDetail = (props) => {
                   </TouchableOpacity>
               </View>
               <View style={{marginLeft:10}}>
-                  <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
+                  <ViewMoreText numberOfLines={3}  textStyle={styles.subInfo}>
                       {/*<Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test*/}
                       {/*    Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test*/}
                       {/*    Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test*/}
@@ -224,8 +227,7 @@ const CourseDetail = (props) => {
                       {/*    Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test*/}
                       {/*    Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test*/}
                       {/*</Text>*/}
-                      <Text> {detail.description}
-                      </Text>
+                      <Text> {detail.description}</Text>
                   </ViewMoreText>
               </View>
               {/*<LessonList item={lessons}/>*/}
