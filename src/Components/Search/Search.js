@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {SearchBar} from "react-native-elements";
 import ListCourses from "../ListCourses/ListCourses";
@@ -7,25 +7,58 @@ import SearchedAuthorList from "./SearchedAuthorList";
 import SearchedCoursesList from "./SearchedCoursesList";
 import SearchedPathList from "./SearchedPathList";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import api from "../../API/api";
 
 const Search = (props) => {
     const [searching,setSearching]=useState('')
     const [recentSearchesList,setRecentSearchesList] = useState([])
     const [result,setResult]=useState([])
-    //authorList for testing
-    const authorList=[{id:1, username:'Hai Pham', avatar:''}, {id:2, username:'Hieu', avatar:''}, {id:3, username:'Nam', avatar:''},
-        {id:4, username:'Vi', avatar:''}, {id:5, username:'Thao', avatar:''}, {id:6, username:'Thy', avatar:''},]
-    //coursesList for testing
-    const coursesList=[
-        {id:1, title: 'React Native', author: 'Hai Pham' , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
-        {id:2, title: 'Java', author: 'Hai Pham' , level:'Beginner', releasedDate: 'July 2019', rating : 5,ratingNumber: 2811,},
-        {id:3, title: 'Game Development', author: 'ABC' , level:'Beginner', releasedDate: 'Sept 2019', duration: '50 hours', rating : 3, ratingNumber: 2811,},]
-    //recentSearchesList for testing
-    const rSList=[{id:1, value:'hieu'},{id:2, value:'vi'},{id:3, value:'nam'},{id:4, value:'courses'}]
-    //pathList for testing
-    const pathList=[
-        {id:1, title: 'React Native', coursesNumber:12}, {id:2, title: 'Java', coursesNumber:25}, {id:3, title: 'PHP', coursesNumber:12},]
-    const {theme} = useContext(ThemeContext)
+    useEffect(()=>{
+        if(searching!==''){
+            api.post('https://api.itedu.me/course/search',{
+                keyword: searching,
+                opt: {
+                    sort: {
+                        attribute: "price",
+                        rule: "ASC"
+                    },
+                    category: [
+                    ],
+                    time: [
+                        {
+                            min: 0,
+                            max: 1
+                        },
+                        {
+                            min: 3,
+                            max: 6
+                        }
+                    ],
+                    price: [
+                        {
+                            max: 0
+                        },
+                        {
+                            min: 0,
+                            max: 200000
+                        },
+                        {
+                            min: 500000,
+                            max: 1000000
+                        }
+                    ]
+                },
+                limit: 10,
+                offset: 1
+            }).then((response)=>{
+                if(response.isSuccess){
+                    setResult(response.data.payload.rows)
+                }
+            })
+        }
+
+    },[searching])
+
 
   return (
       <View style={{...styles.container,backgroundColor:theme.background}}>
@@ -38,9 +71,9 @@ const Search = (props) => {
           ></SearchBar>
           {/*<RecentSearches rSList={rSList}></RecentSearches>*/}
           <ScrollView>
-              <SearchedAuthorList navigation={props.navigation} list={authorList}></SearchedAuthorList>
-              <SearchedCoursesList navigation={props.navigation} list={coursesList}></SearchedCoursesList>
-              <SearchedPathList navigation={props.navigation} list={pathList}></SearchedPathList>
+              {/*<SearchedAuthorList navigation={props.navigation} list={authorList}></SearchedAuthorList>*/}
+              <SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>
+              {/*<SearchedPathList navigation={props.navigation} list={pathList}></SearchedPathList>*/}
           </ScrollView>
       </View>
   )

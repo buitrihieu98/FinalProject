@@ -1,8 +1,12 @@
 import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import api from "../../API/api";
 
 const SignUp = (props) => {
     const [isMatched,setIsMatched]=useState(true)
+    const [username,setUsername]=useState('')
+    const [email,setEmail]=useState('')
+    const [phone,setPhone]=useState('')
     const [pass,setPass]=useState('')
     const [confirmPass,setConfirmPass]=useState('')
     const unmatched =<Text style={styles.warningText}>Confirm password and password must be matched</Text>
@@ -10,11 +14,25 @@ const SignUp = (props) => {
     const onPressBackLogin=()=>{
         props.navigation.navigate("Login")
     }
+    const onPressSignUp=(username,email,phone,pass)=>{
+        if(matched){
+            api.post('https://api.itedu.me/user/register',{username:username,email:email,phone:phone,password:pass},).then((response)=>{
+                if(response.isSuccess){
+                    api.post('https://api.itedu.me/user/send-activate-email',{email:email},).then((response)=>{
+                        if(response.isSuccess){
+                            console.log('email sent')
+                        }
+                    })
+                }
+            })
+        }
+    }
     return (
       <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
           <Text style={styles.title}>Sign Up</Text>
-          <TextInput style={styles.input} placeholder= {'Username'}/>
-          <TextInput style={styles.input} placeholder= {'Email'}/>
+          <TextInput style={styles.input} onChangeText={text=>setUsername(text)} placeholder= {'Username'}/>
+          <TextInput style={styles.input} onChangeText={text=>setEmail(text)} placeholder= {'Email'}/>
+          <TextInput style={styles.input} onChangeText={text=>setPhone(text)} placeholder= {'Phone'}/>
           <TextInput style={styles.input} placeholder= {'Password'} onChangeText={pw=>setPass(pw)}
                      onSubmitEditing={()=>{
                          if(pass===confirmPass){
@@ -37,7 +55,7 @@ const SignUp = (props) => {
           <TouchableOpacity onPress={onPressBackLogin}>
               <Text style={styles.backToSignIn}>Already have an account, back to sign in?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonLogin}>
+          <TouchableOpacity onPress={onPressSignUp(username,email,phone,pass)} style={styles.buttonLogin}>
               <Text style={styles.loginText}>Sign up</Text>
           </TouchableOpacity>
       </ImageBackground>

@@ -14,7 +14,6 @@ import AuthorItems from "../Home/AuthorItems";
 const CourseDetail = (props) => {
     let item=props.route.params.item
     const [detail,setDetail]=useState({})
-    const [processCourse,setProcesCourse]=useState(0)
     const authentication = useContext(AuthenticationContext)
     // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
@@ -24,17 +23,13 @@ const CourseDetail = (props) => {
     useEffect(()=>{
         api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
             .then((response)=>{if(response.isSuccess){
-            setDetail(response.data.payload)
-        }})
+                setDetail(response.data.payload)
+            }})
             .catch((error)=>{console.log('error',error)})
 
         api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
             .then((response)=>{if(response.isSuccess){
-            setLiked(response.data.likeStatus)
-        }})
-        api.get(`https://api.itedu.me/user/process-course/${item.id}`,{},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
-                setProcesCourse(response.data.payload)
+                setLiked(response.data.likeStatus)
             }})
 
     },[])
@@ -200,50 +195,49 @@ const CourseDetail = (props) => {
         <Image style={styles.icon} source={require('../../../assets/icon-hearted.png')}></Image>
         <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
-  return (
-      <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
-          {/*video*/}
-          <Image style={styles.video} source={{uri: detail.imageUrl}}></Image>
-          <Text style={styles.courseTitle}>{detail.title}</Text>
-          <View style={styles.infoContainer}>
-              {/*<AuthorList navigation={props.navigation} list={item.author}></AuthorList>*/}
-              {/*<AuthorList navigation={props.navigation} list={detail.instructorName}></AuthorList>*/}
-              <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
-              <View style={styles.subInfoContainer}>
-                  {/*<Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>*/}
-                  <Text style={styles.subInfo}>{`Price: ${detail.price}$ . Total hours: ${detail.totalHours}`}</Text>
-                  <MyRating item={detail}></MyRating>
-                  <Text style={styles.subInfo}>{`Your Progress: ${processCourse}%`}</Text>
-              </View>
-              <View style={styles.buttonsContainer}>
-                  {liked===false?buttonBookmark:buttonBookmarked}
-                  <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
-                      <Image style={styles.icon} source={require('../../../assets/icon-channel.png')}></Image>
-                      <Text style={styles.buttonText}>Add to Channel</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
-                      <Image style={styles.icon} source={require('../../../assets/icon-download.png')}></Image>
-                      <Text style={styles.buttonText}>Download</Text>
-                  </TouchableOpacity>
-              </View>
-              <View style={{marginLeft:10}}>
-                  <ViewMoreText numberOfLines={3}  textStyle={styles.subInfo}>
-                      {/*<Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test*/}
-                      {/*    Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test*/}
-                      {/*    Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test*/}
-                      {/*    Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test*/}
-                      {/*    Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test*/}
-                      {/*    Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test*/}
-                      {/*</Text>*/}
-                      <Text> {detail.description}</Text>
-                  </ViewMoreText>
-              </View>
-              {/*<LessonList item={lessons}/>*/}
-              <LessonList item={detail.section}/>
-          </View>
-      </ScrollView>
+    return (
+        <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
+            {/*video*/}
+            <Image style={styles.video} source={{uri: detail.imageUrl}}></Image>
+            <Text style={styles.courseTitle}>{detail.title}</Text>
+            <View style={styles.infoContainer}>
+                {/*<AuthorList navigation={props.navigation} list={item.author}></AuthorList>*/}
+                {/*<AuthorList navigation={props.navigation} list={detail.instructorName}></AuthorList>*/}
+                <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
+                <View style={styles.subInfoContainer}>
+                    {/*<Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>*/}
+                    <Text style={styles.subInfo}>{`Price: ${detail.price}$ . Total hours: ${detail.totalHours}`}</Text>
+                    <MyRating item={detail}></MyRating>
+                </View>
+                <View style={styles.buttonsContainer}>
+                    {liked===false?buttonBookmark:buttonBookmarked}
+                    <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
+                        <Image style={styles.icon} source={require('../../../assets/icon-channel.png')}></Image>
+                        <Text style={styles.buttonText}>Add to Channel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{...styles.button,backgroundColor:theme.background}}>
+                        <Image style={styles.icon} source={require('../../../assets/icon-download.png')}></Image>
+                        <Text style={styles.buttonText}>Download</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{marginLeft:10}}>
+                    <ViewMoreText numberOfLines={3}  textStyle={styles.subInfo}>
+                        {/*<Text>Introduction of this course test test testtesttesttesttesttesttest test test testv  test test  test test test*/}
+                        {/*    Introduction of this course test test testtes ttesttesttesttest test test test testv  test test  test test test*/}
+                        {/*    Introduction of this course test test testt esttest t es tt esttesttest test test testv  test test  test test test*/}
+                        {/*    Introduction of this course test test testtestt e sttestte sttesttest test test testv  test test  test test test*/}
+                        {/*    Introduction of this course test test testtesttesttestte sttesttest test test testv  test test  test test test*/}
+                        {/*    Introduction of this course test test testt esttesttesttesttesttest test test testv  test test  test test test*/}
+                        {/*</Text>*/}
+                        <Text> {detail.description}</Text>
+                    </ViewMoreText>
+                </View>
+                {/*<LessonList item={lessons}/>*/}
+                <LessonList item={detail.section}/>
+            </View>
+        </ScrollView>
 
-  )
+    )
 };
 
 const styles = StyleSheet.create({
@@ -271,7 +265,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     rating:{
-      alignSelf:'center',
+        alignSelf:'center',
     },
     buttonsContainer:{
         flexDirection:'row',

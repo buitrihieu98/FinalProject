@@ -9,10 +9,12 @@ const ListCoursesItem = (props) => {
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     const onItemPress=()=>{
-        api.get(`https://api.itedu.me/payment​/get-course-info​/${props.item.id}`,{},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
-                setDidBuy(response.data.didUserBuyCourse)
-            }})
+        api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
+            .then((response)=>{
+                console.log('testtest',authentication.state.token)
+                if(response.isSuccess){
+                    setDidBuy(response.data.isUserOwnCourse)
+                }})
             .catch((error)=>{console.log('error',error)})
         if(didBuy){
             props.navigation.push("CourseDetail", {item:props.item})

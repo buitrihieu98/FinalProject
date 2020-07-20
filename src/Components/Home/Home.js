@@ -29,6 +29,8 @@ const Home = (props) => {
     const [topNewList, setTopNewList]=useState([])
     const [topRateList, setTopRateList]=useState([])
     const [faveList, setFaveList]=useState([])
+    const[recommendList,setRecommendList]=useState([])
+    const[continueList,setContinueList]=useState([])
     useEffect(()=>{
         axios.post('https://api.itedu.me/course/top-new', {
             limit: 10,  page: 1
@@ -54,6 +56,22 @@ const Home = (props) => {
         }).catch((error)=>{
             console.log('failed ',error)
         })
+
+        api.get(`https://api.itedu.me/user/recommend-course/${userInfo.id}/10/1`,{},).then((response)=>{
+            if(response.isSuccess){
+                setRecommendList(response.data.payload)
+            }
+        })
+        api.get(`https://api.itedu.me/user/get-process-courses`,{},authentication.state.token).then((response)=>{
+            if(response.isSuccess){
+                setContinueList(response.data.payload)
+            }
+        })
+        api.get(`https://api.itedu.me/user/get-favorite-courses`,{},authentication.state.token).then((response)=>{
+            if(response.isSuccess){
+                setFaveList(response.data.payload)
+            }
+        })
     },[])
 
     //const [topNewList, setTopNewList]=useState([])
@@ -78,6 +96,8 @@ const Home = (props) => {
     // if(getTopRate.isSuccess){
     //     setFaveList(getFave.data.payload)
     // }
+    const recList=<SectionCourses navigation={props.navigation} list={recommendList} title={'Recommend for you'}></SectionCourses>
+    const contiList=<SectionCourses navigation={props.navigation} list={continueList} title={'Continue Learning'}></SectionCourses>
 
     return (
         <View style={styles.container}>
@@ -93,12 +113,12 @@ const Home = (props) => {
                         erase your knowledge's boundary by joining online courses.
                     </Text>
                 </View>
-                {/*<SectionCourses navigation={props.navigation} list={userInfo.continueList} title={'Continue Learning'}></SectionCourses>*/}
                 <SectionCourses navigation={props.navigation} list={topNewList} title={'Top new courses'}></SectionCourses>
                 <SectionCourses navigation={props.navigation} list={topRateList} title={'Top rate courses'}></SectionCourses>
-                <PathList navigation={props.navigation} list={data.pathList} title={'Path'}></PathList>
-                <SectionCourses navigation={props.navigation} list={data.coursesList} title={'Software development'}></SectionCourses>
-                {/*{faveList.length>0?fave:<View></View>}*/}
+                {/*<PathList navigation={props.navigation} list={data.pathList} title={'Path'}></PathList>*/}
+                {faveList.length>0?fave:<View></View>}
+                {continueList.length>0?contiList:<View></View>}
+                {recommendList.length>0?recList:<View></View>}
             </ScrollView>
         </View>
     )
