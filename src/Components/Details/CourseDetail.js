@@ -8,6 +8,7 @@ import {LocalDataContext} from "../../provider/localDataProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
+import AuthorItems from "../Home/AuthorItems";
 
 
 const CourseDetail = (props) => {
@@ -41,7 +42,7 @@ const CourseDetail = (props) => {
     }
 
     //const [faveList,setFaveList] = useState(userInfo.favoritesList)
-    props.navigation.setOptions({title: item.title})
+    // props.navigation.setOptions({title: item.title})
     // const lessons = [
     //     {
     //         name: 'Course Overview',
@@ -202,10 +203,11 @@ const CourseDetail = (props) => {
           <View style={styles.infoContainer}>
               {/*<AuthorList navigation={props.navigation} list={item.author}></AuthorList>*/}
               {/*<AuthorList navigation={props.navigation} list={detail.instructorName}></AuthorList>*/}
+              <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>
                   {/*<Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>*/}
                   <Text style={styles.subInfo}>{`Price: ${detail.price}$ . Total hours: ${detail.totalHours}`}</Text>
-                  <MyRating item={item}></MyRating>
+                  <MyRating item={detail}></MyRating>
               </View>
               <View style={styles.buttonsContainer}>
                   {liked===false?buttonBookmark:buttonBookmarked}

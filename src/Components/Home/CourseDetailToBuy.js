@@ -17,6 +17,7 @@ const CourseDetailToBuy = (props) => {
     const {theme} = useContext(ThemeContext)
     const [liked,setLiked]=useState(false)
     const [free,setFree]=useState(false)
+    console.log('id',item)
 
     useEffect(()=>{
         api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
@@ -52,8 +53,10 @@ const CourseDetailToBuy = (props) => {
 
     const onPressBuy=()=> {
         api.post('https://api.itedu.me/payment/get-free-courses',{courseId:item.id},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
-                props.navigation.push("CourseDetail", {item:props.item})
+            .then((response)=>{
+                console.log('test buy',response)
+                props.navigation.push("CourseDetail", {item:item})
+                if(response.isSuccess){
             }})
             .catch((error)=>{console.log('error',error)})
 

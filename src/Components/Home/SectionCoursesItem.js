@@ -14,8 +14,10 @@ const SectionCoursesItem = (props) => {
 
     const onPressItem=()=>{
         //api check own courses
-        api.get(`https://api.itedu.me/payment​/get-course-info​//${props.item.id}`,{},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
+        api.get(`https://api.itedu.me/payment/get-course-info/${props.item.id}`,{},authentication.state.token)
+            .then((response)=>{
+                console.log('testtest',authentication.state.token)
+                if(response.isSuccess){
                 setDidBuy(response.data.didUserBuyCourse)
             }})
             .catch((error)=>{console.log('error',error)})

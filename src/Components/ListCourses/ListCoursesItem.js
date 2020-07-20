@@ -9,7 +9,7 @@ const ListCoursesItem = (props) => {
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     const onItemPress=()=>{
-        api.get(`https://api.itedu.me/payment​/get-course-info​//${props.item.id}`,{},authentication.state.token)
+        api.get(`https://api.itedu.me/payment​/get-course-info​/${props.item.id}`,{},authentication.state.token)
             .then((response)=>{if(response.isSuccess){
                 setDidBuy(response.data.didUserBuyCourse)
             }})

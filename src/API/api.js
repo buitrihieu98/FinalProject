@@ -12,9 +12,9 @@ class BaseApi{
             .then((response)=>{
                 console.log('status',response.status)
                 if(response.status===200){
-                     return {isSuccess: true, data:response.data}
+                     return {isSuccess: true, data:response.data, status:response.status}
                 }
-                else{console.log('faileddddd')}
+                else{console.log('faileddddd',response.status)}
             })
             .catch((error)=>{
                  return{isSuccess: false, error:error.response.data}

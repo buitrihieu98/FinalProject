@@ -40,14 +40,14 @@ const HomeStack=(props)=>{
             <Stack.Navigator
                 mode={'modal'} screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
                 <Stack.Screen name="Home"  navigation={props.navigation} component={Home} options={{ title: 'Home',}} />
-                <Stack.Screen name="CourseDetail" navigation={props.navigation} component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
+                <Stack.Screen name="CourseDetail" navigation={props.navigation} component={CourseDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="AuthorDetail" navigation={props.navigation} component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
                 <Stack.Screen name="SeeAllCourses" navigation={props.navigation} component={SeeAllCourses} options={{ title: '' }} />
                 <Stack.Screen name="PathDetail" navigation={props.navigation} component={PathDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="SeeAllPath" navigation={props.navigation} component={SeeAllPath} options={{ title: '' }} />
                 <Stack.Screen name="Profile" navigation={props.navigation} component={ProfileComponent} options={{ title: '' }} />
                 <Stack.Screen name="TopicDetail" navigation={props.navigation} component={TopicDetail} options={({route})=>({title: ''})} />
-                <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
+                <Stack.Screen name="CourseDetailToBuy" navigation={props.navigation} component={CourseDetailToBuy} />
             </Stack.Navigator>
     )
 };
@@ -104,6 +104,7 @@ const SettingStack=()=>{
     )
 }
 const TabRoot=()=>{
+    const {theme} = useContext(ThemeContext)
     return (
             <Tab.Navigator
                 screenOptions={({route}) => ({
@@ -129,6 +130,8 @@ const TabRoot=()=>{
                     },
                 })}
                 tabBarOptions={{
+                    activeBackgroundColor:theme.itemBackground,
+                    inactiveBackgroundColor:theme.background,
                     activeTintColor: 'tomato',
                     inactiveTintColor: 'gray',
                 }}

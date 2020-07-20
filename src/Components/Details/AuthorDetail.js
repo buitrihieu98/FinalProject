@@ -1,36 +1,52 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
 import BackButton from "../Global/BackButton";
 import {Avatar} from "react-native-elements";
 import ViewMoreText from "react-native-view-more-text";
 import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import api from "../../API/api";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 
 const AuthorDetail = (props) => {
     let item=props.route.params.item
     props.navigation.setOptions({title: item.username})
+    const authentication = useContext(AuthenticationContext)
+    const [detail,setDetail]=useState()
+    const [ok,setOk]=useState(false)
+    useEffect(()=>{
+        api.get(`https://api.itedu.me/instructor/detail/:${item.id}`,{},)
+            .then((response)=>{
+                console.log('author',response)
+                if(response.isSuccess){
+                setDetail(response.data.payload)
+                setOk(true)
+            }})
+            .catch((error)=>{console.log('error',error)})
+
+    },[])
     const {theme} = useContext(ThemeContext)
   return (
-      <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
+      ok===true?<ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
-              {<Avatar size={"large"} rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
-              }></Avatar>}
-              <Text style={styles.username}>{item.username}</Text>
+              {<Avatar size={"large"} rounded={true} avatarStyle={styles.avatar} source={{uri:detail.avatar}}></Avatar>}
+              <Text style={styles.username}>{item.name}</Text>
               <Text style={styles.email}>{item.email}</Text>
           </View>
-          <TouchableOpacity style={styles.followButton}>
-              <Text style={styles.followText}>Follow</Text>
-          </TouchableOpacity>
+          {/*<TouchableOpacity style={styles.followButton}>*/}
+          {/*    <Text style={styles.followText}>Follow</Text>*/}
+          {/*</TouchableOpacity>*/}
           <View style={{marginLeft:10,marginTop:5}}>
               <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
-                  <Text>{item.description}
+                  <Text>{item.intro}
                   </Text>
               </ViewMoreText>
           </View>
           <Text style={styles.subTitle}>Courses of this author</Text>
-          <ListCourses navigation={props.navigation} list={item.authorCoursesList}></ListCourses>
-      </ScrollView>
+          <ListCourses navigation={props.navigation} list={item.courses}></ListCourses>
+      </ScrollView>:<View></View>
+
   )
 };
 
