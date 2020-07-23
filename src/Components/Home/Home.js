@@ -68,6 +68,7 @@ const Home = (props) => {
             }
         })
         api.get(`https://api.itedu.me/user/get-favorite-courses`,{},authentication.state.token).then((response)=>{
+            console.log('fave',response)
             if(response.isSuccess){
                 setFaveList(response.data.payload)
             }
@@ -98,6 +99,7 @@ const Home = (props) => {
     // }
     const recList=<SectionCourses navigation={props.navigation} list={recommendList} title={'Recommend for you'}></SectionCourses>
     const contiList=<SectionCourses navigation={props.navigation} list={continueList} title={'Continue Learning'}></SectionCourses>
+    const fave =<SectionCourses navigation={props.navigation} list={faveList} title={'Favorites Courses'}></SectionCourses>
 
     return (
         <View style={styles.container}>

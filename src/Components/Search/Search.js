@@ -10,6 +10,7 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 
 const Search = (props) => {
+    const {theme} = useContext(ThemeContext)
     const [searching,setSearching]=useState('')
     const [recentSearchesList,setRecentSearchesList] = useState([])
     const [result,setResult]=useState([])
@@ -51,6 +52,7 @@ const Search = (props) => {
                 limit: 10,
                 offset: 1
             }).then((response)=>{
+                console.log('search',response)
                 if(response.isSuccess){
                     setResult(response.data.payload.rows)
                 }

@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {TouchableOpacity,Image, View, StyleSheet,Text } from 'react-native';
 import {Rating} from 'react-native-elements';
 import SectionCourses from "./SectionCourses";
@@ -11,16 +11,17 @@ const SectionCoursesItem = (props) => {
     const {theme} = useContext(ThemeContext)
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
+    useEffect(()=>{
+        api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
+            .then((response)=>{
+                if(response.isSuccess){
+                    setDidBuy(response.data.payload.isUserOwnCourse)
+                }})
+            .catch((error)=>{console.log('error',error)})
+    },[])
 
     const onPressItem=()=>{
         //api check own courses
-        api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
-            .then((response)=>{
-                console.log('testtest',authentication.state.token)
-                if(response.isSuccess){
-                setDidBuy(response.data.isUserOwnCourse)
-            }})
-            .catch((error)=>{console.log('error',error)})
         if(didBuy){
             props.navigation.push("CourseDetail", {item:props.item})
         }
