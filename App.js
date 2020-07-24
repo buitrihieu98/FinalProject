@@ -30,6 +30,8 @@ import NewRelease from "./src/Components/Browse/NewRelease";
 import Recommended from "./src/Components/Browse/Recommended";
 import {ThemeContext, ThemeProvider} from "./src/provider/ThemeProvider";
 import CourseDetailToBuy from "./src/Components/Home/CourseDetailToBuy";
+import SeeAllCourses2 from "./src/Components/Home/SeeAllCourses2";
+import ChangePass from "./src/Components/AccountManagement/ChangePass";
 
 const Stack = createStackNavigator();
 const MainStack= createStackNavigator();
@@ -48,6 +50,7 @@ const HomeStack=(props)=>{
                 <Stack.Screen name="Profile" navigation={props.navigation} component={ProfileComponent} options={{ title: '' }} />
                 <Stack.Screen name="TopicDetail" navigation={props.navigation} component={TopicDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="CourseDetailToBuy" navigation={props.navigation} component={CourseDetailToBuy} />
+                <Stack.Screen name="SeeAllCourses2" navigation={props.navigation} component={SeeAllCourses2} options={{ title: '' }} />
             </Stack.Navigator>
     )
 };
@@ -99,6 +102,7 @@ const SettingStack=()=>{
         <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Setting" component={SettingComponent} />
             <Stack.Screen name="ChangeAccountInfo" component={ChangeAccountInfo} />
+            <Stack.Screen name="ChangePass" component={ChangePass} />
             <Stack.Screen name="Subscription" component={Subscription} />
         </Stack.Navigator>
     )
@@ -137,7 +141,7 @@ const TabRoot=()=>{
                 }}
             >
                 <Tab.Screen name="Home" component={HomeStack} />
-                <Tab.Screen name="Download" component={DownloadStack} />
+                {/*<Tab.Screen name="Download" component={DownloadStack} />*/}
                 <Tab.Screen name="Browse" component={BrowseStack} />
                 <Tab.Screen name="Search" component={SearchStack} />
                 <Tab.Screen name="Setting" component={SettingStack} />

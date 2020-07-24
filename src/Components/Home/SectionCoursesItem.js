@@ -31,30 +31,16 @@ const SectionCoursesItem = (props) => {
     }
   return (
       <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
-          {/*<Image style={styles.video}*/}
-          {/*    source={require('../../../assets/icon-video.png')}>*/}
-          {/*</Image>*/}
-          {/*<View style={{margin:5}}>*/}
-          {/*    /!*<Text style={styles.coreInfo}>{props.item.title}</Text>*!/*/}
-          {/*    /!*<Text style={styles.coreInfo}>{props.item.author.length===1?props.item.author[0].username:`${props.item.author[0].username} +${props.item.author.length-1}`}</Text>*!/*/}
-          {/*    /!*<Text style={styles.subInfo}>{`${props.item.level} . ${props.item.releasedDate}`}</Text>*!/*/}
-          {/*    /!*<Text style={styles.subInfo}>{props.item.duration}</Text>*!/*/}
-          {/*    /!*<View style={{flexDirection:'row'}}>*!/*/}
-          {/*    /!*    <Rating imageSize={18} tintColor={theme.itemBackground} readonly={true} ratingCount={5}  startingValue={props.item.rating} style={styles.rating} />*!/*/}
-          {/*    /!*    <Text style={{marginTop:4,color:'darkgray',fontSize:15}}>({props.item.ratingNumber})</Text>*!/*/}
-          {/*    /!*</View>*!/*/}
-          {/*    /!*<Rating rate={props.item.rating}></Rating>*!/*/}
-          {/*</View>*/}
           <Image style={styles.video}
                  source={{uri: props.item.imageUrl}}>
           </Image>
           <View style={{margin:5}}>
               <Text style={styles.coreInfo}>{props.item.title}</Text>
-              <Text style={styles.subInfo}>{`Price: ${props.item.price} . Total hours:${props.item.totalHours}`}</Text>
+              <Text style={styles.subInfo}>{props.item['instructor.user.name']}</Text>
+              <Text style={styles.subInfo}>{`Price: ${props.item.price} vnd . Total hours:${props.item.totalHours}`}</Text>
               <View style={{flexDirection:'row'}}>
-                  <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.ratedNumber} style={styles.rating} />
+                  <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.contentPoint} style={styles.rating} />
               </View>
-
           </View>
       </TouchableOpacity>
 
@@ -64,8 +50,8 @@ const SectionCoursesItem = (props) => {
 const styles = StyleSheet.create({
     container:{
         margin:5,
-        width:200,
-        height:200,
+        width:220,
+        height:220,
         backgroundColor:'linen',
         alignItems:'center'
     },

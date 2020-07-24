@@ -10,7 +10,6 @@ class BaseApi{
             headers
         })
             .then((response)=>{
-                console.log('status',response.status)
                 if(response.status===200){
                      return {isSuccess: true, data:response.data, status:response.status}
                 }

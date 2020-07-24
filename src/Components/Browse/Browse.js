@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import {Avatar, Tile} from "react-native-elements";
 
@@ -7,46 +7,36 @@ import AuthorList from "../Home/AuthorList";
 import Tag from "../Global/Tag";
 import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import api from "../../API/api";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const Browse = (props) => {
+    const authentication=useContext(AuthenticationContext)
     props.navigation.setOptions({headerRight: () => (
-            <Avatar
+        <Avatar
                 style={{margin:5,marginRight:10,height:25,width:25}}
                 onPress={() => props.navigation.navigate("Profile")}
-                source={require("../../../assets/icon-avatar.png")}
+                source={{uri:authentication.state.userInfo.avatar}}
             />
         ),})
-    const dataContext = useContext(LocalDataContext)
-    const data=dataContext.data
-    const {theme} = useContext(ThemeContext)
-    //authorList for testing
 
-    // const authorCoursesList=[{id:1, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
-    //     {id:2, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
-    //     {id:3, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
-    //     {id:4, title: 'React Native', author: [{id:1,username:'hieu'},{id:2, username:'hieu2'}] , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,}]
-    // const authorList=[
-    //     {id:1,username:'Hai Pham',email:'thisisanemail@gmail.com', avatar:'', authorCoursesList:authorCoursesList},
-    //     {id:2,email:'thisisanemail@gmail.com', username:'Hieu', avatar:'',authorCoursesList:authorCoursesList},
-    //     {id:3,email:'thisisanemail@gmail.com', username:'Nam', avatar:'',authorCoursesList:authorCoursesList},
-    //     {id:4,email:'thisisanemail@gmail.com', username:'Vi', avatar:'',authorCoursesList:authorCoursesList},
-    //     {id:5,email:'thisisanemail@gmail.com', username:'Thy', avatar:'',authorCoursesList:authorCoursesList}]
-    // //coursesList for testing
-    // const coursesList=[
-    //     {id:1, title: 'React Native', author: authorList , level:'Advance', releasedDate: 'July 2019', duration: '50 hours', rating : 4, ratingNumber: 406,},
-    //     {id:2, title: 'Java', author: authorList , level:'Beginner', releasedDate: 'July 2019', duration: '50 hours', rating : 5, ratingNumber: 709,},
-    //     {id:3, title: 'Game Development', author: authorList , level:'Beginner', releasedDate: 'Sept 2019', duration: '50 hours', rating : 3, ratingNumber: 1307,}]
-    // //pathList for testing
-    // const pathList=[
-    //     {id:1, title: 'React Native',coursesList:coursesList ,coursesNumber:12, progress:80},
-    //     {id:2, title: 'Java',coursesList:coursesList, coursesNumber:25, progress:80},
-    //     {id:3, title: 'PHP',coursesList:coursesList, coursesNumber:12, progress:80},]
-    // const tagList = ['JavaScript','C#','C++','PHP','Python','Java']
-    // const interestTagList = [{name:'JavaScript', authorList:authorList, coursesList:coursesList,pathList:pathList},
-    //     {name:'C#', authorList:authorList, coursesList:coursesList,pathList:pathList},
-    //     {name:'PHP', authorList:authorList, coursesList:coursesList,pathList:pathList},
-    //     {name:'React', authorList:authorList, coursesList:coursesList,pathList:pathList}
-    // ]
+    const {theme} = useContext(ThemeContext)
+    const [categoryList,setCategoryList]=useState([])
+    const [instructorList,setInstructorList]=useState([])
+    useEffect(()=>{
+        api.get('https://api.itedu.me/category/all',{},).then((response)=>{
+            if(response.isSuccess){
+                setCategoryList(response.data.payload)
+            }
+        })
+        api.get('https://api.itedu.me/instructor',{},).then((response)=>{
+            if(response.isSuccess){
+                setInstructorList(response.data.payload)
+            }
+        })
+    },[])
+
+
   return (
       <View style={{...styles.container,backgroundColor:theme.background}}>
           <ScrollView>
@@ -67,11 +57,11 @@ const Browse = (props) => {
               <Text style={styles.subtitle}>Popular skills</Text>
               <View style={{flexDirection: 'row', margin:5}}>
                   <ScrollView horizontal={true}>
-                      {data.topicList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
+                      {categoryList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
                   </ScrollView>
               </View>
-              <PathList navigation={props.navigation} list={data.pathList} title={'Paths'}></PathList>
-              <AuthorList navigation={props.navigation} list={data.authorList} title={'Top authors'}></AuthorList>
+              {/*<Text style={styles.subtitle}>Top Authors</Text>*/}
+              {/*<AuthorList navigation={props.navigation} list={instructorList}></AuthorList>*/}
           </ScrollView>
       </View>
 

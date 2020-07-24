@@ -1,16 +1,30 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
 import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import axios from "axios";
 
 const NewRelease = (props) => {
     const {theme} = useContext(ThemeContext)
-    const dataContext = useContext(LocalDataContext)
-    const data=dataContext.data
+    const [topNewList, setTopNewList]=useState([])
+    useEffect(()=>{
+        axios.post('https://api.itedu.me/course/top-new', {
+            limit: 10,  page: 1
+        }).then((response)=>{
+            if(response.status===200){
+                setTopNewList(response.data.payload)
+            }
+            else{
+                console.log('Failed : ',response.status)
+            }
+        }).catch((error)=>{
+            console.log('failed ',error)
+        })
+    },[])
     return (
         <View style={{...styles.container,backgroundColor:theme.background}}>
-            <ListCourses navigation={props.navigation} list={data.newList}></ListCourses>
+            <ListCourses navigation={props.navigation} list={topNewList}></ListCourses>
         </View>
 
     )

@@ -5,7 +5,7 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
-const ListCoursesItem = (props) => {
+const ListCoursesItem2 = (props) => {
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     useEffect(()=>{
@@ -30,15 +30,15 @@ const ListCoursesItem = (props) => {
     return (
         <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
             <Image style={styles.image}
-                   source={{uri: props.item.imageUrl}}>
+                   source={{uri: props.item.courseImage}}>
             </Image>
             <View style={{margin:5}}>
-                <Text style={{...styles.coreInfo, fontWeight:'bold'}}>{props.item.title}</Text>
-                <Text style={styles.coreInfo}>{props.item.learnWhat}</Text>
-                <Text style={styles.subInfo}>{`Price:${props.item.price}`}</Text>
-                <Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>
+                <Text style={{...styles.coreInfo, fontWeight:'bold'}}>{props.item.courseTitle}</Text>
+                {/*<Text style={styles.coreInfo}>{props.item.learnWhat}</Text>*/}
+                {props.item.coursePrice===undefined?<Text style={styles.subInfo}>{`Process:${props.item.process} %`}</Text>:<Text style={styles.subInfo}>{`Price:${props.item.coursePrice}`}</Text>}
+                {/*<Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>*/}
                 <View style={{flexDirection:'row'}}>
-                    <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.contentPoint} style={styles.rating} />
+                    <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.courseAveragePoint} style={styles.rating} />
                 </View>
             </View>
         </TouchableOpacity>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         color:'darkgray'
     },
     rating:{
-      marginTop:2,
+        marginTop:2,
     }
 });
-export default ListCoursesItem
+export default ListCoursesItem2

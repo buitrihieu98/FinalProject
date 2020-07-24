@@ -1,19 +1,26 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native';
 import BackButton from "../Global/BackButton";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const ChangeAccountInfo = (props) => {
-    const[newUserName,setNewUserName] =useState('')
-    const[oldUserName,setOldUserName]=useState('Old Username')
-    const[email,setEmail] =useState('email@gmail.com')
+    const authentication=useContext(AuthenticationContext)
+    const[newName,setNewName] =useState('')
+    const[oldName,setOldName]=useState(authentication.state.userInfo.name)
+    const[email,setEmail] =useState(authentication.state.userInfo.email)
     const[newPassword,setNewPassword]=useState('')
     const[confirmPassword,setConfirmPassword]=useState('')
     const {theme} = useContext(ThemeContext)
+
+    useEffect(()=>{
+
+
+    },[])
   return (
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
-              <Image style={styles.avatar} source={require('../../../assets/icon-avatar.png')}></Image>
+              <Image style={styles.avatar} source={{uri:authentication.state.userInfo.avatar}}></Image>
               <TouchableOpacity>
                   <Text style={styles.changeAvatar}>Change?</Text>
               </TouchableOpacity>
@@ -22,7 +29,7 @@ const ChangeAccountInfo = (props) => {
               <Text style={styles.subtitle}>Email</Text>
               <Text style={styles.value}>{email}</Text>
               <Text style={styles.subtitle}>New Username</Text>
-              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={newU=>setNewUserName(newU)} placeholder= {oldUserName} />
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={newU=>setNewName(newU)} placeholder= {oldName} />
               <Text style={styles.subtitle}>New Password</Text>
               <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={pw=>setNewPassword(pw)} placeholder={'New password'}/>
               <Text style={styles.subtitle}>Confirm Password</Text>
@@ -63,8 +70,8 @@ const styles = StyleSheet.create({
     },
     avatar:{
         marginTop:10,
-        height: 100,
-        width:100,
+        height: 150,
+        width:150,
     },
     username:{
         margin:5,

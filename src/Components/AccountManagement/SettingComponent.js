@@ -13,6 +13,9 @@ const SettingComponent = (props) => {
     const onPressChangeInfo=()=>{
         props.navigation.push("ChangeAccountInfo")
     }
+    const onPressChangePass=()=>{
+        props.navigation.push("ChangePass")
+    }
     const onPressSubscription=()=>{
         props.navigation.push("Subscription")
     }
@@ -30,6 +33,10 @@ const SettingComponent = (props) => {
                   <Text style={styles.itemName}>Change Account Info</Text>
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
               </TouchableOpacity>
+              <TouchableOpacity onPress={onPressChangePass} style={{...styles.subContainer,backgroundColor:theme.background}}>
+                  <Text style={styles.itemName}>Change Password</Text>
+                  <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
+              </TouchableOpacity>
               <TouchableOpacity onPress={onPressSubscription} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Subscription</Text>
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
@@ -38,7 +45,7 @@ const SettingComponent = (props) => {
               <TouchableOpacity onPress={onPressChangeTheme} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Change theme</Text>
               </TouchableOpacity>
-              <SettingItem name={'Communication Preferences'}></SettingItem>
+
               <SettingItemWithSwitch name={'Require Wi-fi for streaming'}></SettingItemWithSwitch>
               <SettingItemWithSwitch name={'Require Wi-fi for downloading'}></SettingItemWithSwitch>
               <SettingItem name={'Send feedback'}></SettingItem>

@@ -4,46 +4,30 @@ import SectionCourses from "./SectionCourses";
 import PathList from "./PathList";
 import AuthorList from "./AuthorList";
 import {Avatar} from "react-native-elements";
-import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import axios from "axios";
 import {LOGIN_FAILED, LOGIN_SUCCEEDED} from "../../Actions/authentication_action";
 import api from "../../API/api";
+import SectionCourses2 from "./SectionCourse2";
 
 const Home = (props) => {
     props.navigation.setOptions({headerRight: () => (
             <Avatar
                 style={{margin:5,marginRight:10,height:25,width:25}}
                 onPress={() => props.navigation.navigate("Profile")}
-                source={require("../../../assets/icon-avatar.png")}
+                source={{uri:userInfo.avatar}}
             />
         ),})
-
-    const dataContext = useContext(LocalDataContext)
     const {theme} = useContext(ThemeContext)
-    const data=dataContext.data
-    // const {authentication, setAuthentication,favoritesList, setFavoritesList} = useContext(AuthenticationContext)
     const authentication = useContext(AuthenticationContext)
     const userInfo= authentication.state.userInfo
-    const [topNewList, setTopNewList]=useState([])
+    const [topSellList, setTopSellList]=useState([])
     const [topRateList, setTopRateList]=useState([])
     const [faveList, setFaveList]=useState([])
-    const[recommendList,setRecommendList]=useState([])
     const[continueList,setContinueList]=useState([])
+
     useEffect(()=>{
-        axios.post('https://api.itedu.me/course/top-new', {
-            limit: 10,  page: 1
-        }).then((response)=>{
-            if(response.status===200){
-                setTopNewList(response.data.payload)
-            }
-            else{
-                console.log('Failed : ',response.status)
-            }
-        }).catch((error)=>{
-            console.log('failed ',error)
-        })
         axios.post('https://api.itedu.me/course/top-rate', {
             limit: 10,  page: 1
         }).then((response)=>{
@@ -56,56 +40,33 @@ const Home = (props) => {
         }).catch((error)=>{
             console.log('failed ',error)
         })
-
-        api.get(`https://api.itedu.me/user/recommend-course/${userInfo.id}/10/1`,{},).then((response)=>{
+        api.post(`https://api.itedu.me/course/top-sell`,{
+            limit: 10,
+            page: 1
+        },).then((response)=>{
             if(response.isSuccess){
-                setRecommendList(response.data.payload)
+                setTopSellList(response.data.payload)
             }
         })
+
         api.get(`https://api.itedu.me/user/get-process-courses`,{},authentication.state.token).then((response)=>{
             if(response.isSuccess){
                 setContinueList(response.data.payload)
             }
         })
         api.get(`https://api.itedu.me/user/get-favorite-courses`,{},authentication.state.token).then((response)=>{
-            console.log('fave',response)
+
             if(response.isSuccess){
                 setFaveList(response.data.payload)
             }
         })
     },[])
 
-    //const [topNewList, setTopNewList]=useState([])
-    // const getTopNew = api.post('https://api.itedu.me/course/top-new',{
-    //     limit: 10,
-    //     page: 1
-    // })
-    // if(getTopNew.isSuccess){
-    //     setTopNewList(getTopNew.data.payload)
-    // }
-
-
-
-    // const getTopRate =api.post('https://api.itedu.me/course/top-rate',{
-    //     limit: 10,
-    //     page: 1
-    // }).then()
-    // if(getTopRate.isSuccess){
-    //     setTopRateList(getTopRate.data.payload)
-    // }
-    // const getFave = api.post('https://api.itedu.me/course/courses-user-favorite-categories',userInfo.id)
-    // if(getTopRate.isSuccess){
-    //     setFaveList(getFave.data.payload)
-    // }
-    const recList=<SectionCourses navigation={props.navigation} list={recommendList} title={'Recommend for you'}></SectionCourses>
-    const contiList=<SectionCourses navigation={props.navigation} list={continueList} title={'Continue Learning'}></SectionCourses>
-    const fave =<SectionCourses navigation={props.navigation} list={faveList} title={'Favorites Courses'}></SectionCourses>
+    const contiList=<SectionCourses2 navigation={props.navigation} list={continueList} title={'Continue Learning'}></SectionCourses2>
+    const fave =<SectionCourses2 navigation={props.navigation} list={faveList} title={'Your Favorites Courses'}></SectionCourses2>
 
     return (
         <View style={styles.container}>
-            {/*<View style={styles.titleContainer}>*/}
-            {/*    <Text style={styles.title}>Home</Text>*/}
-            {/*</View>*/}
             <ScrollView>
                 <View >
                     <Text style={styles.intro}>Welcome to Exceed!</Text>
@@ -115,12 +76,10 @@ const Home = (props) => {
                         erase your knowledge's boundary by joining online courses.
                     </Text>
                 </View>
-                <SectionCourses navigation={props.navigation} list={topNewList} title={'Top new courses'}></SectionCourses>
-                <SectionCourses navigation={props.navigation} list={topRateList} title={'Top rate courses'}></SectionCourses>
-                {/*<PathList navigation={props.navigation} list={data.pathList} title={'Path'}></PathList>*/}
-                {faveList.length>0?fave:<View></View>}
                 {continueList.length>0?contiList:<View></View>}
-                {recommendList.length>0?recList:<View></View>}
+                {faveList.length>0?fave:<View></View>}
+                <SectionCourses navigation={props.navigation} list={topSellList} title={'Top sell courses'}></SectionCourses>
+                <SectionCourses navigation={props.navigation} list={topRateList} title={'Top rate courses'}></SectionCourses>
             </ScrollView>
         </View>
     )

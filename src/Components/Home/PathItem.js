@@ -4,21 +4,19 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 
 const PathItem = (props) => {
     const {theme} = useContext(ThemeContext)
-    const onPressItem=()=>{
-        props.navigation.push("PathDetail",{item:props.item})
-    }
+    // const onPressItem=()=>{
+    //     props.navigation.push("PathDetail",{item:props.item})
+    // }
   return (
-    <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
-          <Image style={styles.image}
-                 source={require('../../../assets/icon-video.png')}>
-          </Image>
+    <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}}>
+          {/*<Image style={styles.image}*/}
+          {/*       source={require('../../../assets/icon-video.png')}>*/}
+          {/*</Image>*/}
           <View style={{margin:5}}>
-              <Text style={styles.coreInfo}>{props.item.title}</Text>
-              <Text style={styles.subInfo}>{`${props.item.coursesNumber} courses`}</Text>
-
+              <Text style={styles.coreInfo}>{props.item.name}</Text>
+              {/*<Text style={styles.subInfo}>{`${props.item.coursesNumber} courses`}</Text>*/}
           </View>
       </TouchableOpacity>
-
   )
 };
 

@@ -1,11 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {TouchableOpacity, Image, View, StyleSheet,Text } from 'react-native';
-import {Rating} from "react-native-elements";
+import {TouchableOpacity,Image, View, StyleSheet,Text } from 'react-native';
+import {Rating} from 'react-native-elements';
+import SectionCourses from "./SectionCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+//import Rating from "./Rating";
 
-const ListCoursesItem = (props) => {
+const SectionCoursesItem2 = (props) => {
+    const {theme} = useContext(ThemeContext)
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     useEffect(()=>{
@@ -26,44 +29,54 @@ const ListCoursesItem = (props) => {
             props.navigation.push("CourseDetailToBuy", {item:props.item})
         }
     }
-    const {theme} = useContext(ThemeContext)
     return (
         <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
-            <Image style={styles.image}
-                   source={{uri: props.item.imageUrl}}>
+            <Image style={styles.video}
+                   source={{uri: props.item.courseImage}}>
             </Image>
             <View style={{margin:5}}>
-                <Text style={{...styles.coreInfo, fontWeight:'bold'}}>{props.item.title}</Text>
-                <Text style={styles.coreInfo}>{props.item.learnWhat}</Text>
-                <Text style={styles.subInfo}>{`Price:${props.item.price}`}</Text>
-                <Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>
-                <View style={{flexDirection:'row'}}>
-                    <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.contentPoint} style={styles.rating} />
-                </View>
+                <Text style={styles.coreInfo}>{props.item.courseTitle}</Text>
+                <Text style = {styles.subInfo}>{props.item.instructorName}</Text>
+                {props.item.coursePrice===undefined?<Text style={styles.subInfo}>{`Process: ${props.item.process}%`}</Text>:<Text style={styles.subInfo}>{`Price: ${props.item.coursePrice} vnd`}</Text>}
+                {props.item.courseAveragePoint===undefined?<View></View>:
+                    <View style={{flexDirection:'row'}}>
+                        <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'}
+                            readonly={true} ratingCount={5}  startingValue={props.item.courseAveragePoint} style={styles.rating} />
+                    </View>
+                            }
             </View>
         </TouchableOpacity>
+
     )
 };
+
 const styles = StyleSheet.create({
     container:{
         margin:5,
+        width:220,
+        height:220,
         backgroundColor:'linen',
-        flexDirection:'row',
+        alignItems:'center'
     },
-    image:{
-        alignSelf:'center',
-        width:150,
-        height:130,
+    video:{
+        width:'100%',
+        height: '50%',
     },
     coreInfo:{
         fontSize:15,
+        fontWeight:'bold'
     },
     subInfo:{
         fontSize: 15,
         color:'darkgray'
     },
     rating:{
-      marginTop:2,
+        margin:5,
+        alignSelf:'center'
     }
+
 });
-export default ListCoursesItem
+
+
+
+export default SectionCoursesItem2

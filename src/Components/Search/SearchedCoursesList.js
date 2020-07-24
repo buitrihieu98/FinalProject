@@ -9,6 +9,7 @@ const SearchedCoursesList = (props) => {
     //     Array=Array.concat(List)
     //     return Array.map(item=> <ListCoursesItem item={item}></ListCoursesItem>)
     // }
+
     return (
         <View style={styles.container}>
             <View style={{flexDirection:'row'}}>

@@ -5,11 +5,11 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 
 const Tag = (props) => {
     const {theme} = useContext(ThemeContext)
-    const onPressItem=()=>{
-        props.navigation.push("TopicDetail",{item:props.item})
-    }
+    // const onPressItem=()=>{
+    //     props.navigation.push("TopicDetail",{item:props.item})
+    // }
   return (
-      <TouchableOpacity onPress={onPressItem} style={{...styles.button,backgroundColor:theme.itemBackground}}>
+      <TouchableOpacity  style={{...styles.button,backgroundColor:theme.itemBackground}}>
           <Text>{props.item.name}</Text>
       </TouchableOpacity>
   )
