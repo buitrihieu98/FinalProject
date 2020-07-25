@@ -10,7 +10,7 @@ const Recommended = (props) => {
     const {theme} = useContext(ThemeContext)
     const[recommendList,setRecommendList]=useState([])
     useEffect(()=>{
-        api.get(`https://api.itedu.me/user/recommend-course/${userInfo.id}/10/1`,{},).then((response)=>{
+        api.get(`https://api.itedu.me/user/recommend-course/${userInfo.id}/10/0`,{},).then((response)=>{
             if(response.isSuccess){
                 setRecommendList(response.data.payload)
             }

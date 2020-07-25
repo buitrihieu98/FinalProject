@@ -29,7 +29,7 @@ const Search = (props) => {
                     ]
                 },
                 limit: 10,
-                offset: 1
+                offset: 0
             }).then((response)=>{
                 console.log('search',response)
                 if(response.isSuccess){
