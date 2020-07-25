@@ -24,29 +24,8 @@ const Search = (props) => {
                         rule: "ASC"
                     },
                     category: [
-                    ],
-                    time: [
-                        {
-                            min: 0,
-                            max: 1
-                        },
-                        {
-                            min: 3,
-                            max: 6
-                        }
-                    ],
-                    price: [
-                        {
-                            max: 0
-                        },
-                        {
-                            min: 0,
-                            max: 200000
-                        },
-                        {
-                            min: 500000,
-                            max: 1000000
-                        }
+                    ], time: [
+                    ], price: [
                     ]
                 },
                 limit: 10,
@@ -58,7 +37,6 @@ const Search = (props) => {
                 }
             })
         }
-
     },[searching])
 
 

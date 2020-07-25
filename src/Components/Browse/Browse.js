@@ -67,8 +67,8 @@ const Browse = (props) => {
                       {categoryList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
                   </ScrollView>
               </View>
-              {/*<Text style={styles.subtitle}>Top Authors</Text>*/}
-              {/*<AuthorList navigation={props.navigation} list={instructorList}></AuthorList>*/}
+              <Text style={styles.subtitle}>Top Authors</Text>
+              <AuthorList navigation={props.navigation} list={instructorList}></AuthorList>
           </ScrollView>
       </View>
 

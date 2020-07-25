@@ -38,6 +38,7 @@ const CourseDetailToBuy = (props) => {
                     .catch((error)=>{console.log('error',error)})
             }
             else{
+                //link tới trang https://itedu.me/payment/{courseId}
             }
         }
     }

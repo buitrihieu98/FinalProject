@@ -16,7 +16,7 @@ const AuthorDetail = (props) => {
     const [detail,setDetail]=useState()
     const [ok,setOk]=useState(false)
     useEffect(()=>{
-        api.get(`https://api.itedu.me/instructor/detail/${item.id}`,{},)
+        api.get(`https://api.itedu.me/instructor/detail/?id=${item.id}`,{},)
             .then((response)=>{
                 console.log('author',response)
                 if(response.isSuccess){
