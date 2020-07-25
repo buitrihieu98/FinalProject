@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView, ActivityIndicator} from 'react-native';
 import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
 import ViewMoreText from 'react-native-view-more-text';
@@ -20,7 +20,7 @@ const CourseDetail = (props) => {
     // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
     const [liked,setLiked]=useState(false)
-    const [free,setFree]=useState(false)
+    const [isLoading,setIsLoading] = useState(true)
 
     useEffect(()=>{
         api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
@@ -37,6 +37,9 @@ const CourseDetail = (props) => {
             .then((response)=>{if(response.isSuccess){
                 setProcesCourse(response.data.payload)
             }})
+        if(detail!=={}){
+            setIsLoading(false)
+        }
 
     },[])
 
@@ -57,6 +60,9 @@ const CourseDetail = (props) => {
         <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
   return (
+      isLoading?<View>
+              <ActivityIndicator size="large" />
+          </View>:
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           {/*video*/}
           <Image style={styles.video} source={{uri: detail.imageUrl}}></Image>

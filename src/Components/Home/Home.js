@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Image, ScrollView, Text, ImageBackground} from 'react-native';
+import {View, StyleSheet, Image, ScrollView, Text, ImageBackground, ActivityIndicator} from 'react-native';
 import SectionCourses from "./SectionCourses";
 import PathList from "./PathList";
 import AuthorList from "./AuthorList";
@@ -26,6 +26,7 @@ const Home = (props) => {
     const [topRateList, setTopRateList]=useState([])
     const [faveList, setFaveList]=useState([])
     const[continueList,setContinueList]=useState([])
+    const [isLoading,setIsLoading] = useState(true)
 
     useEffect(()=>{
         axios.post('https://api.itedu.me/course/top-rate', {
@@ -60,12 +61,18 @@ const Home = (props) => {
                 setFaveList(response.data.payload)
             }
         })
+        if((topSellList!==[])&&(topRateList!==[])&&(continueList!==[])&&(faveList!==[])){
+            setIsLoading(false)
+        }
     },[])
 
     const contiList=<SectionCourses2 navigation={props.navigation} list={continueList} title={'Continue Learning'}></SectionCourses2>
     const fave =<SectionCourses2 navigation={props.navigation} list={faveList} title={'Your Favorites Courses'}></SectionCourses2>
 
     return (
+        isLoading?<View>
+                <ActivityIndicator size="large" />
+        </View>:
         <View style={styles.container}>
             <ScrollView>
                 <View >

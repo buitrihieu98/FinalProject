@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Text, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, ScrollView, ActivityIndicator} from 'react-native';
 import {Avatar, Tile} from "react-native-elements";
 
 import PathList from "../Home/PathList";
@@ -23,6 +23,7 @@ const Browse = (props) => {
     const {theme} = useContext(ThemeContext)
     const [categoryList,setCategoryList]=useState([])
     const [instructorList,setInstructorList]=useState([])
+    const [isLoading,setIsLoading] = useState(true)
     useEffect(()=>{
         api.get('https://api.itedu.me/category/all',{},).then((response)=>{
             if(response.isSuccess){
@@ -34,10 +35,16 @@ const Browse = (props) => {
                 setInstructorList(response.data.payload)
             }
         })
+        if(categoryList!==[]){
+            setIsLoading(false)
+        }
     },[])
 
 
   return (
+      isLoading?<View>
+              <ActivityIndicator size="large" />
+          </View>:
       <View style={{...styles.container,backgroundColor:theme.background}}>
           <ScrollView>
               <View style={{...styles.tileContainer,backgroundColor:theme.background}}>
