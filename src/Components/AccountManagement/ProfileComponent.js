@@ -13,6 +13,7 @@ const ProfileComponent = (props) => {
 const authentication = useContext(AuthenticationContext)
 const userInfo=authentication.state.userInfo
 const {theme} = useContext(ThemeContext)
+    const [isLoading,setIsLoading] = useState(true)
     const [interestList,setInterestList]=useState([])
     useEffect(()=>{
         userInfo.favoriteCategories.map((id)=>{
@@ -26,6 +27,9 @@ const {theme} = useContext(ThemeContext)
                 }
             })
         })
+        if(interestList!==[]){
+            setIsLoading(false)
+        }
     },[])
 
     return (
@@ -38,12 +42,13 @@ const {theme} = useContext(ThemeContext)
               </Text>
               <Text style={styles.email}>{userInfo.phone}</Text>
           </View>
-          <Text style={styles.subtitle}>Interest topic</Text>
-          <View style={{flexDirection: 'row', margin:5}}>
+          {isLoading?<View></View>:<View style={{margin:10}}>
+              <Text style={styles.subtitle}>Interest topic</Text>
               <ScrollView horizontal={true}>
                   {interestList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
               </ScrollView>
-          </View>
+          </View>}
+
       </View>
     )
 };

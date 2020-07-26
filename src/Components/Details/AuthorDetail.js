@@ -7,6 +7,7 @@ import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import MyRating from "../Home/Rating";
 
 
 const AuthorDetail = (props) => {
@@ -16,13 +17,27 @@ const AuthorDetail = (props) => {
     const [detail,setDetail]=useState()
     const [ok,setOk]=useState(false)
     useEffect(()=>{
+        console.log('itemmmmmmmmm',item)
         api.get(`https://api.itedu.me/instructor/detail/${item.id}`,{},)
             .then((response)=>{
-                console.log('author',response)
                 if(response.isSuccess){
-                setDetail(response.data.payload)
-                setOk(true)
+                    setDetail(response.data.payload)
+                    setOk(true)
             }})
+            .catch((error)=>{console.log('error',error)})
+        api.get(`https://api.itedu.me/instructor/detail/${item.userId}`,{},)
+            .then((response)=>{
+                if(response.isSuccess){
+                    setDetail(response.data.payload)
+                    setOk(true)
+                }})
+            .catch((error)=>{console.log('error',error)})
+        api.get(`https://api.itedu.me/instructor/detail/${item.instructorId}`,{},)
+            .then((response)=>{
+                if(response.isSuccess){
+                    setDetail(response.data.payload)
+                    setOk(true)
+                }})
             .catch((error)=>{console.log('error',error)})
 
     },[])
@@ -31,20 +46,22 @@ const AuthorDetail = (props) => {
       ok===true?<ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
               {<Avatar size={"large"} rounded={true} avatarStyle={styles.avatar} source={{uri:detail.avatar}}></Avatar>}
-              <Text style={styles.username}>{item.name}</Text>
-              <Text style={styles.email}>{item.email}</Text>
+              <Text style={styles.username}>{detail.name}</Text>
+              <Text style={styles.email}>{detail.email}</Text>
           </View>
           {/*<TouchableOpacity style={styles.followButton}>*/}
           {/*    <Text style={styles.followText}>Follow</Text>*/}
           {/*</TouchableOpacity>*/}
-          <View style={{marginLeft:10,marginTop:5}}>
+
+          <View style={{marginLeft:10,marginTop:5,alignItems:'center', justifyContent:'center'}}>
+              <MyRating  item={detail}></MyRating>
               <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
-                  <Text>{item.intro}
+                  <Text>{detail.intro}
                   </Text>
               </ViewMoreText>
           </View>
           <Text style={styles.subTitle}>Courses of this author</Text>
-          <ListCourses navigation={props.navigation} list={item.courses}></ListCourses>
+          <ListCourses navigation={props.navigation} list={detail.courses}></ListCourses>
       </ScrollView>:<View></View>
 
   )

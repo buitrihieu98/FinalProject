@@ -10,8 +10,8 @@ const ForgotPassword = (props) => {
 
     const onPressReset=(email)=>{
         api.post('https://api.itedu.me/user​/forget-pass​/send-email',{email:email},).then((response)=>{
+            console.log(response)
             if(response.isSuccess){
-                console.log('email sent')
                 props.navigation.navigate("Login")
             }
         })

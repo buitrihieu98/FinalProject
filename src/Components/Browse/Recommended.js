@@ -4,9 +4,11 @@ import ListCourses from "../ListCourses/ListCourses";
 import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const Recommended = (props) => {
-
+    const authentication = useContext(AuthenticationContext)
+    const userInfo= authentication.state.userInfo
     const {theme} = useContext(ThemeContext)
     const[recommendList,setRecommendList]=useState([])
     useEffect(()=>{

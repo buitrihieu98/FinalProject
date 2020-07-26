@@ -5,3 +5,6 @@ Deadline 1: Mock-up UI/UX cho toàn bộ ứng dụng
 Deadline 2: Xây dựng ứng dụng offline cho toàn bộ ứng dụng
   - Commit ID: 9e5619b
   - Video demo: https://youtu.be/yn-TT5wHLg8
+Deadline 3: Ứng dụng online
+  - Commit ID: 
+  - Video demo: https://youtu.be/DkKKzBdC6j4
