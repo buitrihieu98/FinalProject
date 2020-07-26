@@ -1,11 +1,23 @@
 import React, {useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
+import api from "../../API/api";
 
 const ForgotPassword = (props) => {
     const [email,setEmail]=useState('')
     const onPressBackLogin=()=>{
         props.navigation.navigate("Login")
     }
+
+    const onPressReset=(email)=>{
+        api.post('https://api.itedu.me/user​/forget-pass​/send-email',{email:email},).then((response)=>{
+            if(response.isSuccess){
+                console.log('email sent')
+                props.navigation.navigate("Login")
+            }
+        })
+
+    }
+
     return (
         <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Image source={require('../../../assets/icon-forgotpass.png')} style={styles.logo}>
@@ -17,7 +29,8 @@ const ForgotPassword = (props) => {
             <TouchableOpacity onPress={onPressBackLogin}>
                 <Text style={styles.backToSignIn}>Remembered your password, back to login?</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.buttonLogin}>
+            <TouchableOpacity onPress={onPressReset(email)
+            } style={styles.buttonLogin}>
                 <Text style={styles.loginText} >Reset</Text>
             </TouchableOpacity>
         </ImageBackground>

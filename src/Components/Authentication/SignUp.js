@@ -18,11 +18,8 @@ const SignUp = (props) => {
         if(matched){
             api.post('https://api.itedu.me/user/register',{username:username,email:email,phone:phone,password:pass},).then((response)=>{
                 if(response.isSuccess){
-                    api.post('https://api.itedu.me/user/send-activate-email',{email:email},).then((response)=>{
-                        if(response.isSuccess){
-                            console.log('email sent')
-                        }
-                    })
+                    console.log('email sent')
+                    props.navigation.navigate("Login")
                 }
             })
         }
