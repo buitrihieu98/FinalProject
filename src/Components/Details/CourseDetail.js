@@ -1,5 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView, ActivityIndicator} from 'react-native';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {
+    Text,
+    TouchableOpacity,
+    View,
+    StyleSheet,
+    Image,
+    ScrollView,
+    ActivityIndicator,
+    Dimensions
+} from 'react-native';
 import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
 import ViewMoreText from 'react-native-view-more-text';
@@ -9,10 +18,11 @@ import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import AuthorItems from "../Home/AuthorItems";
-
+import {Video} from "expo-av";
 
 const CourseDetail = (props) => {
-
+    const WINDOW_WIDTH = Dimensions.get('window').width;
+    const playerRef=useRef(null)
     let item=props.route.params.item
     const [detail,setDetail]=useState({})
     const [processCourse,setProcesCourse]=useState(0)
@@ -21,11 +31,13 @@ const CourseDetail = (props) => {
     const {theme} = useContext(ThemeContext)
     const [liked,setLiked]=useState(false)
     const [isLoading,setIsLoading] = useState(true)
+    const [hasPromo,setHasPromo] = useState(false)
+    const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
 
     useEffect(()=>{
         api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
             .then((response)=>{if(response.isSuccess){
-            setDetail(response.data.payload)
+                setDetail(response.data.payload)
         }})
             .catch((error)=>{console.log('error',error)})
 
@@ -40,8 +52,16 @@ const CourseDetail = (props) => {
         if(detail!=={}){
             setIsLoading(false)
         }
-
     },[])
+    useEffect(()=>{
+        setVideo({videoUrl: detail.promoVidUrl,currentTime:0,isFinish:false})
+    },[detail])
+    useEffect(()=>{
+        if((video.videoUrl!=='')&&(video.videoUrl!==undefined)&&(video.videoUrl!==null)){
+            setHasPromo(true)
+            console.log('video la gi',video)
+        }
+    },[video])
 
     const onPressLike = ()=>{
         api.post('https://api.itedu.me/user/like-course',{
@@ -49,7 +69,6 @@ const CourseDetail = (props) => {
         },authentication.state.token)
         setLiked(!liked)
     }
-
 
     const buttonBookmark=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-heart.png')}></Image>
@@ -64,8 +83,17 @@ const CourseDetail = (props) => {
               <ActivityIndicator size="large" />
           </View>:
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
-          {/*video*/}
-          <Image style={styles.video} source={{uri: detail.imageUrl}}></Image>
+          {hasPromo?<Video
+              source={{ uri: video.videoUrl }}
+              rate={1.0}
+              useNativeControls={true}
+              volume={1.0}
+              isMuted={false}
+              resizeMode="cover"
+              shouldPlay
+              isLooping
+              style={{ width: WINDOW_WIDTH, height: 300 }}
+          />:<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
           <Text style={styles.courseTitle}>{detail.title}</Text>
               <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>
@@ -82,7 +110,7 @@ const CourseDetail = (props) => {
                       <Text> {detail.description}</Text>
                   </ViewMoreText>
               </View>
-              <LessonList item={detail.section}/>
+              <LessonList setState={setVideo} courseId={item.id} item={detail.section}/>
       </ScrollView>
   )
 };

@@ -1,7 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import api from "../../API/api";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const LessonList = (props) => {
+    const authentication = useContext(AuthenticationContext)
+    const onPressLesson = (content)=>{
+        api.get(`https://api.itedu.me/lesson/video/${props.courseId}/${content.id}`,{},authentication.state.token).then((response)=>{
+            if(response.isSuccess){
+                props.setState(response.data.payload)
+            }
+        })
+    }
     return (
         <View style={styles.container}>
             <FlatList
@@ -15,7 +25,7 @@ const LessonList = (props) => {
                         <View style={styles.containerContentList}>
                             {
                                 item.lesson.map((content) =>
-                                    <TouchableOpacity style={styles.containerContent}>
+                                    <TouchableOpacity onPress={()=>{onPressLesson(content)}}  style={styles.containerContent}>
                                         <Text >{content.name}</Text>
                                         <Text >{content.hours}</Text>
                                     </TouchableOpacity>)
