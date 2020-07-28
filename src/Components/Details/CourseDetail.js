@@ -18,7 +18,9 @@ import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import AuthorItems from "../Home/AuthorItems";
+import YoutubePlayer from 'react-native-youtube-iframe';
 import {Video} from "expo-av";
+import getYouTubeID from 'get-youtube-id';
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -33,6 +35,7 @@ const CourseDetail = (props) => {
     const [isLoading,setIsLoading] = useState(true)
     const [hasPromo,setHasPromo] = useState(false)
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
+    const [isYoutube,setIsYoutube]=useState(false)
 
     useEffect(()=>{
         api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
@@ -59,6 +62,7 @@ const CourseDetail = (props) => {
     useEffect(()=>{
         if((video.videoUrl!=='')&&(video.videoUrl!==undefined)&&(video.videoUrl!==null)){
             setHasPromo(true)
+            setIsYoutube(video.videoUrl.includes("youtu"))
             console.log('video la gi',video)
         }
     },[video])
@@ -83,7 +87,21 @@ const CourseDetail = (props) => {
               <ActivityIndicator size="large" />
           </View>:
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
-          {hasPromo?<Video
+          {hasPromo?(isYoutube?<YoutubePlayer ref={playerRef}
+                                                 height={300}
+                                                 width={400}
+                                                 videoId={getYouTubeID(video.videoUrl)}
+                                                 play={true}
+                                                 onChangeState={event => console.log(event)}
+                                                 onReady={() => console.log("ready")}
+                                                 onError={e => console.log(e)}
+                                                 onPlaybackQualityChange={q => console.log(q)}
+                                                 volume={50}
+                                                 playbackRate={1}
+                                                 playerParams={{
+                                                     cc_lang_pref: "us",
+                                                     showClosedCaptions: true
+                                                 }}></YoutubePlayer> :<Video
               source={{ uri: video.videoUrl }}
               rate={1.0}
               useNativeControls={true}
@@ -93,7 +111,7 @@ const CourseDetail = (props) => {
               shouldPlay
               isLooping
               style={{ width: WINDOW_WIDTH, height: 300 }}
-          />:<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
+          />):<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
           <Text style={styles.courseTitle}>{detail.title}</Text>
               <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>
