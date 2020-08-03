@@ -92,10 +92,6 @@ const CourseDetail = (props) => {
                                                  width={400}
                                                  videoId={getYouTubeID(video.videoUrl)}
                                                  play={true}
-                                                 onChangeState={event => console.log(event)}
-                                                 onReady={() => console.log("ready")}
-                                                 onError={e => console.log(e)}
-                                                 onPlaybackQualityChange={q => console.log(q)}
                                                  volume={50}
                                                  playbackRate={1}
                                                  playerParams={{
