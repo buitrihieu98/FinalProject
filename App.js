@@ -31,6 +31,7 @@ import {ThemeContext, ThemeProvider} from "./src/provider/ThemeProvider";
 import CourseDetailToBuy from "./src/Components/Home/CourseDetailToBuy";
 import SeeAllCourses2 from "./src/Components/Home/SeeAllCourses2";
 import ChangePass from "./src/Components/AccountManagement/ChangePass";
+import RelatedCourses from "./src/Components/Details/relatedCourses";
 
 const Stack = createStackNavigator();
 const MainStack= createStackNavigator();
@@ -50,6 +51,7 @@ const HomeStack=(props)=>{
                 <Stack.Screen name="TopicDetail" navigation={props.navigation} component={TopicDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="CourseDetailToBuy" navigation={props.navigation} component={CourseDetailToBuy} />
                 <Stack.Screen name="SeeAllCourses2" navigation={props.navigation} component={SeeAllCourses2} options={{ title: '' }} />
+                <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             </Stack.Navigator>
     )
 };
@@ -63,6 +65,7 @@ const DownloadStack=()=>{
                 <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
                 <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
+                <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             </Stack.Navigator>
     )
 };
@@ -74,6 +77,7 @@ const BrowseStack=()=>{
             <Stack.Screen name="NewRelease" component={NewRelease} />
             <Stack.Screen name="Recommended" component={Recommended} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
+            <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
             <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
             <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
@@ -89,6 +93,7 @@ const SearchStack=()=>{
         <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Search" component={Search} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
+            <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
             <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />

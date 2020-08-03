@@ -36,8 +36,13 @@ const CourseDetail = (props) => {
     const [hasPromo,setHasPromo] = useState(false)
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
     const [isYoutube,setIsYoutube]=useState(false)
+    const [cateId,setCateId]=useState([])
 
     useEffect(()=>{
+        api.get('https://api.itedu.me​/course​/get-course-info',{id:item.id},authentication.state.token)
+            .then((response)=>{if(response.isSuccess) {
+                setCateId(response.data.categoryIds)
+            }})
         api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
             .then((response)=>{if(response.isSuccess){
                 setDetail(response.data.payload)
@@ -53,6 +58,7 @@ const CourseDetail = (props) => {
                 setProcesCourse(response.data.payload)
             }})
         if(detail!=={}){
+            console.log('course detail',detail)
             setIsLoading(false)
         }
     },[])
@@ -66,6 +72,10 @@ const CourseDetail = (props) => {
             console.log('video la gi',video)
         }
     },[video])
+
+    const onPressRelated=()=>{
+        props.navigation.push("RelatedCourses",{item:cateId})
+    }
 
     const onPressLike = ()=>{
         api.post('https://api.itedu.me/user/like-course',{
@@ -118,6 +128,10 @@ const CourseDetail = (props) => {
               </View>
               <View style={styles.buttonsContainer}>
                   {liked===false?buttonBookmark:buttonBookmarked}
+                  <TouchableOpacity onPress={onPressRelated} style={{...styles.button,backgroundColor:theme.background}}>
+                      <Image style={styles.icon} source={require('../../../assets/icon-related.png')}></Image>
+                      <Text style={styles.buttonText}>Related courses</Text>
+                  </TouchableOpacity>
               </View>
               <View style={{marginLeft:10, }}>
                   <ViewMoreText numberOfLines={3}  textStyle={styles.subInfo}>

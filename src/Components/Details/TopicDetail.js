@@ -11,8 +11,6 @@ import SearchedCoursesList from "../Search/SearchedCoursesList";
 const TopicDetail = (props) => {
     let item=props.route.params.item
     const {theme} = useContext(ThemeContext)
-    const authentication = useContext(AuthenticationContext)
-    const [searching,setSearching]=useState('')
     const [result,setResult]=useState([])
     useEffect(()=>{
         api.post('https://api.itedu.me/course/search',{
