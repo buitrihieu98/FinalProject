@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView, LinkingStatic as Linking} from 'react-native';
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
@@ -39,7 +39,7 @@ const CourseDetailToBuy = (props) => {
             }
             else{
                 //link tới trang https://itedu.me/payment/{courseId}
-
+                Linking.openURL(`https://api.itedu.me/payment/${item.id}`)
             }
         }
     }
