@@ -9,8 +9,9 @@ const ChangeAccountInfo = (props) => {
     const[newName,setNewName] =useState('')
     const[oldName,setOldName]=useState(authentication.state.userInfo.name)
     const[email,setEmail] =useState(authentication.state.userInfo.email)
-    const[newPassword,setNewPassword]=useState('')
-    const[confirmPassword,setConfirmPassword]=useState('')
+    const [newAvatar, setNewAvatar] = useState('')
+    const [newPhone,setNewPhone] = useState(authentication.state.userInfo.phone)
+
     const {theme} = useContext(ThemeContext)
 
     useEffect(()=>{
@@ -30,10 +31,8 @@ const ChangeAccountInfo = (props) => {
               <Text style={styles.value}>{email}</Text>
               <Text style={styles.subtitle}>New Username</Text>
               <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={newU=>setNewName(newU)} placeholder= {oldName} />
-              <Text style={styles.subtitle}>New Password</Text>
-              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={pw=>setNewPassword(pw)} placeholder={'New password'}/>
-              <Text style={styles.subtitle}>Confirm Password</Text>
-              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={cpw=>setConfirmPassword(cpw)} placeholder={'Confirm password'}/>
+              <Text style={styles.subtitle}>New Phone</Text>
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={ph=>setNewPhone(ph)} placeholder={'New phone'}/>
 
               <TouchableOpacity style={styles.buttonSave}
                                 onPress={()=>{

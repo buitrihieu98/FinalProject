@@ -28,8 +28,8 @@ const ChangePass = (props) => {
             <View>
                 <Text style={styles.subtitle}>Name</Text>
                 <Text style={styles.value}>{oldName}</Text>
-                <Text style={styles.subtitle}>Email</Text>
-                <Text style={styles.value}>{email}</Text>
+                {/*<Text style={styles.subtitle}>Email</Text>*/}
+                {/*<Text style={styles.value}>{email}</Text>*/}
                 <Text style={styles.subtitle}>Old Password</Text>
                 <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onSubmitEditing={(opw)=>setOldPassword(opw)}  placeholder={'Old password'}/>
                 <Text style={styles.subtitle}>New Password</Text>
@@ -51,10 +51,7 @@ const ChangePass = (props) => {
                         setMatch(false)
                     }
                 }} placeholder={'Confirm password'}/>
-
                 {match?matched:unmatched}
-                {ok?<Text style={styles.warningText}>Password changed</Text>:<Text style={styles.warningText}>{error}</Text>}
-
                 <TouchableOpacity style={styles.buttonSave}
                                   onPress={()=>{
                                       console.log(oldPassword)
@@ -74,6 +71,7 @@ const ChangePass = (props) => {
                                   }}>
                     <Text style={styles.saveText}>Change</Text>
                 </TouchableOpacity>
+                {ok?<Text style={styles.warningText}>Password changed</Text>:<Text style={styles.warningText}>{error}</Text>}
             </View>
         </ScrollView>
     )

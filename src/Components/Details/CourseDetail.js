@@ -7,7 +7,7 @@ import {
     Image,
     ScrollView,
     ActivityIndicator,
-    Dimensions
+    Dimensions,
 } from 'react-native';
 import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
@@ -76,6 +76,7 @@ const CourseDetail = (props) => {
     const onPressRelated=()=>{
         props.navigation.push("RelatedCourses",{item:cateId})
     }
+    // const onPressShare
 
     const onPressLike = ()=>{
         api.post('https://api.itedu.me/user/like-course',{
@@ -131,6 +132,10 @@ const CourseDetail = (props) => {
                   <TouchableOpacity onPress={onPressRelated} style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-related.png')}></Image>
                       <Text style={styles.buttonText}>Related courses</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={onPressShare} style={{...styles.button,backgroundColor:theme.background}}>
+                      <Image style={styles.icon} source={require('../../../assets/icon-share.png')}></Image>
+                      <Text style={styles.buttonText}>Share</Text>
                   </TouchableOpacity>
               </View>
               <View style={{marginLeft:10, }}>
