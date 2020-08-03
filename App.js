@@ -25,7 +25,6 @@ import TopicDetail from "./src/Components/Details/TopicDetail";
 import {Icon} from "react-native-elements";
 import ProfileButton from "./src/Components/Home/ProfileButton";
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/AuthenticationProvider";
-import {LocalDataContext, LocalDataProvider} from "./src/provider/localDataProvider";
 import NewRelease from "./src/Components/Browse/NewRelease";
 import Recommended from "./src/Components/Browse/Recommended";
 import {ThemeContext, ThemeProvider} from "./src/provider/ThemeProvider";
@@ -164,11 +163,9 @@ const TabRoot=()=>{
 export default function App() {
   return (
       <ThemeProvider>
-          <LocalDataProvider>
               <AuthenticationProvider>
                   <NavigationContainer>
                       <MainStack.Navigator screenOptions={{headerShown:false}} initialRouteName={"Login"} >
-                          {/*<MainStack.Screen name={"SplashScreen"} component={SplashScreen}  ></MainStack.Screen>*/}
                           <MainStack.Screen name={"Login"} component={LoginComponent}  ></MainStack.Screen>
                           <MainStack.Screen name={"SignUp"} component={SignUp} ></MainStack.Screen>
                           <MainStack.Screen name={"Forgot"} component={ForgotPassword} ></MainStack.Screen>
@@ -176,7 +173,6 @@ export default function App() {
                       </MainStack.Navigator>
                   </NavigationContainer>
               </AuthenticationProvider>
-          </LocalDataProvider>
       </ThemeProvider>
 
 

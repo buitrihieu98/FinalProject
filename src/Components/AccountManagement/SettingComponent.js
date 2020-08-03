@@ -45,12 +45,11 @@ const SettingComponent = (props) => {
               <TouchableOpacity onPress={onPressChangeTheme} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Change theme</Text>
               </TouchableOpacity>
-
-              <SettingItemWithSwitch name={'Require Wi-fi for streaming'}></SettingItemWithSwitch>
-              <SettingItemWithSwitch name={'Require Wi-fi for downloading'}></SettingItemWithSwitch>
-              <SettingItem name={'Send feedback'}></SettingItem>
-              <SettingItem name={'Contact support'}></SettingItem>
-              <SettingItem name={'App version'}></SettingItem>
+              {/*<SettingItemWithSwitch name={'Require Wi-fi for streaming'}></SettingItemWithSwitch>*/}
+              {/*<SettingItemWithSwitch name={'Require Wi-fi for downloading'}></SettingItemWithSwitch>*/}
+              {/*<SettingItem name={'Send feedback'}></SettingItem>*/}
+              {/*<SettingItem name={'Contact support'}></SettingItem>*/}
+              {/*<SettingItem name={'App version'}></SettingItem>*/}
               <TouchableOpacity onPress={signOut} style={styles.signOutButton}>
                   <Text style={styles.signOutText}>Sign out</Text>
               </TouchableOpacity>

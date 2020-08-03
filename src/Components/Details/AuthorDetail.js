@@ -8,6 +8,7 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import MyRating from "../Home/Rating";
+import {getAuthorDetail} from "../../Actions/getAuthorDetail_action";
 
 
 const AuthorDetail = (props) => {
@@ -39,6 +40,9 @@ const AuthorDetail = (props) => {
                     setOk(true)
                 }})
             .catch((error)=>{console.log('error',error)})
+
+        // getAuthorDetail(item).then((response)=>{setDetail(response.data)
+        //     setOk(response.ok)})
 
     },[])
     const {theme} = useContext(ThemeContext)

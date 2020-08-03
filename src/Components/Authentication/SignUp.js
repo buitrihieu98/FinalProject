@@ -8,14 +8,27 @@ const SignUp = (props) => {
     const [email,setEmail]=useState('')
     const [phone,setPhone]=useState('')
     const [pass,setPass]=useState('')
+    const [error,setError]=useState('')
     const [confirmPass,setConfirmPass]=useState('')
-    const unmatched =<Text style={styles.warningText}>Confirm password and password must be matched</Text>
-    const matched=<Text style={[styles.warningText,{color:'white'}]}> </Text>
     const onPressBackLogin=()=>{
         props.navigation.navigate("Login")
     }
     const onPressSignUp=(username,email,phone,pass)=>{
-        if(matched){
+        // const validPass=('^.{8.20}$').test(pass)
+        // const validEmail =('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$').test(email)
+        // if(validPass===false){
+        //     setError('Password must have 8-20 characters')
+        // }
+        // else if(validEmail===false){
+        //     setError('Please enter a valid email')
+        // }
+        // if((username==='')||(email==='')||(phone==='')||(pass==='')||(confirmPass==='')){
+        //     setError('Please fill up all field')
+        // }
+        if (isMatched===false){
+            setError('Password and Confirmed password must be matched')
+        }
+        else {
             api.post('https://api.itedu.me/user/register',{username:username,email:email,phone:phone,password:pass},).then((response)=>{
                 if(response.isSuccess){
                     console.log('email sent')
@@ -48,7 +61,7 @@ const SignUp = (props) => {
                              setIsMatched(false)
                          }
                      }}/>
-          {isMatched===false? unmatched:matched}
+          <Text style={[styles.warningText,{color:'red'}]}>{error}</Text>
           <TouchableOpacity onPress={onPressBackLogin}>
               <Text style={styles.backToSignIn}>Already have an account, back to sign in?</Text>
           </TouchableOpacity>

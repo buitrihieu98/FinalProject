@@ -4,18 +4,22 @@ import api from "../../API/api";
 
 const ForgotPassword = (props) => {
     const [email,setEmail]=useState('')
+    const [error,setError]=useState('')
     const onPressBackLogin=()=>{
         props.navigation.navigate("Login")
     }
 
     const onPressReset=(email)=>{
-        api.post('https://api.itedu.me/user​/forget-pass​/send-email',{email:email},).then((response)=>{
-            console.log(response)
+        api.post('https://api.itedu.me/user/forget-pass/send-email',{email:email},).then((response)=>{
+            console.log('email',email)
+            console.log('reponse reset pass',response)
             if(response.isSuccess){
                 props.navigation.navigate("Login")
             }
+            else{
+                setError(response.error.message)
+            }
         })
-
     }
 
     return (
@@ -29,10 +33,13 @@ const ForgotPassword = (props) => {
             <TouchableOpacity onPress={onPressBackLogin}>
                 <Text style={styles.backToSignIn}>Remembered your password, back to login?</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={onPressReset(email)
+            <TouchableOpacity onPress={()=>{onPressReset(email)}
             } style={styles.buttonLogin}>
                 <Text style={styles.loginText} >Reset</Text>
             </TouchableOpacity>
+            <Text style={{alignSelf:'center',
+                fontSize: 15,
+                color:'red'}}>{error}</Text>
         </ImageBackground>
     )
 };

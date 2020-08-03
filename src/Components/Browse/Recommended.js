@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
-import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";

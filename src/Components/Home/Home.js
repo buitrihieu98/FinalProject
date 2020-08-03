@@ -73,7 +73,7 @@ const Home = (props) => {
         isLoading?<View>
                 <ActivityIndicator size="large" />
         </View>:
-        <View style={styles.container}>
+        <View style={{...styles.container,backgroundColor:theme.background}}>
             <ScrollView>
                 <View >
                     <Text style={styles.intro}>Welcome to Exceed!</Text>

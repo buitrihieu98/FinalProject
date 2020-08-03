@@ -39,6 +39,7 @@ const CourseDetailToBuy = (props) => {
             }
             else{
                 //link tới trang https://itedu.me/payment/{courseId}
+
             }
         }
     }

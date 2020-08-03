@@ -5,7 +5,6 @@ import {Avatar, Tile} from "react-native-elements";
 import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 import Tag from "../Global/Tag";
-import {LocalDataContext} from "../../provider/localDataProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";

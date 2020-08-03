@@ -8,12 +8,14 @@ import SearchedCoursesList from "./SearchedCoursesList";
 import SearchedPathList from "./SearchedPathList";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
+import {search} from "../../Actions/search_action";
 
 const Search = (props) => {
     const {theme} = useContext(ThemeContext)
     const [searching,setSearching]=useState('')
     const [recentSearchesList,setRecentSearchesList] = useState([])
     const [result,setResult]=useState([])
+    const [nothingFound,setNothingFound]=useState(false)
     useEffect(()=>{
         if(searching!==''){
             api.post('https://api.itedu.me/course/search',{
@@ -36,8 +38,25 @@ const Search = (props) => {
                     setResult(response.data.payload.rows)
                 }
             })
+
+            // search(searching).then((response)=>{
+            //     console.log('search',response)
+            //     if(response.isSuccess){
+            //         setResult(response.data.payload.rows)
+            //     }
+            // })
         }
     },[searching])
+
+    useEffect(()=>{
+        if(result.length===0){
+            setNothingFound(true)
+        }
+        else {
+            setNothingFound(false)
+        }
+
+    },[result])
 
 
   return (
@@ -51,8 +70,8 @@ const Search = (props) => {
           ></SearchBar>
           {/*<RecentSearches rSList={rSList}></RecentSearches>*/}
           <ScrollView>
+              {nothingFound?<Text style={{alignSelf:'center'}}>Nothing found</Text>:<SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>}
               {/*<SearchedAuthorList navigation={props.navigation} list={authorList}></SearchedAuthorList>*/}
-              <SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>
               {/*<SearchedPathList navigation={props.navigation} list={pathList}></SearchedPathList>*/}
           </ScrollView>
       </View>

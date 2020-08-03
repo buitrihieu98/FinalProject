@@ -13,7 +13,6 @@ import MyRating from "../Home/Rating";
 import AuthorList from "../Home/AuthorList";
 import ViewMoreText from 'react-native-view-more-text';
 import LessonList from "./LessionList";
-import {LocalDataContext} from "../../provider/localDataProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
@@ -21,6 +20,7 @@ import AuthorItems from "../Home/AuthorItems";
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {Video} from "expo-av";
 import getYouTubeID from 'get-youtube-id';
+import {getDetailCourse} from "../../Actions/getDetailCourse_action";
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;

@@ -21,7 +21,6 @@ const SectionCoursesItem2 = (props) => {
     },[])
 
     const onPressItem=()=>{
-        //api check own courses
         if(didBuy){
             props.navigation.push("CourseDetail", {item:props.item})
         }
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
         width:220,
         height:220,
         backgroundColor:'linen',
-        alignItems:'center'
+        // alignItems:'center'
     },
     video:{
         width:'100%',
