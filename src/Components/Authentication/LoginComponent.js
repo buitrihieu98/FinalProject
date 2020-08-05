@@ -75,9 +75,6 @@ const LoginComponent = (props) => {
             </View>
             {/*{renderLoginStatus(status)}*/}
             <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
-                // setStatus(login(username,password))
-                // setAuthentication(login(username,password))
-                // setFavoritesList([])
                 authenticationContext.login(username,password)
             }
             }>

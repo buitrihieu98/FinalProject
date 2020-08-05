@@ -16,20 +16,20 @@ const {theme} = useContext(ThemeContext)
     const [isLoading,setIsLoading] = useState(true)
     const [interestList,setInterestList]=useState([])
     useEffect(()=>{
-        userInfo.favoriteCategories.map((id)=>{
-            api.get(`https://api.itedu.me/category/${id}`,{},).then((response)=>{
-                if(response.isSuccess){
-                    let list = interestList
-                    if(list.indexOf(response.data.payload!==-1)){
-                        list.push(response.data.payload)
-                        setInterestList(list)
-                    }
-                }
-            })
-        })
-        if(interestList!==[]){
-            setIsLoading(false)
-        }
+        // userInfo.favoriteCategories.map((id)=>{
+        //     api.get(`https://api.itedu.me/category/${id}`,{},).then((response)=>{
+        //         if(response.isSuccess){
+        //             let list = interestList
+        //             if(list.indexOf(response.data.payload!==-1)){
+        //                 list.push(response.data.payload)
+        //                 setInterestList(list)
+        //             }
+        //         }
+        //     })
+        // })
+        // if(interestList!==[]){
+        //     setIsLoading(false)
+        // }
     },[])
 
     return (
@@ -42,12 +42,12 @@ const {theme} = useContext(ThemeContext)
               </Text>
               <Text style={styles.email}>{userInfo.phone}</Text>
           </View>
-          {isLoading?<View></View>:<View style={{margin:10}}>
-              <Text style={styles.subtitle}>Interest topic</Text>
-              <ScrollView horizontal={true}>
-                  {interestList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}
-              </ScrollView>
-          </View>}
+          {/*{isLoading?<View></View>:<View style={{margin:10}}>*/}
+          {/*    /!*<Text style={styles.subtitle}>Interest topic</Text>*!/*/}
+          {/*    /!*<ScrollView horizontal={true}>*!/*/}
+          {/*    /!*    {interestList.map(item => <Tag navigation={props.navigation} item={item}></Tag> )}*!/*/}
+          {/*    /!*</ScrollView>*!/*/}
+          {/*</View>}*/}
 
       </View>
     )

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
 import api from "../../API/api";
+import {resetPass} from "../../Actions/resetPass_action";
 
 const ForgotPassword = (props) => {
     const [email,setEmail]=useState('')
@@ -10,16 +11,15 @@ const ForgotPassword = (props) => {
     }
 
     const onPressReset=(email)=>{
-        api.post('https://api.itedu.me/user/forget-pass/send-email',{email:email},).then((response)=>{
-            console.log('email',email)
-            console.log('reponse reset pass',response)
-            if(response.isSuccess){
-                props.navigation.navigate("Login")
-            }
-            else{
-                setError(response.error.message)
-            }
-        })
+        // api.post('https://api.itedu.me/user/forget-pass/send-email',{email:email},).then((response)=>{
+        //     if(response.isSuccess){
+        //         props.navigation.navigate("Login")
+        //     }
+        //     else{
+        //         setError(response.error.message)
+        //     }
+        // })
+        resetPass(email, props, setError).then(r =>{})
     }
 
     return (

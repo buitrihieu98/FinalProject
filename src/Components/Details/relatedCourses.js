@@ -29,9 +29,6 @@ const RelatedCourses = (props) => {
         })
     },[])
 
-
-
-
     return (
         <View style={styles.container}>
             <ListCourses navigation={props.navigation} list={result}></ListCourses>

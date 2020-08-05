@@ -4,6 +4,7 @@ import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import {getRecommendCourses} from "../../Actions/getRecommendCourses_action";
 
 const Recommended = (props) => {
     const authentication = useContext(AuthenticationContext)
@@ -11,11 +12,12 @@ const Recommended = (props) => {
     const {theme} = useContext(ThemeContext)
     const[recommendList,setRecommendList]=useState([])
     useEffect(()=>{
-        api.get(`https://api.itedu.me/user/recommend-course/${userInfo.id}/10/0`,{},).then((response)=>{
-            if(response.isSuccess){
-                setRecommendList(response.data.payload)
-            }
-        })
+        // api.get(`https://api.itedu.me/user/recommend-course/${userInfo.id}/10/0`,{},).then((response)=>{
+        //     if(response.isSuccess){
+        //         setRecommendList(response.data.payload)
+        //     }
+        // })
+        getRecommendCourses(userInfo, setRecommendList).then(r =>{})
     },[])
     return (
         <View style={{...styles.container,backgroundColor:theme.background}}>

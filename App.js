@@ -13,14 +13,12 @@ import Download from "./src/Components/Download/Download";
 import Search from "./src/Components/Search/Search";
 import Browse from "./src/Components/Browse/Browse";
 import CourseDetail from "./src/Components/Details/CourseDetail";
-import PathDetail from "./src/Components/Details/PathDetail";
 import Subscription from "./src/Components/Subscription/Subscription";
 import AuthorDetail from "./src/Components/Details/AuthorDetail";
 import { NavigationContainer } from '@react-navigation/native';
 import {createStackNavigator} from "@react-navigation/stack";
 import{createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import SeeAllCourses from "./src/Components/Home/SeeAllCourses";
-import SeeAllPath from "./src/Components/Home/SeeAllPath";
 import TopicDetail from "./src/Components/Details/TopicDetail";
 import {Icon} from "react-native-elements";
 import ProfileButton from "./src/Components/Home/ProfileButton";
@@ -45,8 +43,6 @@ const HomeStack=(props)=>{
                 <Stack.Screen name="CourseDetail" navigation={props.navigation} component={CourseDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="AuthorDetail" navigation={props.navigation} component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
                 <Stack.Screen name="SeeAllCourses" navigation={props.navigation} component={SeeAllCourses} options={{ title: '' }} />
-                <Stack.Screen name="PathDetail" navigation={props.navigation} component={PathDetail} options={({route})=>({title: route.params.item.title})} />
-                <Stack.Screen name="SeeAllPath" navigation={props.navigation} component={SeeAllPath} options={{ title: '' }} />
                 <Stack.Screen name="Profile" navigation={props.navigation} component={ProfileComponent} options={{ title: '' }} />
                 <Stack.Screen name="TopicDetail" navigation={props.navigation} component={TopicDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="CourseDetailToBuy" navigation={props.navigation} component={CourseDetailToBuy} />
@@ -69,7 +65,7 @@ const DownloadStack=()=>{
             </Stack.Navigator>
     )
 };
-const BrowseStack=()=>{
+const BrowseStack=(props)=>{
     const {theme} = useContext(ThemeContext)
     return (
         <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
@@ -78,24 +74,21 @@ const BrowseStack=()=>{
             <Stack.Screen name="Recommended" component={Recommended} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
             <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
-            <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
             <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
-            <Stack.Screen name="SeeAllPath" component={SeeAllPath} options={{ title: '' }} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
             <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
             <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
         </Stack.Navigator>
     )
 };
-const SearchStack=()=>{
+const SearchStack=(props)=>{
     const {theme} = useContext(ThemeContext)
     return (
         <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
-            <Stack.Screen name="Search" component={Search} />
+            <Stack.Screen name="Search"  navigation={props.navigation} component={Search} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
             <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
-            <Stack.Screen name="PathDetail" component={PathDetail} options={({route})=>({title: route.params.item.title})} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
         </Stack.Navigator>
     )

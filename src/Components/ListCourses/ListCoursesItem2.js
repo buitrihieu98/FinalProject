@@ -4,17 +4,19 @@ import {Rating} from "react-native-elements";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import {checkOwnCourse} from "../../Actions/checkOwnCourse_action";
 
 const ListCoursesItem2 = (props) => {
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     useEffect(()=>{
-        api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
-            .then((response)=>{
-                if(response.isSuccess){
-                    setDidBuy(response.data.payload.isUserOwnCourse)
-                }})
-            .catch((error)=>{console.log('error',error)})
+        // api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
+        //     .then((response)=>{
+        //         if(response.isSuccess){
+        //             setDidBuy(response.data.payload.isUserOwnCourse)
+        //         }})
+        //     .catch((error)=>{console.log('error',error)})
+        checkOwnCourse(props,authentication.state.token,setDidBuy).then((r)=>{})
     },[])
 
     const onPressItem=()=>{

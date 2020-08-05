@@ -4,6 +4,7 @@ import BackButton from "../Global/BackButton";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import api from "../../API/api";
+import {changePass} from "../../Actions/changePass_action";
 
 const ChangePass = (props) => {
     const authentication=useContext(AuthenticationContext)
@@ -56,17 +57,18 @@ const ChangePass = (props) => {
                                   onPress={()=>{
                                       console.log(oldPassword)
                                       if(match){
-                                          api.post('https://api.itedu.me/user/change-password',{id: authentication.state.userInfo.id,
-                                              oldPass: oldPassword,
-                                              newPass: newPassword},authentication.state.token).then((response)=>{
-                                                  console.log(response)
-                                                  if(response.status===200){
-                                                  setOk(true)
-                                          }
-                                          else{
-                                              setError(response.data)
-                                          }
-                                          })
+                                          // api.post('https://api.itedu.me/user/change-password',{id: authentication.state.userInfo.id,
+                                          //     oldPass: oldPassword,
+                                          //     newPass: newPassword},authentication.state.token).then((response)=>{
+                                          //         console.log(response)
+                                          //         if(response.status===200){
+                                          //         setOk(true)
+                                          // }
+                                          // else{
+                                          //     setError(response.data)
+                                          // }
+                                          // })
+                                          changePass(authentication, oldPassword, newPassword, setOk, setError).then( r =>{})
                                       }
                                   }}>
                     <Text style={styles.saveText}>Change</Text>

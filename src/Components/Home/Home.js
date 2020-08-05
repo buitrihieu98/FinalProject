@@ -10,6 +10,10 @@ import axios from "axios";
 import {LOGIN_FAILED, LOGIN_SUCCEEDED} from "../../Actions/authentication_action";
 import api from "../../API/api";
 import SectionCourses2 from "./SectionCourse2";
+import {getTopRateCourses} from "../../Actions/getTopRateCourses_action";
+import {getTopSellCourses} from "../../Actions/getTopSellCourses_action";
+import {getContinueLearning} from "../../Actions/getContinueLearning_action";
+import {getFavoriteCourses} from "../../Actions/getFavoriteCourses_action";
 
 const Home = (props) => {
     props.navigation.setOptions({headerRight: () => (
@@ -29,38 +33,43 @@ const Home = (props) => {
     const [isLoading,setIsLoading] = useState(true)
 
     useEffect(()=>{
-        axios.post('https://api.itedu.me/course/top-rate', {
-            limit: 10,  page: 1
-        }).then((response)=>{
-            if(response.status===200){
-                setTopRateList(response.data.payload)
-            }
-            else{
-                console.log('Failed : ',response.status)
-            }
-        }).catch((error)=>{
-            console.log('failed ',error)
-        })
-        api.post(`https://api.itedu.me/course/top-sell`,{
-            limit: 10,
-            page: 1
-        },).then((response)=>{
-            if(response.isSuccess){
-                setTopSellList(response.data.payload)
-            }
-        })
+        // axios.post('https://api.itedu.me/course/top-rate', {
+        //     limit: 10,  page: 1
+        // }).then((response)=>{
+        //     if(response.status===200){
+        //         setTopRateList(response.data.payload)
+        //     }
+        //     else{
+        //         console.log('Failed : ',response.status)
+        //     }
+        // }).catch((error)=>{
+        //     console.log('failed ',error)
+        // })
+        getTopRateCourses(setTopRateList).then(r => {})
+        // api.post(`https://api.itedu.me/course/top-sell`,{
+        //     limit: 10,
+        //     page: 1
+        // },).then((response)=>{
+        //     if(response.isSuccess){
+        //         setTopSellList(response.data.payload)
+        //     }
+        // })
+        getTopSellCourses(setTopSellList).then(r => {})
+        getContinueLearning(authentication.state.token,setContinueList).then(r => {})
 
-        api.get(`https://api.itedu.me/user/get-process-courses`,{},authentication.state.token).then((response)=>{
-            if(response.isSuccess){
-                setContinueList(response.data.payload)
-            }
-        })
-        api.get(`https://api.itedu.me/user/get-favorite-courses`,{},authentication.state.token).then((response)=>{
+        // api.get(`https://api.itedu.me/user/get-process-courses`,{},authentication.state.token).then((response)=>{
+        //     if(response.isSuccess){
+        //         setContinueList(response.data.payload)
+        //     }
+        // })
+        getFavoriteCourses(authentication.state.token,setFaveList).then(r => {})
 
-            if(response.isSuccess){
-                setFaveList(response.data.payload)
-            }
-        })
+        // api.get(`https://api.itedu.me/user/get-favorite-courses`,{},authentication.state.token).then((response)=>{
+        //
+        //     if(response.isSuccess){
+        //         setFaveList(response.data.payload)
+        //     }
+        // })
         if((topSellList!==[])&&(topRateList!==[])&&(continueList!==[])&&(faveList!==[])){
             setIsLoading(false)
         }

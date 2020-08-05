@@ -1,9 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView, LinkingStatic as Linking} from 'react-native';
+import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView, Linking} from 'react-native';
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import AuthorItems from "./AuthorItems";
+import {getFreeCourse} from "../../Actions/getFreeCourse_action";
 
 
 const CourseDetailToBuy = (props) => {
@@ -27,19 +28,22 @@ const CourseDetailToBuy = (props) => {
     },[])
     props.navigation.setOptions({title: item.title})
 
-    const onPressBuy=()=> {
-        if(!detail.didUserBuyCourse){
-            if(detail.price===0){
-                api.post('https://api.itedu.me/payment/get-free-courses',{courseId:item.id},authentication.state.token)
-                    .then((response)=>{
-                        if(response.isSuccess){
-                            props.navigation.push("CourseDetail", {item:item})
-                        }})
-                    .catch((error)=>{console.log('error',error)})
-            }
-            else{
+    const onPressBuy= async () => {
+        if (!detail.didUserBuyCourse) {
+            if (detail.price === 0) {
+                // api.post('https://api.itedu.me/payment/get-free-courses', {courseId: item.id}, authentication.state.token)
+                //     .then((response) => {
+                //         if (response.isSuccess) {
+                //             props.navigation.push("CourseDetail", {item: item})
+                //         }
+                //     })
+                //     .catch((error) => {
+                //         console.log('error', error)
+                //     })
+                getFreeCourse(item,authentication.state.token,props).then((r)=>{})
+            } else {
                 //link tới trang https://itedu.me/payment/{courseId}
-                Linking.openURL(`https://api.itedu.me/payment/${item.id}`)
+                await Linking.openURL(`https://api.itedu.me/payment/${item.id}`)
             }
         }
     }

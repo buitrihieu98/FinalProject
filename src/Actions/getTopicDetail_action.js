@@ -1,20 +1,20 @@
 import api from "../API/api";
 
-export const search = async(keyword, setState)=>{
+export const getTopicDetail =async (item,setState)=>{
     api.post('https://api.itedu.me/course/search',{
-        keyword: keyword,
+        keyword: "",
         opt: {
             sort: {
                 attribute: "price",
                 rule: "ASC"
             },
-            category: [
+            category: [item.id
             ], time: [
             ], price: [
             ]
         },
         limit: 10,
-        offset: 0
+        offset: 1
     }).then((response)=>{
         if(response.isSuccess){
             setState(response.data.payload.rows)

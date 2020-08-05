@@ -8,6 +8,8 @@ import Tag from "../Global/Tag";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import {getAllCategory} from "../../Actions/getAllCategory_action";
+import {getInstructorList} from "../../Actions/getInstructorList_action";
 
 const Browse = (props) => {
     const authentication=useContext(AuthenticationContext)
@@ -24,16 +26,18 @@ const Browse = (props) => {
     const [instructorList,setInstructorList]=useState([])
     const [isLoading,setIsLoading] = useState(true)
     useEffect(()=>{
-        api.get('https://api.itedu.me/category/all',{},).then((response)=>{
-            if(response.isSuccess){
-                setCategoryList(response.data.payload)
-            }
-        })
-        api.get('https://api.itedu.me/instructor',{},).then((response)=>{
-            if(response.isSuccess){
-                setInstructorList(response.data.payload)
-            }
-        })
+        // api.get('https://api.itedu.me/category/all',{},).then((response)=>{
+        //     if(response.isSuccess){
+        //         setCategoryList(response.data.payload)
+        //     }
+        // })
+        getAllCategory(setCategoryList).then(r => {})
+        getInstructorList(setInstructorList).then(r => {})
+        // api.get('https://api.itedu.me/instructor',{},).then((response)=>{
+        //     if(response.isSuccess){
+        //         setInstructorList(response.data.payload)
+        //     }
+        // })
         if(categoryList!==[]){
             setIsLoading(false)
         }

@@ -21,6 +21,9 @@ import YoutubePlayer from 'react-native-youtube-iframe';
 import {Video} from "expo-av";
 import getYouTubeID from 'get-youtube-id';
 import {getDetailCourse} from "../../Actions/getDetailCourse_action";
+import {getCourseLikeStatus} from "../../Actions/getCourseLikeState_action";
+import {getProcess} from "../../Actions/getProcess_action";
+import {likeCourse} from "../../Actions/likeCourse_action";
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -39,24 +42,27 @@ const CourseDetail = (props) => {
     const [cateId,setCateId]=useState([])
 
     useEffect(()=>{
-        api.get('https://api.itedu.me​/course​/get-course-info',{id:item.id},authentication.state.token)
-            .then((response)=>{if(response.isSuccess) {
-                setCateId(response.data.categoryIds)
-            }})
-        api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
-                setDetail(response.data.payload)
-        }})
-            .catch((error)=>{console.log('error',error)})
+        // api.get('https://api.itedu.me​/course​/get-course-info',{id:item.id},authentication.state.token)
+        //     .then((response)=>{if(response.isSuccess) {
+        //         setCateId(response.data.categoryIds)
+        //     }})
+        // api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
+        //     .then((response)=>{if(response.isSuccess){
+        //         setDetail(response.data.payload)
+        // }})
+        //     .catch((error)=>{console.log('error',error)})
+        getDetailCourse(item, authentication.state.token, setDetail).then(r  =>{})
+        getCourseLikeStatus(item, authentication.state.token, setLiked).then(r =>{} )
+        getProcess(item, authentication.state.token, setProcesCourse).then(r =>{} )
 
-        api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
-            setLiked(response.data.likeStatus)
-        }})
-        api.get(`https://api.itedu.me/user/process-course/${item.id}`,{},authentication.state.token)
-            .then((response)=>{if(response.isSuccess){
-                setProcesCourse(response.data.payload)
-            }})
+        // api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
+        //     .then((response)=>{if(response.isSuccess){
+        //     setLiked(response.data.likeStatus)
+        // }})
+        // api.get(`https://api.itedu.me/user/process-course/${item.id}`,{},authentication.state.token)
+        //     .then((response)=>{if(response.isSuccess){
+        //         setProcesCourse(response.data.payload)
+        //     }})
         if(detail!=={}){
             console.log('course detail',detail)
             setIsLoading(false)
@@ -79,9 +85,10 @@ const CourseDetail = (props) => {
     // const onPressShare
 
     const onPressLike = ()=>{
-        api.post('https://api.itedu.me/user/like-course',{
-            courseId: detail.id
-        },authentication.state.token)
+        // api.post('https://api.itedu.me/user/like-course',{
+        //     courseId: item.id
+        // },authentication.state.token)
+        likeCourse(item, authentication.state.token).then(r =>{})
         setLiked(!liked)
     }
 
@@ -133,7 +140,7 @@ const CourseDetail = (props) => {
                       <Image style={styles.icon} source={require('../../../assets/icon-related.png')}></Image>
                       <Text style={styles.buttonText}>Related courses</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={onPressShare} style={{...styles.button,backgroundColor:theme.background}}>
+                  <TouchableOpacity  style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-share.png')}></Image>
                       <Text style={styles.buttonText}>Share</Text>
                   </TouchableOpacity>

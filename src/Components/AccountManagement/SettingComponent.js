@@ -50,13 +50,14 @@ const SettingComponent = (props) => {
               {/*<SettingItem name={'Send feedback'}></SettingItem>*/}
               {/*<SettingItem name={'Contact support'}></SettingItem>*/}
               {/*<SettingItem name={'App version'}></SettingItem>*/}
+              <TouchableOpacity style={{...styles.subContainer,backgroundColor:theme.background}}>
+                  <Text style={styles.itemName}>{`App version: ${appVersion}`}</Text>
+              </TouchableOpacity>
               <TouchableOpacity onPress={signOut} style={styles.signOutButton}>
                   <Text style={styles.signOutText}>Sign out</Text>
               </TouchableOpacity>
           </ScrollView>
-
       </View>
-
   )
 };
 

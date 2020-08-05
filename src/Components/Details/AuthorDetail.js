@@ -18,31 +18,30 @@ const AuthorDetail = (props) => {
     const [detail,setDetail]=useState()
     const [ok,setOk]=useState(false)
     useEffect(()=>{
-        console.log('itemmmmmmmmm',item)
-        api.get(`https://api.itedu.me/instructor/detail/${item.id}`,{},)
-            .then((response)=>{
-                if(response.isSuccess){
-                    setDetail(response.data.payload)
-                    setOk(true)
-            }})
-            .catch((error)=>{console.log('error',error)})
-        api.get(`https://api.itedu.me/instructor/detail/${item.userId}`,{},)
-            .then((response)=>{
-                if(response.isSuccess){
-                    setDetail(response.data.payload)
-                    setOk(true)
-                }})
-            .catch((error)=>{console.log('error',error)})
-        api.get(`https://api.itedu.me/instructor/detail/${item.instructorId}`,{},)
-            .then((response)=>{
-                if(response.isSuccess){
-                    setDetail(response.data.payload)
-                    setOk(true)
-                }})
-            .catch((error)=>{console.log('error',error)})
+        // console.log('itemmmmmmmmm',item)
+        // api.get(`https://api.itedu.me/instructor/detail/${item.id}`,{},)
+        //     .then((response)=>{
+        //         if(response.isSuccess){
+        //             setDetail(response.data.payload)
+        //             setOk(true)
+        //     }})
+        //     .catch((error)=>{console.log('error',error)})
+        // api.get(`https://api.itedu.me/instructor/detail/${item.userId}`,{},)
+        //     .then((response)=>{
+        //         if(response.isSuccess){
+        //             setDetail(response.data.payload)
+        //             setOk(true)
+        //         }})
+        //     .catch((error)=>{console.log('error',error)})
+        // api.get(`https://api.itedu.me/instructor/detail/${item.instructorId}`,{},)
+        //     .then((response)=>{
+        //         if(response.isSuccess){
+        //             setDetail(response.data.payload)
+        //             setOk(true)
+        //         }})
+        //     .catch((error)=>{console.log('error',error)})
 
-        // getAuthorDetail(item).then((response)=>{setDetail(response.data)
-        //     setOk(response.ok)})
+        getAuthorDetail(item,setDetail,setOk).then((response)=>{})
 
     },[])
     const {theme} = useContext(ThemeContext)
