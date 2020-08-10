@@ -10,17 +10,10 @@ const ListCoursesItem2 = (props) => {
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     useEffect(()=>{
-        // api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
-        //     .then((response)=>{
-        //         if(response.isSuccess){
-        //             setDidBuy(response.data.payload.isUserOwnCourse)
-        //         }})
-        //     .catch((error)=>{console.log('error',error)})
         checkOwnCourse(props,authentication.state.token,setDidBuy).then((r)=>{})
     },[])
 
     const onPressItem=()=>{
-        //api check own courses
         if(didBuy){
             props.navigation.push("CourseDetail", {item:props.item})
         }
@@ -36,9 +29,7 @@ const ListCoursesItem2 = (props) => {
             </Image>
             <View style={{margin:5}}>
                 <Text style={{...styles.coreInfo, fontWeight:'bold'}}>{props.item.courseTitle}</Text>
-                {/*<Text style={styles.coreInfo}>{props.item.learnWhat}</Text>*/}
                 {props.item.coursePrice===undefined?<Text style={styles.subInfo}>{`Process:${props.item.process} %`}</Text>:<Text style={styles.subInfo}>{`Price:${props.item.coursePrice}`}</Text>}
-                {/*<Text style={styles.subInfo}>{`${props.item.totalHours} hours`}</Text>*/}
                 <View style={{flexDirection:'row'}}>
                     <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'} readonly={true} ratingCount={5}  startingValue={props.item.courseAveragePoint} style={styles.rating} />
                 </View>

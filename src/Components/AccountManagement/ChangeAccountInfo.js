@@ -10,7 +10,6 @@ const ChangeAccountInfo = (props) => {
     const[newName,setNewName] =useState(authentication.state.userInfo.name)
     const[email,setEmail] =useState(authentication.state.userInfo.email)
     const[oldAvatar,setOldAvatar]=useState(authentication.state.userInfo.avatar)
-    const [newAvatar, setNewAvatar] = useState('')
     const [newPhone,setNewPhone] = useState(authentication.state.userInfo.phone)
     const {theme} = useContext(ThemeContext)
     const onPressChangeAvatar=async () => {
@@ -47,7 +46,6 @@ const ChangeAccountInfo = (props) => {
 
               <TouchableOpacity style={styles.buttonSave}
                                 onPress={()=> {console.log(newName,oldAvatar,newPhone)
-                                    // changeAccountInfo(newName,oldAvatar,newPhone,authentication.state.token)
                                     authentication.changeInfo(newName,oldAvatar,newPhone,authentication.state.token)
                                 }}>
                   <Text style={styles.saveText}>Save</Text>

@@ -20,7 +20,6 @@ const LessonList = (props) => {
                     <View style={styles.containerLesson}>
                         <View style={styles.containerLessonInfo}>
                             <Text style={styles.titleLesson}>{item.name}</Text>
-                            {/*<Text style={styles.titleLesson}>{item.totalTime}</Text>*/}
                         </View>
                         <View style={styles.containerContentList}>
                             {

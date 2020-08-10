@@ -8,9 +8,7 @@ import {changePass} from "../../Actions/changePass_action";
 
 const ChangePass = (props) => {
     const authentication=useContext(AuthenticationContext)
-    const[newName,setNewName] =useState('')
     const[oldName,setOldName]=useState(authentication.state.userInfo.name)
-    const[email,setEmail] =useState(authentication.state.userInfo.email)
     const[oldPassword,setOldPassword]=useState('')
     const[newPassword,setNewPassword]=useState('')
     const[confirmPassword,setConfirmPassword]=useState('')
@@ -55,17 +53,6 @@ const ChangePass = (props) => {
                                   onPress={()=>{
                                       console.log(oldPassword)
                                       if(match){
-                                          // api.post('https://api.itedu.me/user/change-password',{id: authentication.state.userInfo.id,
-                                          //     oldPass: oldPassword,
-                                          //     newPass: newPassword},authentication.state.token).then((response)=>{
-                                          //         console.log(response)
-                                          //         if(response.status===200){
-                                          //         setOk(true)
-                                          // }
-                                          // else{
-                                          //     setError(response.data)
-                                          // }
-                                          // })
                                           changePass(authentication, oldPassword, newPassword, setOk, setError).then( r =>{})
                                       }
                                   }}>

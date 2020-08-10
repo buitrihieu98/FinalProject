@@ -7,44 +7,21 @@ const LoginComponent = (props) => {
 
     const [username, setUsername]=useState('')
     const [password, setPassword]=useState('')
-    const [status, setStatus]=useState(null)
     const authenticationContext = useContext(AuthenticationContext)
 
-    // const renderLoginStatus = (status)=>{
-    //     if(!status){
-    //         return <View></View>
-    //     }
-    //     else if(status.status ===200){
-    //         return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>Login successfully</Text>)
-    //     }
-    //     else{
-    //         return (<Text style={{marginTop:10,fontSize:20, color:"white", fontWeight:"bold"}}>{status.errorString}</Text>)
-    //     }
-    // }
     useEffect(()=>{
-        // if(status && status.status===200){
         if(authenticationContext.state.authenticated){
-            // props.navigation.navigate("MainScreen", {params:/*{status}*/authenticationContext.state.userInfo})
             props.navigation.navigate("MainScreen")
         }
     },[authenticationContext.state.authenticated])
 
     const [hidePass, setHidePass] = useState(true)
-    const onPressLogin=()=>{
-        props.navigation.navigate("MainScreen")
-    }
     const onPressSignUp=()=>{
         props.navigation.navigate("SignUp")
     }
     const onPressForgot=()=>{
         props.navigation.navigate("Forgot")
     }
-
-
-    // return (
-    //     <AuthenticationContext.Consumer>
-    //         {
-    //             ({setAuthentication,setFavoritesList})=>{
     return(
         <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Image source={require('../../../assets/logo.png')} style={styles.logo}>
@@ -74,7 +51,6 @@ const LoginComponent = (props) => {
                     <Text style={styles.normalText}>Sign up?</Text>
                 </TouchableOpacity>
             </View>
-            {/*{renderLoginStatus(status)}*/}
             <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
                 authenticationContext.login(username,password)
             }
@@ -87,9 +63,6 @@ const LoginComponent = (props) => {
             {/*</TouchableOpacity>*/}
         </ImageBackground>
     )
-        //        }}
-        //     </AuthenticationContext.Consumer>
-        // )
 
 };
 

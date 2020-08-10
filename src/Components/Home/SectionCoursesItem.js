@@ -5,7 +5,7 @@ import SectionCourses from "./SectionCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-//import Rating from "./Rating";
+
 
 const SectionCoursesItem = (props) => {
     const {theme} = useContext(ThemeContext)

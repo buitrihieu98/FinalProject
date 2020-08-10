@@ -10,17 +10,10 @@ const ListCoursesItem = (props) => {
     const authentication = useContext(AuthenticationContext)
     const[didBuy,setDidBuy]=useState(false)
     useEffect(()=>{
-        // api.get(`https://api.itedu.me/user/check-own-course/${props.item.id}`,{},authentication.state.token)
-        //     .then((response)=>{
-        //         if(response.isSuccess){
-        //             setDidBuy(response.data.payload.isUserOwnCourse)
-        //         }})
-        //     .catch((error)=>{console.log('error',error)})
         checkOwnCourse(props,authentication.state.token,setDidBuy).then((r)=>{})
     },[])
 
     const onPressItem=()=>{
-        //api check own courses
         if(didBuy){
             props.navigation.push("CourseDetail", {item:props.item})
         }

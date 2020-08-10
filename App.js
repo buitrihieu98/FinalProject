@@ -3,12 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import LoginComponent from "./src/Components/Authentication/LoginComponent";
 import SignUp from "./src/Components/Authentication/SignUp";
 import ForgotPassword from "./src/Components/Authentication/ForgotPassword";
-import ResetPassword from "./src/Components/Authentication/ResetPassword";
 import ProfileComponent from "./src/Components/AccountManagement/ProfileComponent";
 import SettingComponent from "./src/Components/AccountManagement/SettingComponent";
 import ChangeAccountInfo from "./src/Components/AccountManagement/ChangeAccountInfo";
 import Home from "./src/Components/Home/Home";
-import SplashScreen from "./src/Components/Global/SplashScreen";
 import Download from "./src/Components/Download/Download";
 import Search from "./src/Components/Search/Search";
 import Browse from "./src/Components/Browse/Browse";
@@ -21,7 +19,6 @@ import{createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import SeeAllCourses from "./src/Components/Home/SeeAllCourses";
 import TopicDetail from "./src/Components/Details/TopicDetail";
 import {Icon} from "react-native-elements";
-import ProfileButton from "./src/Components/Home/ProfileButton";
 import {AuthenticationContext, AuthenticationProvider} from "./src/provider/AuthenticationProvider";
 import NewRelease from "./src/Components/Browse/NewRelease";
 import Recommended from "./src/Components/Browse/Recommended";
@@ -30,6 +27,7 @@ import CourseDetailToBuy from "./src/Components/Home/CourseDetailToBuy";
 import SeeAllCourses2 from "./src/Components/Home/SeeAllCourses2";
 import ChangePass from "./src/Components/AccountManagement/ChangePass";
 import RelatedCourses from "./src/Components/Details/relatedCourses";
+import RatingsAndComments from "./src/Components/Details/RatingsAndComments";
 
 const Stack = createStackNavigator();
 const MainStack= createStackNavigator();
@@ -40,6 +38,7 @@ const HomeStack=(props)=>{
             <Stack.Navigator
                 mode={'modal'} screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}} initialRouteName="Home">
                 <Stack.Screen name="Home"  navigation={props.navigation} component={Home} options={{ title: 'Home',}} />
+                <Stack.Screen name="RatingsAndComments"  navigation={props.navigation} component={RatingsAndComments} options={{ title: 'Ratings and Comments',}} />
                 <Stack.Screen name="CourseDetail" navigation={props.navigation} component={CourseDetail} options={({route})=>({title: ''})} />
                 <Stack.Screen name="AuthorDetail" navigation={props.navigation} component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
                 <Stack.Screen name="SeeAllCourses" navigation={props.navigation} component={SeeAllCourses} options={{ title: '' }} />
@@ -56,6 +55,7 @@ const DownloadStack=()=>{
     return (
             <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
                 <Stack.Screen name="Download" component={Download} />
+                <Stack.Screen name="RatingsAndComments"  navigation={props.navigation} component={RatingsAndComments} options={{ title: 'Ratings and Comments',}} />
                 <Stack.Screen name="CourseDetail" component={CourseDetail} options={({route})=>({title: route.params.item.title})} />
                 <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
                 <Stack.Screen name="Profile" component={ProfileComponent} options={{ title: '' }} />
@@ -73,6 +73,7 @@ const BrowseStack=(props)=>{
             <Stack.Screen name="NewRelease" component={NewRelease} />
             <Stack.Screen name="Recommended" component={Recommended} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
+            <Stack.Screen name="RatingsAndComments"  navigation={props.navigation} component={RatingsAndComments} options={{ title: 'Ratings and Comments',}} />
             <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             <Stack.Screen name="TopicDetail" component={TopicDetail} options={({route})=>({title: ''})} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />
@@ -87,6 +88,7 @@ const SearchStack=(props)=>{
         <Stack.Navigator screenOptions={{headerStyle:{backgroundColor:theme.background},headerTitleStyle:{fontWeight:'bold'}}}>
             <Stack.Screen name="Search"  navigation={props.navigation} component={Search} />
             <Stack.Screen name="CourseDetail" component={CourseDetail} />
+            <Stack.Screen name="RatingsAndComments"  navigation={props.navigation} component={RatingsAndComments} options={{ title: 'Ratings and Comments',}} />
             <Stack.Screen name="RelatedCourses" navigation={props.navigation} component={RelatedCourses} options={({route})=>({title: 'Related Courses'})} />
             <Stack.Screen name="CourseDetailToBuy" component={CourseDetailToBuy} />
             <Stack.Screen name="AuthorDetail" component={AuthorDetail} options={({route})=>({title: route.params.item.username})} />

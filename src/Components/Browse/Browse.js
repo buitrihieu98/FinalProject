@@ -26,18 +26,8 @@ const Browse = (props) => {
     const [instructorList,setInstructorList]=useState([])
     const [isLoading,setIsLoading] = useState(true)
     useEffect(()=>{
-        // api.get('https://api.itedu.me/category/all',{},).then((response)=>{
-        //     if(response.isSuccess){
-        //         setCategoryList(response.data.payload)
-        //     }
-        // })
         getAllCategory(setCategoryList).then(r => {})
         getInstructorList(setInstructorList).then(r => {})
-        // api.get('https://api.itedu.me/instructor',{},).then((response)=>{
-        //     if(response.isSuccess){
-        //         setInstructorList(response.data.payload)
-        //     }
-        // })
         if(categoryList!==[]){
             setIsLoading(false)
         }

@@ -1,32 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
-import api from "../../API/api";
+import {getRelatedCourse} from "../../Actions/getRelatedCourse_action";
 
 const RelatedCourses = (props) => {
     let item=props.route.params.item
     const [result,setResult]=useState([])
 
     useEffect(()=>{
-        api.post('https://api.itedu.me/course/search',{
-            keyword: "",
-            opt: {
-                sort: {
-                    attribute: "price",
-                    rule: "ASC"
-                },
-                category: item
-                , time: [
-                ], price: [
-                ]
-            },
-            limit: 10,
-            offset: 1
-        }).then((response)=>{
-            if(response.isSuccess){
-                setResult(response.data.payload.rows)
-            }
-        })
+        getRelatedCourse(item, setResult).then(r =>{})
     },[])
 
     return (

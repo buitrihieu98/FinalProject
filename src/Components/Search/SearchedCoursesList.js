@@ -4,11 +4,6 @@ import ListCoursesItem from "../ListCourses/ListCoursesItem";
 import AuthorItems from "../Home/AuthorItems";
 
 const SearchedCoursesList = (props) => {
-    // const renderList =(List) =>{
-    //     let Array=[]
-    //     Array=Array.concat(List)
-    //     return Array.map(item=> <ListCoursesItem item={item}></ListCoursesItem>)
-    // }
 
     return (
         <View style={styles.container}>
@@ -16,9 +11,6 @@ const SearchedCoursesList = (props) => {
                 <Text style={styles.title}>Courses</Text>
                 <Text style={styles.result}>{props.list.length} result(s)</Text>
             </View>
-            {/*<ScrollView>*/}
-            {/*    {renderList(props.List)}*/}
-            {/*</ScrollView>*/}
             <FlatList  data={props.list}
                        renderItem={({item, index, separators}) => (<ListCoursesItem navigation={props.navigation} item={item}></ListCoursesItem>)}/>
         </View>

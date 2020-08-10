@@ -4,11 +4,6 @@ import AuthorItems from "./AuthorItems";
 import ListCoursesItem from "../ListCourses/ListCoursesItem";
 
 const AuthorList = (props) => {
-    // const renderAuthorList =(authorList) =>{
-    //     let authorListArray=[]
-    //     authorListArray=authorListArray.concat(authorList)
-    //     return authorListArray.map(item=> <AuthorItems item={item}></AuthorItems>)
-    // }
     return (
         <View>
             <View style={{justifyContent:'center'}}>

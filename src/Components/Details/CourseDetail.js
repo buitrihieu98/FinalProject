@@ -11,12 +11,10 @@ import {
     Dimensions,
 } from 'react-native';
 import MyRating from "../Home/Rating";
-import AuthorList from "../Home/AuthorList";
 import ViewMoreText from 'react-native-view-more-text';
 import LessonList from "./LessionList";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import api from "../../API/api";
 import AuthorItems from "../Home/AuthorItems";
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {Video} from "expo-av";
@@ -25,6 +23,9 @@ import {getDetailCourse} from "../../Actions/getDetailCourse_action";
 import {getCourseLikeStatus} from "../../Actions/getCourseLikeState_action";
 import {getProcess} from "../../Actions/getProcess_action";
 import {likeCourse} from "../../Actions/likeCourse_action";
+import {getLastWatchedLesson} from "../../Actions/getLastWatchedLesson_action";
+import {getComments} from "../../Actions/getComments_action";
+import CommentsList from "./CommentsList";
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -33,7 +34,6 @@ const CourseDetail = (props) => {
     const [detail,setDetail]=useState({})
     const [processCourse,setProcesCourse]=useState(0)
     const authentication = useContext(AuthenticationContext)
-    // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
     const [liked,setLiked]=useState(false)
     const [isLoading,setIsLoading] = useState(true)
@@ -41,42 +41,31 @@ const CourseDetail = (props) => {
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
     const [isYoutube,setIsYoutube]=useState(false)
     const [cateId,setCateId]=useState([])
-
+    const [comments,setComments]=useState([])
+    const handleVideoRef = (component) => {
+        const playbackObject = component
+        if(playbackObject){
+            playbackObject.playFromPositionAsync(video.currentTime).then(r => {})
+            playbackObject.pauseAsync().then(r => {})
+        }
+    }
     useEffect(()=>{
-        // api.get('https://api.itedu.me​/course​/get-course-info',{id:item.id},authentication.state.token)
-        //     .then((response)=>{if(response.isSuccess) {
-        //         setCateId(response.data.categoryIds)
-        //     }})
-        // api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},authentication.state.token)
-        //     .then((response)=>{if(response.isSuccess){
-        //         setDetail(response.data.payload)
-        // }})
-        //     .catch((error)=>{console.log('error',error)})
         getDetailCourse(item, authentication.state.token, setDetail).then(r  =>{})
         getCourseLikeStatus(item, authentication.state.token, setLiked).then(r =>{} )
         getProcess(item, authentication.state.token, setProcesCourse).then(r =>{} )
-
-        // api.get(`https://api.itedu.me/user/get-course-like-status/${item.id}`,{},authentication.state.token)
-        //     .then((response)=>{if(response.isSuccess){
-        //     setLiked(response.data.likeStatus)
-        // }})
-        // api.get(`https://api.itedu.me/user/process-course/${item.id}`,{},authentication.state.token)
-        //     .then((response)=>{if(response.isSuccess){
-        //         setProcesCourse(response.data.payload)
-        //     }})
+        getLastWatchedLesson(item.id,authentication.state.token,setVideo).then(r =>{} )
+        getComments(item,setComments).then(r =>{} )
         if(detail!=={}){
-            console.log('course detail',detail)
             setIsLoading(false)
         }
     },[])
-    useEffect(()=>{
-        setVideo({videoUrl: detail.promoVidUrl,currentTime:0,isFinish:false})
-    },[detail])
+    // useEffect(()=>{
+    //     setVideo({videoUrl: detail.promoVidUrl,currentTime:0,isFinish:false})
+    // },[detail])
     useEffect(()=>{
         if((video.videoUrl!=='')&&(video.videoUrl!==undefined)&&(video.videoUrl!==null)){
             setHasPromo(true)
             setIsYoutube(video.videoUrl.includes("youtu"))
-            console.log('video la gi',video)
         }
     },[video])
 
@@ -103,11 +92,11 @@ const CourseDetail = (props) => {
          }}
 
     const onPressLike = ()=>{
-        // api.post('https://api.itedu.me/user/like-course',{
-        //     courseId: item.id
-        // },authentication.state.token)
         likeCourse(item, authentication.state.token).then(r =>{})
         setLiked(!liked)
+    }
+    const onPressComment=()=>{
+        props.navigation.push("RatingsAndComments",{comments:comments})
     }
 
     const buttonBookmark=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
@@ -127,8 +116,8 @@ const CourseDetail = (props) => {
                                                  height={300}
                                                  width={400}
                                                  videoId={getYouTubeID(video.videoUrl)}
-                                                 play={true}
-                                                 volume={50}
+                                                 play={false}
+                                                 volume={80}
                                                  playbackRate={1}
                                                  playerParams={{
                                                      cc_lang_pref: "us",
@@ -136,18 +125,17 @@ const CourseDetail = (props) => {
                                                  }}></YoutubePlayer> :<Video
               source={{ uri: video.videoUrl }}
               rate={1.0}
+              ref={(component) => handleVideoRef(component)}
               useNativeControls={true}
-              volume={1.0}
+              volume={2.0}
               isMuted={false}
               resizeMode="cover"
-              shouldPlay
-              isLooping
+              shouldPlay={false}
               style={{ width: WINDOW_WIDTH, height: 300 }}
           />):<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
           <Text style={styles.courseTitle}>{detail.title}</Text>
               <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>
-                  {/*<Text style={styles.subInfo}>{`${item.level} . ${item.releasedDate} . ${item.duration}`}</Text>*/}
                   <Text style={styles.subInfo}>{`Price: ${detail.price} vnd . Total hours: ${detail.totalHours}`}</Text>
                   <MyRating item={detail}></MyRating>
                   <Text style={styles.subInfo}>{`Your Progress: ${processCourse}%`}</Text>
@@ -157,6 +145,10 @@ const CourseDetail = (props) => {
                   <TouchableOpacity onPress={onPressRelated} style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-related.png')}></Image>
                       <Text style={styles.buttonText}>Related courses</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={onPressComment} style={{...styles.button,backgroundColor:theme.background}}>
+                      <Image style={styles.icon} source={require('../../../assets/icon-comments.png')}></Image>
+                      <Text style={styles.buttonText}>Ratings & Comments</Text>
                   </TouchableOpacity>
                   <TouchableOpacity onPress={onPressShare} style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-share.png')}></Image>

@@ -18,29 +18,6 @@ const AuthorDetail = (props) => {
     const [detail,setDetail]=useState()
     const [ok,setOk]=useState(false)
     useEffect(()=>{
-        // console.log('itemmmmmmmmm',item)
-        // api.get(`https://api.itedu.me/instructor/detail/${item.id}`,{},)
-        //     .then((response)=>{
-        //         if(response.isSuccess){
-        //             setDetail(response.data.payload)
-        //             setOk(true)
-        //     }})
-        //     .catch((error)=>{console.log('error',error)})
-        // api.get(`https://api.itedu.me/instructor/detail/${item.userId}`,{},)
-        //     .then((response)=>{
-        //         if(response.isSuccess){
-        //             setDetail(response.data.payload)
-        //             setOk(true)
-        //         }})
-        //     .catch((error)=>{console.log('error',error)})
-        // api.get(`https://api.itedu.me/instructor/detail/${item.instructorId}`,{},)
-        //     .then((response)=>{
-        //         if(response.isSuccess){
-        //             setDetail(response.data.payload)
-        //             setOk(true)
-        //         }})
-        //     .catch((error)=>{console.log('error',error)})
-
         getAuthorDetail(item,setDetail,setOk).then((response)=>{})
 
     },[])
@@ -52,9 +29,6 @@ const AuthorDetail = (props) => {
               <Text style={styles.username}>{detail.name}</Text>
               <Text style={styles.email}>{detail.email}</Text>
           </View>
-          {/*<TouchableOpacity style={styles.followButton}>*/}
-          {/*    <Text style={styles.followText}>Follow</Text>*/}
-          {/*</TouchableOpacity>*/}
 
           <View style={{marginLeft:10,marginTop:5,alignItems:'center', justifyContent:'center'}}>
               <MyRating  item={detail}></MyRating>

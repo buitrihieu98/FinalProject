@@ -14,17 +14,6 @@ const SignUp = (props) => {
         props.navigation.navigate("Login")
     }
     const onPressSignUp=(username,email,phone,pass)=>{
-        // const validPass=('^.{8.20}$').test(pass)
-        // const validEmail =('^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$').test(email)
-        // if(validPass===false){
-        //     setError('Password must have 8-20 characters')
-        // }
-        // else if(validEmail===false){
-        //     setError('Please enter a valid email')
-        // }
-        // if((username==='')||(email==='')||(phone==='')||(pass==='')||(confirmPass==='')){
-        //     setError('Please fill up all field')
-        // }
         if (isMatched===false){
             setError('Password and Confirmed password must be matched')
         }

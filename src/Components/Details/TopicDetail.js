@@ -14,25 +14,6 @@ const TopicDetail = (props) => {
     const {theme} = useContext(ThemeContext)
     const [result,setResult]=useState([])
     useEffect(()=>{
-        // api.post('https://api.itedu.me/course/search',{
-        //     keyword: "",
-        //     opt: {
-        //         sort: {
-        //             attribute: "price",
-        //             rule: "ASC"
-        //         },
-        //         category: [item.id
-        //         ], time: [
-        //         ], price: [
-        //         ]
-        //     },
-        //     limit: 10,
-        //     offset: 1
-        // }).then((response)=>{
-        //     if(response.isSuccess){
-        //         setResult(response.data.payload.rows)
-        //     }
-        // })
         getTopicDetail(item, setResult).then(r =>{})
     },[])
 

@@ -6,8 +6,6 @@ import SettingItemWithSwitch from "./SettingItemWithSwitch";
 import {ThemeContext} from "../../provider/ThemeProvider";
 
 const SettingComponent = (props) => {
-    const [isRequiredWiFiStreaming,setIsRequiredWiFiStreaming]=useState(true)
-    const [isRequireWiFiDownloading,setIsRequiredWiFiDownloading]=useState(true)
     const [appVersion,setAppVersion]=useState('1.0')
     const {theme,changeTheme} = useContext(ThemeContext)
     const onPressChangeInfo=()=>{
@@ -28,7 +26,6 @@ const SettingComponent = (props) => {
   return (
       <View style={{...styles.container,backgroundColor:theme.background}}>
           <ScrollView>
-              {/*<SettingItem name={'Change Account Info'}></SettingItem>*/}
               <TouchableOpacity onPress={onPressChangeInfo} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Change Account Info</Text>
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
@@ -41,15 +38,9 @@ const SettingComponent = (props) => {
                   <Text style={styles.itemName}>Subscription</Text>
                   <Image source={require('../../../assets/icon-next.png')} style={styles.icon}></Image>
               </TouchableOpacity>
-              {/*<SettingItem name={'Subscription'}></SettingItem>*/}
               <TouchableOpacity onPress={onPressChangeTheme} style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>Change theme</Text>
               </TouchableOpacity>
-              {/*<SettingItemWithSwitch name={'Require Wi-fi for streaming'}></SettingItemWithSwitch>*/}
-              {/*<SettingItemWithSwitch name={'Require Wi-fi for downloading'}></SettingItemWithSwitch>*/}
-              {/*<SettingItem name={'Send feedback'}></SettingItem>*/}
-              {/*<SettingItem name={'Contact support'}></SettingItem>*/}
-              {/*<SettingItem name={'App version'}></SettingItem>*/}
               <TouchableOpacity style={{...styles.subContainer,backgroundColor:theme.background}}>
                   <Text style={styles.itemName}>{`App version: ${appVersion}`}</Text>
               </TouchableOpacity>

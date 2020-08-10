@@ -9,18 +9,6 @@ const NewRelease = (props) => {
     const {theme} = useContext(ThemeContext)
     const [topNewList, setTopNewList]=useState([])
     useEffect(()=>{
-        // axios.post('https://api.itedu.me/course/top-new', {
-        //     limit: 10,  page: 1
-        // }).then((response)=>{
-        //     if(response.status===200){
-        //         setTopNewList(response.data.payload)
-        //     }
-        //     else{
-        //         console.log('Failed : ',response.status)
-        //     }
-        // }).catch((error)=>{
-        //     console.log('failed ',error)
-        // })
         getTopNewCourses(setTopNewList).then(r => {})
     },[])
     return (

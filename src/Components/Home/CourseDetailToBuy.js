@@ -5,41 +5,22 @@ import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import AuthorItems from "./AuthorItems";
 import {getFreeCourse} from "../../Actions/getFreeCourse_action";
+import {getCourseInfoForPayment} from "../../Actions/getCourseInfoForPayment_action";
 
 
 const CourseDetailToBuy = (props) => {
     let item=props.route.params.item
     const [detail,setDetail]=useState({})
     const authentication = useContext(AuthenticationContext)
-    // const userInfo=authentication.userInfo
     const {theme} = useContext(ThemeContext)
     useEffect(()=>{
-        console.log('id',item)
-        api.get(`https://api.itedu.me/payment​/get-course-info​/${item.id}`,{},authentication.state.token)
-            .then((response)=>{
-                console.log('response',response)
-                if(response.isSuccess){
-                setDetail(response.data.payload)
-                console.log('detail',detail)
-            }})
-            .catch((error)=>{console.log('error',error)})
-
-
+        getCourseInfoForPayment(item,authentication.state.token,setDetail).then((r)=>{})
     },[])
     props.navigation.setOptions({title: item.title})
 
     const onPressBuy= async () => {
         if (!detail.didUserBuyCourse) {
             if (detail.price === 0) {
-                // api.post('https://api.itedu.me/payment/get-free-courses', {courseId: item.id}, authentication.state.token)
-                //     .then((response) => {
-                //         if (response.isSuccess) {
-                //             props.navigation.push("CourseDetail", {item: item})
-                //         }
-                //     })
-                //     .catch((error) => {
-                //         console.log('error', error)
-                //     })
                 getFreeCourse(item,authentication.state.token,props).then((r)=>{})
             } else {
                 //link tới trang https://itedu.me/payment/{courseId}
@@ -53,8 +34,6 @@ const CourseDetailToBuy = (props) => {
             <Image style={styles.video} source={{uri: item.imageUrl}}></Image>
             <Text style={styles.courseTitle}>{item.title}</Text>
             <View style={styles.infoContainer}>
-                {/*<AuthorList navigation={props.navigation} list={detail.instructorName}></AuthorList>*/}
-                {/*<AuthorItems navigation={props.navigation} item={detail}></AuthorItems>*/}
                 <TouchableOpacity  style={{...styles.button,backgroundColor:theme.itemBackground}}>
                     <Text style={styles.username}>{item['instructor.user.name']}</Text>
                 </TouchableOpacity>

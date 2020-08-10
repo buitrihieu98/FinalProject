@@ -18,26 +18,6 @@ const Search = (props) => {
     const [nothingFound,setNothingFound]=useState(false)
     useEffect(()=>{
         if(searching!==''){
-            // api.post('https://api.itedu.me/course/search',{
-            //     keyword: searching,
-            //     opt: {
-            //         sort: {
-            //             attribute: "price",
-            //             rule: "ASC"
-            //         },
-            //         category: [
-            //         ], time: [
-            //         ], price: [
-            //         ]
-            //     },
-            //     limit: 10,
-            //     offset: 0
-            // }).then((response)=>{
-            //     console.log('search',response)
-            //     if(response.isSuccess){
-            //         setResult(response.data.payload.rows)
-            //     }
-            // })
             search(searching,setResult).then()
 
         }
@@ -66,8 +46,6 @@ const Search = (props) => {
           {/*<RecentSearches rSList={rSList}></RecentSearches>*/}
           <ScrollView>
               {nothingFound?<Text style={{alignSelf:'center'}}>Nothing found</Text>:<SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>}
-              {/*<SearchedAuthorList navigation={props.navigation} list={authorList}></SearchedAuthorList>*/}
-              {/*<SearchedPathList navigation={props.navigation} list={pathList}></SearchedPathList>*/}
           </ScrollView>
       </View>
   )

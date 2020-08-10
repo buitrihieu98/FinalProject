@@ -33,43 +33,10 @@ const Home = (props) => {
     const [isLoading,setIsLoading] = useState(true)
 
     useEffect(()=>{
-        // axios.post('https://api.itedu.me/course/top-rate', {
-        //     limit: 10,  page: 1
-        // }).then((response)=>{
-        //     if(response.status===200){
-        //         setTopRateList(response.data.payload)
-        //     }
-        //     else{
-        //         console.log('Failed : ',response.status)
-        //     }
-        // }).catch((error)=>{
-        //     console.log('failed ',error)
-        // })
         getTopRateCourses(setTopRateList).then(r => {})
-        // api.post(`https://api.itedu.me/course/top-sell`,{
-        //     limit: 10,
-        //     page: 1
-        // },).then((response)=>{
-        //     if(response.isSuccess){
-        //         setTopSellList(response.data.payload)
-        //     }
-        // })
         getTopSellCourses(setTopSellList).then(r => {})
         getContinueLearning(authentication.state.token,setContinueList).then(r => {})
-
-        // api.get(`https://api.itedu.me/user/get-process-courses`,{},authentication.state.token).then((response)=>{
-        //     if(response.isSuccess){
-        //         setContinueList(response.data.payload)
-        //     }
-        // })
         getFavoriteCourses(authentication.state.token,setFaveList).then(r => {})
-
-        // api.get(`https://api.itedu.me/user/get-favorite-courses`,{},authentication.state.token).then((response)=>{
-        //
-        //     if(response.isSuccess){
-        //         setFaveList(response.data.payload)
-        //     }
-        // })
         if((topSellList!==[])&&(topRateList!==[])&&(continueList!==[])&&(faveList!==[])){
             setIsLoading(false)
         }
