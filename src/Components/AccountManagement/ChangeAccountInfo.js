@@ -3,26 +3,37 @@ import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, ScrollView} 
 import BackButton from "../Global/BackButton";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
+import * as ImagePicker from 'expo-image-picker';
 
 const ChangeAccountInfo = (props) => {
     const authentication=useContext(AuthenticationContext)
-    const[newName,setNewName] =useState('')
-    const[oldName,setOldName]=useState(authentication.state.userInfo.name)
+    const[newName,setNewName] =useState(authentication.state.userInfo.name)
     const[email,setEmail] =useState(authentication.state.userInfo.email)
+    const[oldAvatar,setOldAvatar]=useState(authentication.state.userInfo.avatar)
     const [newAvatar, setNewAvatar] = useState('')
     const [newPhone,setNewPhone] = useState(authentication.state.userInfo.phone)
-
     const {theme} = useContext(ThemeContext)
-
-    useEffect(()=>{
-
-
-    },[])
+    const onPressChangeAvatar=async () => {
+            try {
+                let result = await ImagePicker.launchImageLibraryAsync({
+                    mediaTypes: ImagePicker.MediaTypeOptions.All,
+                    allowsEditing: true,
+                    aspect: [4, 3],
+                    quality: 1,
+                });
+                if (!result.cancelled) {
+                    console.log('pick image',result)
+                    setOldAvatar(result.uri)
+                }
+            } catch (E) {
+                console.log(E);
+            }
+        }
   return (
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           <View style={styles.avatarContainer}>
-              <Image style={styles.avatar} source={{uri:authentication.state.userInfo.avatar}}></Image>
-              <TouchableOpacity>
+              <Image style={styles.avatar} source={{uri:oldAvatar}}></Image>
+              <TouchableOpacity onPress={onPressChangeAvatar}>
                   <Text style={styles.changeAvatar}>Change?</Text>
               </TouchableOpacity>
           </View>
@@ -30,13 +41,14 @@ const ChangeAccountInfo = (props) => {
               <Text style={styles.subtitle}>Email</Text>
               <Text style={styles.value}>{email}</Text>
               <Text style={styles.subtitle}>New Username</Text>
-              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={newU=>setNewName(newU)} placeholder= {oldName} />
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={newU=>setNewName(newU)} defaultValue={newName} />
               <Text style={styles.subtitle}>New Phone</Text>
-              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={ph=>setNewPhone(ph)} placeholder={'New phone'}/>
+              <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={ph=>setNewPhone(ph)} defaultValue={newPhone}/>
 
               <TouchableOpacity style={styles.buttonSave}
-                                onPress={()=>{
-                                    //do something
+                                onPress={()=> {console.log(newName,oldAvatar,newPhone)
+                                    // changeAccountInfo(newName,oldAvatar,newPhone,authentication.state.token)
+                                    authentication.changeInfo(newName,oldAvatar,newPhone,authentication.state.token)
                                 }}>
                   <Text style={styles.saveText}>Save</Text>
               </TouchableOpacity>

@@ -5,6 +5,7 @@ import {
     View,
     StyleSheet,
     Image,
+    Share,
     ScrollView,
     ActivityIndicator,
     Dimensions,
@@ -82,7 +83,24 @@ const CourseDetail = (props) => {
     const onPressRelated=()=>{
         props.navigation.push("RelatedCourses",{item:cateId})
     }
-    // const onPressShare
+     const onPressShare =async () => {
+         try {
+             const result = await Share.share({
+                 message:
+                     `https://itedu.me/course-detail/${detail.id}`,
+             });
+             if (result.action === Share.sharedAction) {
+                 if (result.activityType) {
+                     // shared with activity type of result.activityType
+                 } else {
+                     // shared
+                 }
+             } else if (result.action === Share.dismissedAction) {
+                 // dismissed
+             }
+         } catch (error) {
+             alert(error.message);
+         }}
 
     const onPressLike = ()=>{
         // api.post('https://api.itedu.me/user/like-course',{
@@ -140,7 +158,7 @@ const CourseDetail = (props) => {
                       <Image style={styles.icon} source={require('../../../assets/icon-related.png')}></Image>
                       <Text style={styles.buttonText}>Related courses</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity  style={{...styles.button,backgroundColor:theme.background}}>
+                  <TouchableOpacity onPress={onPressShare} style={{...styles.button,backgroundColor:theme.background}}>
                       <Image style={styles.icon} source={require('../../../assets/icon-share.png')}></Image>
                       <Text style={styles.buttonText}>Share</Text>
                   </TouchableOpacity>

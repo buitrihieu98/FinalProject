@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
+
 const LoginComponent = (props) => {
 
     const [username, setUsername]=useState('')
@@ -80,6 +81,10 @@ const LoginComponent = (props) => {
             }>
                 <Text style={styles.loginText}>Login</Text>
             </TouchableOpacity>
+            {/*<TouchableOpacity style={styles.buttonLogin} onPress={()=> {loginGoogle}*/}
+            {/*}>*/}
+            {/*    <Text style={styles.loginText}>Login with Google</Text>*/}
+            {/*</TouchableOpacity>*/}
         </ImageBackground>
     )
         //        }}

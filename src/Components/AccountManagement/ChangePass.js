@@ -29,10 +29,8 @@ const ChangePass = (props) => {
             <View>
                 <Text style={styles.subtitle}>Name</Text>
                 <Text style={styles.value}>{oldName}</Text>
-                {/*<Text style={styles.subtitle}>Email</Text>*/}
-                {/*<Text style={styles.value}>{email}</Text>*/}
                 <Text style={styles.subtitle}>Old Password</Text>
-                <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onSubmitEditing={(opw)=>setOldPassword(opw)}  placeholder={'Old password'}/>
+                <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={(opw)=>setOldPassword(opw)}  placeholder={'Old password'}/>
                 <Text style={styles.subtitle}>New Password</Text>
                 <TextInput style={{...styles.input,backgroundColor:theme.itemBackground}} onChangeText={(pw)=>setNewPassword(pw)}
                            onSubmitEditing={()=>{
