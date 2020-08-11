@@ -22,7 +22,7 @@ const SectionCourses = (props) => {
               </TouchableOpacity>
           </View>
           <FlatList horizontal={true} data={list}
-                    renderItem={({item, index, separators}) => (<SectionCoursesItem navigation={props.navigation} item={item}></SectionCoursesItem>)}/>
+                    renderItem={({item, index, separators}) => (<SectionCoursesItem key = { list.key } navigation={props.navigation} item={item}></SectionCoursesItem>)}/>
       </View>
   )
 };

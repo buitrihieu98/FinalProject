@@ -35,7 +35,8 @@ const CourseDetailToBuy = (props) => {
             <Text style={styles.courseTitle}>{item.title}</Text>
             <View style={styles.infoContainer}>
                 <TouchableOpacity  style={{...styles.button,backgroundColor:theme.itemBackground}}>
-                    <Text style={styles.username}>{item['instructor.user.name']}</Text>
+                    {item['instructor.user.name']?<Text style={styles.username}>{item['instructor.user.name']}</Text>:<Text style={styles.username}>{item.name}</Text>}
+
                 </TouchableOpacity>
                 <View style={styles.subInfoContainer}>
                     <Text style={styles.subInfo}>{`Price: ${item.price} vnd`}</Text>
