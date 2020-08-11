@@ -8,7 +8,7 @@ const RatingItem = (props) => {
     const {theme} = useContext(ThemeContext)
     return (
         <View style={{...styles.container,backgroundColor:theme.background}}>
-            <View style={{justifyContent:'center',alignItems:'center',width:'40%'}}>
+            <View style={{justifyContent:'center',alignItems:'center',width:'30%'}}>
                 {props.item.user.avatar?<Avatar rounded={true} size={'large'}source={{uri:item.user.avatar}}></Avatar>:<View></View>}
                 {props.item.user.name?<Text style={{fontSize:20}}>{item.user.name}</Text>:<View></View>}
             </View>
@@ -18,7 +18,6 @@ const RatingItem = (props) => {
                         ratingCount={5}  startingValue={item.contentPoint} style={styles.rating} />
                 <Text style={{fontSize:20}}>{item.content}</Text>
             </View>
-
         </View>
     )
 };

@@ -41,7 +41,7 @@ const CourseDetail = (props) => {
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
     const [isYoutube,setIsYoutube]=useState(false)
     const [cateId,setCateId]=useState([])
-    const [comments,setComments]=useState([])
+    // const [comments,setComments]=useState([])
     const handleVideoRef = (component) => {
         const playbackObject = component
         if(playbackObject){
@@ -54,7 +54,7 @@ const CourseDetail = (props) => {
         getCourseLikeStatus(item, authentication.state.token, setLiked).then(r =>{} )
         getProcess(item, authentication.state.token, setProcesCourse).then(r =>{} )
         getLastWatchedLesson(item.id,authentication.state.token,setVideo).then(r =>{} )
-        getComments(item,setComments).then(r =>{} )
+        // getComments(item,setComments).then(r =>{} )
         if(detail!=={}){
             setIsLoading(false)
         }
@@ -96,7 +96,7 @@ const CourseDetail = (props) => {
         setLiked(!liked)
     }
     const onPressComment=()=>{
-        props.navigation.push("RatingsAndComments",{comments:comments})
+        props.navigation.navigate("RatingsAndComments",{item:item})
     }
 
     const buttonBookmark=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
