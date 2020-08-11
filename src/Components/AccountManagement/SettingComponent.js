@@ -4,8 +4,10 @@ import BackButton from "../Global/BackButton";
 import SettingItem from "./SettingItem";
 import SettingItemWithSwitch from "./SettingItemWithSwitch";
 import {ThemeContext} from "../../provider/ThemeProvider";
+import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 
 const SettingComponent = (props) => {
+    const authentication=useContext(AuthenticationContext)
     const [appVersion,setAppVersion]=useState('1.0')
     const {theme,changeTheme} = useContext(ThemeContext)
     const onPressChangeInfo=()=>{
@@ -22,6 +24,7 @@ const SettingComponent = (props) => {
     }
     const signOut=()=>{
         props.navigation.popToTop()
+        authentication.logout()
     }
   return (
       <View style={{...styles.container,backgroundColor:theme.background}}>
@@ -51,7 +54,6 @@ const SettingComponent = (props) => {
       </View>
   )
 };
-
 
 const styles = StyleSheet.create({
     container:{
