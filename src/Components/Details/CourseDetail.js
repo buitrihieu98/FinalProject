@@ -8,7 +8,7 @@ import {
     Share,
     ScrollView,
     ActivityIndicator,
-    Dimensions,
+    Dimensions, Slider,
 } from 'react-native';
 import MyRating from "../Home/Rating";
 import ViewMoreText from 'react-native-view-more-text';
@@ -21,6 +21,7 @@ import {Video} from "expo-av";
 import getYouTubeID from 'get-youtube-id';
 import {getDetailCourse, getLastWatchedLesson} from "../../Services/courses-service";
 import {getCourseLikeStatus, getProcess, likeCourse} from "../../Services/user-service";
+import {downloadVideo} from "../../Services/download-service";
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -36,6 +37,9 @@ const CourseDetail = (props) => {
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
     const [isYoutube,setIsYoutube]=useState(false)
     const [cateId,setCateId]=useState([])
+    const [canDown,setCanDown]=useState(true)
+    const [isDownloading,setIsDownloading]=useState(false)
+    const [progressDown,setProgressDown]=useState(0)
     // const handleVideoRef = (component) => {
     //     const playbackObject = component
     //     if(playbackObject){
@@ -50,12 +54,19 @@ const CourseDetail = (props) => {
         getLastWatchedLesson(item.id,authentication.state.token,setVideo).then(r =>{} )
         if(detail!=={}){
             setIsLoading(false)
+            console.log(detail)
         }
     },[])
     useEffect(()=>{
         if((video.videoUrl!=='')&&(video.videoUrl!==undefined)&&(video.videoUrl!==null)){
             setHasPromo(true)
             setIsYoutube(video.videoUrl.includes("youtu"))
+        }
+        if(video.videoUrl.includes("mp4")){
+            setCanDown(true)
+        }
+        else{
+            setCanDown(false)
         }
     },[video])
 
@@ -85,6 +96,10 @@ const CourseDetail = (props) => {
         likeCourse(item, authentication.state.token).then(r =>{})
         setLiked(!liked)
     }
+    // const onPressDownload=()=>{
+    //     downloadVideo(video, setProgressDown).then(r =>{})
+    //
+    // }
     const onPressComment=()=>{
         props.navigation.navigate("RatingsAndComments",{item:item})
     }
@@ -96,6 +111,12 @@ const CourseDetail = (props) => {
         <Image style={styles.icon} source={require('../../../assets/icon-hearted.png')}></Image>
         <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
+    const buttonDown=<TouchableOpacity onPress={onPressDownload} style={{...styles.button,backgroundColor:theme.background}}>
+        <Image style={styles.icon} source={require('../../../assets/icon-download.png')}>
+        </Image>
+        <Text style={styles.buttonText}>Download this video</Text>
+    </TouchableOpacity>
+    // const progressBar =<Progress.Bar progress={progressDown} width={'100%'} />
   return (
       isLoading?
           <View>
@@ -129,6 +150,10 @@ const CourseDetail = (props) => {
                   />
                   )
               :<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
+          {/*{canDown? buttonDown: <View></View>}*/}
+          {/*{isDownloading?progressBar:<View></View>}*/}
+          {/*<Slider disabled={false} minimumTrackTintColor={theme.foreground} maximumTrackTintColor={theme.background}*/}
+          {/*        maximumValue={100} minimumValue={0} value={progressDown} ></Slider>*/}
           <Text style={styles.courseTitle}>{detail.title}</Text>
               <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>

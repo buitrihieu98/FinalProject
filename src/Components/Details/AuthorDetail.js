@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
-import {Avatar} from "react-native-elements";
+import {Avatar, Rating} from "react-native-elements";
 import ViewMoreText from "react-native-view-more-text";
 import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
@@ -19,6 +19,7 @@ const AuthorDetail = (props) => {
     useEffect(()=>{
         getAuthorDetail(item,setDetail,setOk).then((response)=>{})
 
+
     },[])
     const {theme} = useContext(ThemeContext)
   return (
@@ -30,12 +31,17 @@ const AuthorDetail = (props) => {
           </View>
 
           <View style={{marginLeft:10,marginTop:5,alignItems:'center', justifyContent:'center'}}>
-              <MyRating  item={detail}></MyRating>
+              <View style={{...styles.container2,backgroundColor:theme.background}}>
+                  <Rating imageSize={30} tintColor={theme.background} readonly={true}
+                          ratingBackgroundColor={theme.foreground} type={'custom'}
+                          ratingCount={5}  startingValue={detail.averagePoint} style={styles.rating} />
+              </View>
               <ViewMoreText numberOfLines={3} textStyle={styles.subInfo}>
                   <Text>{detail.intro}
                   </Text>
               </ViewMoreText>
           </View>
+          {console.log(detail)}
           <Text style={styles.subTitle}>Courses of this author</Text>
           <ListCourses navigation={props.navigation} list={detail.courses}></ListCourses>
       </ScrollView>:<View></View>
@@ -48,6 +54,13 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:'white',
+    },
+    rating:{
+        alignSelf:'center',
+    },
+    container2:{
+        flexDirection:'row',
+        height:20,
     },
     avatarContainer:{
         marginTop:10,

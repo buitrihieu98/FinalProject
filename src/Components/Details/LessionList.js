@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {FlatList, Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {FlatList, Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {getVideo} from "../../Services/lesson-service";
@@ -43,6 +43,11 @@ const styles = StyleSheet.create({
     containerLesson: {
         borderBottomWidth: 1,
         paddingVertical: 10,
+    },
+    download:{
+        paddingTop: 5,
+        height:15,
+        width:15,
     },
     containerLessonInfo: {
         marginBottom: 10,

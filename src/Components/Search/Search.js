@@ -37,7 +37,7 @@ const Search = (props) => {
                     <View style = {styles.recentItem}>
                         <Image  source={require('../../../assets/icon_recent.jpg')} style={styles.iconRecent}>
                         </Image>
-                        <Text style={{fontSize:20,}} numberOfLines = { 1 }>{item.content}</Text>
+                        <Text style={{fontSize:20,paddingLeft:5}} numberOfLines = { 1 }>{item.content}</Text>
                         <TouchableOpacity style={styles.buttonEye} onPress = {() => {
                             deleteHistory(item,authentication.state.token).then((r)=>{
                                 getSearchHistory(authentication.state.token,setRecentSearchesList).then((r)=>{})
