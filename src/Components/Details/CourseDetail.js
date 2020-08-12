@@ -19,13 +19,9 @@ import AuthorItems from "../Home/AuthorItems";
 import YoutubePlayer from 'react-native-youtube-iframe';
 import {Video} from "expo-av";
 import getYouTubeID from 'get-youtube-id';
-import {getDetailCourse} from "../../Actions/getDetailCourse_action";
-import {getCourseLikeStatus} from "../../Actions/getCourseLikeState_action";
-import {getProcess} from "../../Actions/getProcess_action";
-import {likeCourse} from "../../Actions/likeCourse_action";
-import {getLastWatchedLesson} from "../../Actions/getLastWatchedLesson_action";
-import {getComments} from "../../Actions/getComments_action";
-import CommentsList from "./CommentsList";
+import {getDetailCourse, getLastWatchedLesson} from "../../Services/courses-service";
+import {getCourseLikeStatus, getProcess, likeCourse} from "../../Services/user-service";
+
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -41,20 +37,18 @@ const CourseDetail = (props) => {
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
     const [isYoutube,setIsYoutube]=useState(false)
     const [cateId,setCateId]=useState([])
-    // const [comments,setComments]=useState([])
-    const handleVideoRef = (component) => {
-        const playbackObject = component
-        if(playbackObject){
-            playbackObject.playFromPositionAsync(video.currentTime).then(r => {})
-            playbackObject.pauseAsync().then(r => {})
-        }
-    }
+    // const handleVideoRef = (component) => {
+    //     const playbackObject = component
+    //     if(playbackObject){
+    //         playbackObject.playFromPositionAsync(video.currentTime).then(r => {})
+    //         playbackObject.pauseAsync().then(r => {})
+    //     }
+    // }
     useEffect(()=>{
         getDetailCourse(item, authentication.state.token, setDetail).then(r  =>{})
         getCourseLikeStatus(item, authentication.state.token, setLiked).then(r =>{} )
         getProcess(item, authentication.state.token, setProcesCourse).then(r =>{} )
         getLastWatchedLesson(item.id,authentication.state.token,setVideo).then(r =>{} )
-        // getComments(item,setComments).then(r =>{} )
         if(detail!=={}){
             setIsLoading(false)
         }
@@ -125,12 +119,12 @@ const CourseDetail = (props) => {
                                                  }}></YoutubePlayer> :<Video
               source={{ uri: video.videoUrl }}
               rate={1.0}
-              ref={(component) => handleVideoRef(component)}
+              // ref={(component) => handleVideoRef(component)}
               useNativeControls={true}
               volume={2.0}
               isMuted={false}
               resizeMode="cover"
-              shouldPlay={false}
+              shouldPlay={true}
               style={{ width: WINDOW_WIDTH, height: 300 }}
           />):<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
           <Text style={styles.courseTitle}>{detail.title}</Text>

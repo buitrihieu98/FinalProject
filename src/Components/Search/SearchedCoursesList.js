@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, ScrollView, FlatList} from 'react-native';
 import ListCoursesItem from "../ListCourses/ListCoursesItem";
-import AuthorItems from "../Home/AuthorItems";
 
 const SearchedCoursesList = (props) => {
     return (

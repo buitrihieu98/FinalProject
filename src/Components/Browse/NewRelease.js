@@ -2,8 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import axios from "axios";
-import {getTopNewCourses} from "../../Actions/getTopNewCourses_action";
+import {getTopNewCourses} from "../../Services/courses-service";
 
 const NewRelease = (props) => {
     const {theme} = useContext(ThemeContext)

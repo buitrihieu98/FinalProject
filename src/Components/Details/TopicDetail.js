@@ -1,13 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView} from 'react-native';
-import SectionCourses from "../Home/SectionCourses";
-import PathList from "../Home/PathList";
-import AuthorList from "../Home/AuthorList";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-import api from "../../API/api";
 import SearchedCoursesList from "../Search/SearchedCoursesList";
-import {getTopicDetail} from "../../Actions/getTopicDetail_action";
+import {getTopicDetail} from "../../Services/category-service";
+
 
 const TopicDetail = (props) => {
     let item=props.route.params.item

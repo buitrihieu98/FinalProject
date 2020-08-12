@@ -1,7 +1,6 @@
 import React from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
-import SectionCoursesItem from "./SectionCoursesItem";
 
 const SeeAllCourses = (props) => {
   return (

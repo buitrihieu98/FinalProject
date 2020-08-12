@@ -1,25 +1,27 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, ActivityIndicator} from 'react-native';
 import {Avatar, Tile} from "react-native-elements";
-
-import PathList from "../Home/PathList";
 import AuthorList from "../Home/AuthorList";
 import Tag from "../Global/Tag";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-import {getAllCategory} from "../../Actions/getAllCategory_action";
-import {getInstructorList} from "../../Actions/getInstructorList_action";
+import {getAllCategory} from "../../Services/category-service";
+import {getInstructorList} from "../../Services/author-service";
+
 
 const Browse = (props) => {
     const authentication=useContext(AuthenticationContext)
-    props.navigation.setOptions({headerRight: () => (
-        <Avatar
-                style={{margin:5,marginRight:10,height:25,width:25}}
-                onPress={() => props.navigation.navigate("Profile")}
-                source={{uri:authentication.state.userInfo.avatar}}
-            />
-        ),})
+    const avatar=authentication.state.userInfo.avatar
+    if(avatar){
+        props.navigation.setOptions({headerRight: () => (
+                <Avatar
+                    style={{margin:5,marginRight:10,height:25,width:25}}
+                    onPress={() => props.navigation.navigate("Profile")}
+                    source={{uri:avatar}}
+                />
+            ),})
+    }
+
 
     const {theme} = useContext(ThemeContext)
     const [categoryList,setCategoryList]=useState([])

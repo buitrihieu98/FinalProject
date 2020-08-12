@@ -1,6 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, Image, TouchableOpacity, TextInput, ScrollView} from 'react-native';
-import BackButton from "../Global/BackButton";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import * as ImagePicker from 'expo-image-picker';

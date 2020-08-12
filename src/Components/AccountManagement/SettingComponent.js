@@ -1,8 +1,5 @@
 import React, {useContext, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity, Image} from 'react-native';
-import BackButton from "../Global/BackButton";
-import SettingItem from "./SettingItem";
-import SettingItemWithSwitch from "./SettingItemWithSwitch";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 

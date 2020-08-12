@@ -1,8 +1,7 @@
 import React, {useState, useReducer} from 'react';
-import {login} from "../Actions/authentication_action";
 import {reducer} from "../Reducers/AuthenticationReducer";
-import {changeAccountInfo} from "../Actions/changeAccountInfo_action";
-import {logOut} from "../Actions/logout_action";
+import {changeAccountInfo, login, logOut} from "../Services/user-service";
+
 
 
 const AuthenticationContext = React.createContext()

@@ -1,15 +1,8 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, ScrollView, TouchableOpacity, FlatList} from 'react-native';
-import {Avatar} from "react-native-elements";
-import BackButton from "../Global/BackButton";
-import Tag from "../Global/Tag"
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import api from "../../API/api";
-import ListCoursesItem from "../ListCourses/ListCoursesItem";
-
 const ProfileComponent = (props) => {
-
 const authentication = useContext(AuthenticationContext)
 const userInfo=authentication.state.userInfo
 const {theme} = useContext(ThemeContext)

@@ -3,7 +3,7 @@ import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-import {getRecommendCourses} from "../../Actions/getRecommendCourses_action";
+import {getRecommendCourses} from "../../Services/user-service";
 
 const Recommended = (props) => {
     const authentication = useContext(AuthenticationContext)

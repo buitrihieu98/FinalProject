@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {TouchableOpacity,Image, View, StyleSheet,Text } from 'react-native';
 import {Rating} from 'react-native-elements';
-import SectionCourses from "./SectionCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";

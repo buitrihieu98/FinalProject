@@ -1,14 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Text, ScrollView, TouchableOpacity} from 'react-native';
-import BackButton from "../Global/BackButton";
 import {Avatar} from "react-native-elements";
 import ViewMoreText from "react-native-view-more-text";
 import ListCourses from "../ListCourses/ListCourses";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import MyRating from "../Home/Rating";
-import {getAuthorDetail} from "../../Actions/getAuthorDetail_action";
+import {getAuthorDetail} from "../../Services/author-service";
+
 
 
 const AuthorDetail = (props) => {

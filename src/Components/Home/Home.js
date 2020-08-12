@@ -1,28 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, Image, ScrollView, Text, ImageBackground, ActivityIndicator} from 'react-native';
 import SectionCourses from "./SectionCourses";
-import PathList from "./PathList";
-import AuthorList from "./AuthorList";
 import {Avatar} from "react-native-elements";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-import axios from "axios";
-import {LOGIN_FAILED, LOGIN_SUCCEEDED} from "../../Actions/authentication_action";
-import api from "../../API/api";
 import SectionCourses2 from "./SectionCourse2";
-import {getTopRateCourses} from "../../Actions/getTopRateCourses_action";
-import {getTopSellCourses} from "../../Actions/getTopSellCourses_action";
-import {getContinueLearning} from "../../Actions/getContinueLearning_action";
-import {getFavoriteCourses} from "../../Actions/getFavoriteCourses_action";
+import {getTopRateCourses, getTopSellCourses} from "../../Services/courses-service";
+import {getContinueLearning, getFavoriteCourses} from "../../Services/user-service";
+
 
 const Home = (props) => {
-    props.navigation.setOptions({headerRight: () => (
-            <Avatar
-                style={{margin:5,marginRight:10,height:25,width:25}}
-                onPress={() => props.navigation.navigate("Profile")}
-                source={{uri:userInfo.avatar}}
-            />
-        ),})
     const {theme} = useContext(ThemeContext)
     const authentication = useContext(AuthenticationContext)
     const userInfo= authentication.state.userInfo
@@ -31,7 +18,15 @@ const Home = (props) => {
     const [faveList, setFaveList]=useState([])
     const[continueList,setContinueList]=useState([])
     const [isLoading,setIsLoading] = useState(true)
-
+    if(userInfo){
+        props.navigation.setOptions({headerRight: () => (
+                <Avatar
+                    style={{margin:5,marginRight:10,height:25,width:25}}
+                    onPress={() => props.navigation.navigate("Profile")}
+                    source={{uri:userInfo.avatar}}
+                />
+            ),})
+    }
     useEffect(()=>{
         getTopRateCourses(setTopRateList).then(r => {})
         getTopSellCourses(setTopSellList).then(r => {})

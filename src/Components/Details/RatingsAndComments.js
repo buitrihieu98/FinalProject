@@ -5,8 +5,7 @@ import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import CommentsList from "./CommentsList";
 import {Rating} from "react-native-elements";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import {getComments} from "../../Actions/getComments_action";
-import {rateCourse} from "../../Actions/rateCourse_action";
+import {getComments, rateCourse} from "../../Services/courses-service";
 
 const RatingsAndComments = (props) => {
     let item = props.route.params.item

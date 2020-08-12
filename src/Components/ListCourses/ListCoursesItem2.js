@@ -4,7 +4,7 @@ import {Rating} from "react-native-elements";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import api from "../../API/api";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-import {checkOwnCourse} from "../../Actions/checkOwnCourse_action";
+import {checkOwnCourse} from "../../Services/user-service";
 
 const ListCoursesItem2 = (props) => {
     const authentication = useContext(AuthenticationContext)

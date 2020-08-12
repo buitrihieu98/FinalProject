@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {View, StyleSheet, TouchableOpacity, Image, Text} from 'react-native';
-import {Avatar} from "react-native-elements";
 import {ThemeContext} from "../../provider/ThemeProvider";
 
 const AuthorItems = (props) => {

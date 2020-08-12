@@ -4,7 +4,8 @@ import BackButton from "../Global/BackButton";
 import {ThemeContext} from "../../provider/ThemeProvider";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import api from "../../API/api";
-import {changePass} from "../../Actions/changePass_action";
+import {changePass} from "../../Services/user-service";
+
 
 const ChangePass = (props) => {
     const authentication=useContext(AuthenticationContext)

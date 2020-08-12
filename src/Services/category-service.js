@@ -1,6 +1,13 @@
 import api from "../API/api";
 
-export const getRelatedCourse=async (cateId,setResult)=>{
+export const getAllCategory = async (setState)=>{
+    api.get('https://api.itedu.me/category/all',{},).then((response)=>{
+        if(response.isSuccess){
+            setState(response.data.payload)
+        }
+    })
+}
+export const getTopicDetail =async (item,setState)=>{
     api.post('https://api.itedu.me/course/search',{
         keyword: "",
         opt: {
@@ -8,8 +15,8 @@ export const getRelatedCourse=async (cateId,setResult)=>{
                 attribute: "price",
                 rule: "ASC"
             },
-            category: cateId
-            , time: [
+            category: [item.id
+            ], time: [
             ], price: [
             ]
         },
@@ -17,7 +24,7 @@ export const getRelatedCourse=async (cateId,setResult)=>{
         offset: 1
     }).then((response)=>{
         if(response.isSuccess){
-            setResult(response.data.payload.rows)
+            setState(response.data.payload.rows)
         }
     })
 }

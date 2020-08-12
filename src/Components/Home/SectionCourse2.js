@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Text, ScrollView, View, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
-import SectionCoursesItem from "./SectionCoursesItem";
-import ListCoursesItem from "../ListCourses/ListCoursesItem";
-import SeeAllButton from "../Global/SeeAllButton";
+
 import SectionCoursesItem2 from "./SectionCoursesItem2";
 const SectionCourses2 = (props) => {
     const onSeeAllButtonPress=()=>{

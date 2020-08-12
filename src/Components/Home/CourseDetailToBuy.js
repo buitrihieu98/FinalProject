@@ -2,12 +2,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Text, TouchableOpacity, View, StyleSheet, Image, ScrollView, Linking} from 'react-native';
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import api from "../../API/api";
-import AuthorItems from "./AuthorItems";
-import {getFreeCourse} from "../../Actions/getFreeCourse_action";
-import {getCourseInfoForPayment} from "../../Actions/getCourseInfoForPayment_action";
-
-
+import {getCourseInfoForPayment, getFreeCourse} from "../../Services/payment-service";
 const CourseDetailToBuy = (props) => {
     let item=props.route.params.item
     const [detail,setDetail]=useState({})

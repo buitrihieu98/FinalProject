@@ -11,18 +11,12 @@ import {
     Image
 } from 'react-native';
 import {Button, SearchBar} from "react-native-elements";
-import ListCourses from "../ListCourses/ListCourses";
-import RecentSearches from "./RecentSearches";
 import SearchedAuthorList from "./SearchedAuthorList";
 import SearchedCoursesList from "./SearchedCoursesList";
-import SearchedPathList from "./SearchedPathList";
 import {ThemeContext} from "../../provider/ThemeProvider";
-import api from "../../API/api";
-import {search} from "../../Actions/search_action";
-import AuthorItems from "../Home/AuthorItems";
 import {AuthenticationContext} from "../../provider/AuthenticationProvider";
-import {deleteHistory} from "../../Actions/deleteHistory_action";
-import {getSearchHistory} from "../../Actions/getSearchHistory_action";
+import {deleteHistory, getSearchHistory, search} from "../../Services/courses-service";
+
 
 const Search = (props) => {
     const {theme} = useContext(ThemeContext)
@@ -61,7 +55,6 @@ const Search = (props) => {
                             deleteHistory(item,authentication.state.token).then((r)=>{
                                 getSearchHistory(authentication.state.token,setRecentSearchesList).then((r)=>{})
                             })
-
                         }}>
                             <Image source={require('../../../assets/icon_delete.png')} style={{height:'100%', width:'100%'}}>
                             </Image>
@@ -93,7 +86,7 @@ const Search = (props) => {
               onSubmitEditing={()=>{
                   setShowHistory(false)
                   if(searching!==''){
-                      search(searching,setResultCourses(),setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors,setNoAll).then((r)=>{})
+                      search(searching,setResultCourses,setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors,setNoAll).then((r)=>{})
                   }
               }}
               value={searching}

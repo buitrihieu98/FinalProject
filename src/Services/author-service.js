@@ -23,3 +23,10 @@ export const getAuthorDetail = async(item,setState,setOk) =>{
             }})
         .catch((error)=>{console.log('error',error)})
 }
+export const getInstructorList = async(setState)=>{
+    api.get('https://api.itedu.me/instructor',{},).then((response)=>{
+        if(response.isSuccess){
+            setState(response.data.payload)
+        }
+    })
+}

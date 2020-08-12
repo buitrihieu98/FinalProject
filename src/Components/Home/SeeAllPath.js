@@ -1,8 +1,5 @@
 import React from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
-import ListCourses from "../ListCourses/ListCourses";
-import SectionCoursesItem from "./SectionCoursesItem";
-import SearchedPathList from "../Search/SearchedPathList";
 import SearchedPathItem from "../Search/SearchedPathItem";
 
 const SeeAllPath = (props) => {

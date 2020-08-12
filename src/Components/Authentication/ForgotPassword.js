@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { View,Text, TextInput, StyleSheet,Image, ImageBackground,TouchableOpacity } from 'react-native';
-import {resetPass} from "../../Actions/resetPass_action";
-
+import {resetPass} from "../../Services/user-service";
 const ForgotPassword = (props) => {
     const [email,setEmail]=useState('')
     const [error,setError]=useState('')

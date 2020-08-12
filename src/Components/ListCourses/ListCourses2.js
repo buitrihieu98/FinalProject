@@ -1,7 +1,5 @@
 import React from 'react';
 import {FlatList, View, StyleSheet, ScrollView} from 'react-native';
-import SectionCoursesItem from "../Home/SectionCoursesItem";
-import ListCoursesItem from "./ListCoursesItem";
 import ListCoursesItem2 from "./ListCoursesItem2";
 
 const ListCourses2 = (props) => {

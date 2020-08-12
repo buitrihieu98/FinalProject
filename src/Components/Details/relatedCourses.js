@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, FlatList} from 'react-native';
 import ListCourses from "../ListCourses/ListCourses";
-import {getRelatedCourse} from "../../Actions/getRelatedCourse_action";
+import {getRelatedCourse} from "../../Services/courses-service";
+
 
 const RelatedCourses = (props) => {
     let item=props.route.params.item

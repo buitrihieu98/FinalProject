@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Text, ScrollView, View, StyleSheet, FlatList, TouchableOpacity, Image} from 'react-native';
 import SectionCoursesItem from "./SectionCoursesItem";
-import ListCoursesItem from "../ListCourses/ListCoursesItem";
-import SeeAllButton from "../Global/SeeAllButton";
+
 const SectionCourses = (props) => {
     const onSeeAllButtonPress=()=>{
         props.navigation.push("SeeAllCourses",{title: props.title,
