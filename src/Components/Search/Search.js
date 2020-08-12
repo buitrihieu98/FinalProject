@@ -29,35 +29,34 @@ const Search = (props) => {
     const authentication = useContext(AuthenticationContext)
     const [searching,setSearching]=useState('')
     const [recentSearchesList,setRecentSearchesList] = useState([])
-    const [result,setResult]=useState([])
+    const [resultCourses,setResultCourses]=useState([])
     const [resultAuthors,setResultAuthors]=useState([])
-    const [nothingFound,setNothingFound]=useState(false)
+    const [noAll,setNoAll]=useState(true)
+    const [noAuthors,setNoAuthors]=useState(true)
+    const [noCourses,setNoCourses]=useState(true)
     const [showHistory,setShowHistory]=useState(true)
+    const onPressRecentSearch=(item)=>{
+        setSearching(item.content)
+        setShowHistory(false)
+        if(item.content!==''){
+            search(item.content,setResultCourses,setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors,setNoAll).then((r)=>{})
+        }
+    }
     const history =
         <View>
-            <Text style={{paddingLeft:10,paddingTop:10,fontSize:20,fontWeight:'bold'}}>{`Recent search (${recentSearchesList.length})`}</Text>
+            {recentSearchesList.length!==0?<Text style={{paddingLeft:10,paddingTop:10,fontSize:20,fontWeight:'bold'}}>{`Recent search (${recentSearchesList.length})`}</Text>:<View></View>}
             <FlatList horizontal={false} data={recentSearchesList} renderItem={({item, index, separators}) =>
-                (<TouchableOpacity
-                    style = {{
-                        width:'100%',
-                    }}
-                    key = { recentSearchesList.key }
-                    onPress = {() => {
-                        setSearching(item.content)
-                        setShowHistory(false)
-                        if(searching!==''){
-                            search(searching,setResult,setResultAuthors,authentication.state.token).then((r)=>{})
-                        }
-
-                    }}>
+                (<TouchableOpacity style = {{width:'100%',}} onPress={()=>{onPressRecentSearch(item)}}>
                     <View style = {{
                         width:'100%',
                         height:30,
                         flexDirection: `row`,
                         justifyContent: `flex-start`,
-                        alignItems: 'center',
-                    }}>
-                        <Text style={{paddingLeft:10,fontSize:20,}} numberOfLines = { 1 }>{item.content}</Text>
+                        alignItems: 'center',}}>
+                        <Image  source={require('../../../assets/icon_recent.jpg')} style={{height: 18,
+                            width: 18,paddingLeft:10}}>
+                        </Image>
+                        <Text style={{fontSize:20,}} numberOfLines = { 1 }>{item.content}</Text>
                         <TouchableOpacity style={styles.buttonEye} onPress = {() => {
                             deleteHistory(item,authentication.state.token).then((r)=>{
                                 getSearchHistory(authentication.state.token,setRecentSearchesList).then((r)=>{})
@@ -74,27 +73,10 @@ const Search = (props) => {
 
     useEffect(()=>{
         getSearchHistory(authentication.state.token,setRecentSearchesList).then((r)=>{})
-    },[result,resultAuthors])
+    },[resultCourses,resultAuthors])
     useEffect(()=>{
         getSearchHistory(authentication.state.token,setRecentSearchesList).then((r)=>{})
     },[])
-
-
-    // useEffect(()=>{
-    //     if(searching!==''){
-    //         search(searching,setResult).then()
-    //     }
-    // },[searching])
-
-    useEffect(()=>{
-        if(result.length===0){
-            setNothingFound(true)
-        }
-        else {
-            setNothingFound(false)
-        }
-    },[result])
-
 
   return (
        <View style={{...styles.container,backgroundColor:theme.background}}>
@@ -104,10 +86,14 @@ const Search = (props) => {
               placeholder={'Type Here...'}
               onChangeText={text=>{setSearching(text)
               setShowHistory(true)}}
+              onClear={()=>{
+                  setResultCourses([])
+                  setSearching('')}
+              }
               onSubmitEditing={()=>{
                   setShowHistory(false)
                   if(searching!==''){
-                      search(searching,setResult,setResultAuthors,authentication.state.token).then((r)=>{})
+                      search(searching,setResultCourses(),setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors,setNoAll).then((r)=>{})
                   }
               }}
               value={searching}
@@ -121,7 +107,10 @@ const Search = (props) => {
           {/* />*/}
           {/*<RecentSearches rSList={rSList}></RecentSearches>*/}
            {showHistory?history:<View></View>}
-           {nothingFound?<Text style={{alignSelf:'center'}}>Nothing found</Text>:<SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>}
+           {/*{nothingFound?<Text style={{alignSelf:'center'}}>Nothing found</Text>:<SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>}*/}
+           {/*{result.length===0?<View></View>:<SearchedCoursesList noCourses={noCourses} navigation={props.navigation} list={result}></SearchedCoursesList>}*/}
+           <SearchedCoursesList noCourses={noCourses} navigation={props.navigation} list={resultCourses}></SearchedCoursesList>
+           <SearchedAuthorList noAuthors={noAuthors} navigation={props.navigation} list={resultAuthors}></SearchedAuthorList>
        </View>
 
 
@@ -162,8 +151,8 @@ const styles = StyleSheet.create({
         position:'absolute',
         top: 8,
         right:10,
-        height: 10,
-        width: 10,
+        height: 18,
+        width: 18,
     },
 });
 

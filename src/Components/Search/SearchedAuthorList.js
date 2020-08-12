@@ -3,16 +3,21 @@ import {Text, View, StyleSheet, ScrollView, FlatList} from 'react-native';
 import AuthorItems from "../Home/AuthorItems";
 import SectionCoursesItem from "../Home/SectionCoursesItem";
 import SearchedAuthorItem from "./SearchedAuthorItem";
+import ListCoursesItem from "../ListCourses/ListCoursesItem";
 
 const SearchedAuthorList = (props) => {
     return (
         <View style={styles.container}>
-            <View style={{flexDirection:'row'}}>
-                <Text style={styles.title}>Authors</Text>
-                <Text style={styles.result}>{props.list.length} result(s)</Text>
-            </View>
-            <FlatList  data={props.list}
-                      renderItem={({item, index, separators}) => (<SearchedAuthorItem navigation={props.navigation} item={item}></SearchedAuthorItem>)}/>
+            {props.noAuthors===true?<Text style={{alignSelf:'center'}}>Nothing found</Text>:
+                <View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text style={styles.title}>Courses</Text>
+                        <Text style={styles.result}>{props.list.length} result(s)</Text>
+                    </View>
+                    <FlatList  data={props.list}
+                               renderItem={({item, index, separators}) => (<SearchedAuthorItem navigation={props.navigation} item={item}></SearchedAuthorItem>)}/>
+                </View>
+            }
         </View>
     )
 };

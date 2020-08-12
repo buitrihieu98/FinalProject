@@ -10,9 +10,8 @@ const SearchedAuthorItem = (props) => {
     const {theme} = useContext(ThemeContext)
     return (
         <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
-            {<Avatar rounded={true} avatarStyle={styles.avatar} source={require('../../../assets/icon-avatar.png')
-            }></Avatar>}
-            <Text style={styles.username}>{props.item.username}</Text>
+            <Avatar rounded={true} avatarStyle={styles.avatar} source={{uri:props.item.avatar}}></Avatar>
+            <Text style={styles.username}>{props.item.name}</Text>
         </TouchableOpacity>
     )
 };

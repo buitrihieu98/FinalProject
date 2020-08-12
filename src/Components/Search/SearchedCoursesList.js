@@ -4,15 +4,18 @@ import ListCoursesItem from "../ListCourses/ListCoursesItem";
 import AuthorItems from "../Home/AuthorItems";
 
 const SearchedCoursesList = (props) => {
-
     return (
         <View style={styles.container}>
-            <View style={{flexDirection:'row'}}>
-                <Text style={styles.title}>Courses</Text>
-                <Text style={styles.result}>{props.list.length} result(s)</Text>
-            </View>
-            <FlatList  data={props.list}
-                       renderItem={({item, index, separators}) => (<ListCoursesItem navigation={props.navigation} item={item}></ListCoursesItem>)}/>
+            {props.noCourses===true?<Text style={{alignSelf:'center'}}>Nothing found</Text>:
+                <View>
+                    <View style={{flexDirection:'row'}}>
+                        <Text style={styles.title}>Courses</Text>
+                        <Text style={styles.result}>{props.list.length} result(s)</Text>
+                    </View>
+                    <FlatList  data={props.list}
+                               renderItem={({item, index, separators}) => (<ListCoursesItem navigation={props.navigation} item={item}></ListCoursesItem>)}/>
+                </View>
+                }
         </View>
     )
 };
