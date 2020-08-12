@@ -22,7 +22,6 @@ import getYouTubeID from 'get-youtube-id';
 import {getDetailCourse, getLastWatchedLesson} from "../../Services/courses-service";
 import {getCourseLikeStatus, getProcess, likeCourse} from "../../Services/user-service";
 
-
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
     const playerRef=useRef(null)
@@ -53,9 +52,6 @@ const CourseDetail = (props) => {
             setIsLoading(false)
         }
     },[])
-    // useEffect(()=>{
-    //     setVideo({videoUrl: detail.promoVidUrl,currentTime:0,isFinish:false})
-    // },[detail])
     useEffect(()=>{
         if((video.videoUrl!=='')&&(video.videoUrl!==undefined)&&(video.videoUrl!==null)){
             setHasPromo(true)
@@ -92,7 +88,6 @@ const CourseDetail = (props) => {
     const onPressComment=()=>{
         props.navigation.navigate("RatingsAndComments",{item:item})
     }
-
     const buttonBookmark=<TouchableOpacity onPress={onPressLike} style={{...styles.button,backgroundColor:theme.background}}>
         <Image style={styles.icon} source={require('../../../assets/icon-heart.png')}></Image>
         <Text style={styles.buttonText}>Like</Text>
@@ -102,31 +97,38 @@ const CourseDetail = (props) => {
         <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
   return (
-      isLoading?<View>
+      isLoading?
+          <View>
               <ActivityIndicator size="large" />
           </View>:
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
-          {hasPromo?(isYoutube?<YoutubePlayer ref={playerRef}
-                                                 height={300}
-                                                 width={400}
-                                                 videoId={getYouTubeID(video.videoUrl)}
-                                                 play={false}
-                                                 volume={80}
-                                                 playbackRate={1}
-                                                 playerParams={{
-                                                     cc_lang_pref: "us",
-                                                     showClosedCaptions: true
-                                                 }}></YoutubePlayer> :<Video
-              source={{ uri: video.videoUrl }}
-              rate={1.0}
-              // ref={(component) => handleVideoRef(component)}
-              useNativeControls={true}
-              volume={2.0}
-              isMuted={false}
-              resizeMode="cover"
-              shouldPlay={true}
-              style={{ width: WINDOW_WIDTH, height: 300 }}
-          />):<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
+          {hasPromo?
+              (isYoutube?
+                  <YoutubePlayer ref={playerRef}
+                                 height={300}
+                                 width={400}
+                                 videoId={getYouTubeID(video.videoUrl)}
+                                 play={false}
+                                 volume={80}
+                                 playbackRate={1}
+                                 playerParams={{
+                                     cc_lang_pref: "us",
+                                     showClosedCaptions: true
+                                 }}>
+                  </YoutubePlayer> :
+                  <Video
+                      source={{ uri: video.videoUrl }}
+                      rate={1.0}
+                      // ref={(component) => handleVideoRef(component)}
+                      useNativeControls={true}
+                      volume={2.0}
+                      isMuted={false}
+                      resizeMode="cover"
+                      shouldPlay={true}
+                      style={{ width: WINDOW_WIDTH, height: 300 }}
+                  />
+                  )
+              :<Image style={styles.video} source={{uri: detail.imageUrl}}></Image>}
           <Text style={styles.courseTitle}>{detail.title}</Text>
               <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>

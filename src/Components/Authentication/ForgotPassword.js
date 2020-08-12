@@ -27,9 +27,7 @@ const ForgotPassword = (props) => {
             } style={styles.buttonLogin}>
                 <Text style={styles.loginText} >Reset</Text>
             </TouchableOpacity>
-            <Text style={{alignSelf:'center',
-                fontSize: 15,
-                color:'red'}}>{error}</Text>
+            <Text style={styles.error}>{error}</Text>
         </ImageBackground>
     )
 };
@@ -39,6 +37,11 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    error:{
+        alignSelf:'center',
+        fontSize: 15,
+        color:'red'
     },
     logo:{
         marginTop:20,

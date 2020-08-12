@@ -7,6 +7,7 @@ const LoginComponent = (props) => {
 
     const [username, setUsername]=useState('')
     const [password, setPassword]=useState('')
+    const [error,setError]=useState('')
     const authenticationContext = useContext(AuthenticationContext)
 
     useEffect(()=>{
@@ -51,8 +52,9 @@ const LoginComponent = (props) => {
                     <Text style={styles.normalText}>Sign up?</Text>
                 </TouchableOpacity>
             </View>
+            <Text style={styles.error}>{error}</Text>
             <TouchableOpacity style={styles.buttonLogin} onPress={()=>{
-                authenticationContext.login(username,password)
+                authenticationContext.login(username,password,setError)
             }
             }>
                 <Text style={styles.loginText}>Login</Text>
@@ -81,6 +83,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width:'100%'
+    },
+    error:{
+        alignSelf:'center',
+        fontSize: 15,
+        color:'red'
     },
     input:{
         margin: 10,

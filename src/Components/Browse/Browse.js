@@ -21,8 +21,6 @@ const Browse = (props) => {
                 />
             ),})
     }
-
-
     const {theme} = useContext(ThemeContext)
     const [categoryList,setCategoryList]=useState([])
     const [instructorList,setInstructorList]=useState([])

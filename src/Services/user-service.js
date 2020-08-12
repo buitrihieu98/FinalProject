@@ -9,10 +9,12 @@ export const likeCourse = async (item,token)=>{
 export const logOut = (dispatch)=>()=>{
     dispatch({type:'LOGOUT'})
 }
-export const login =(dispatch)=> (username, password) =>{
+export const login =(dispatch)=> (username, password, setError) =>{
+
     axios.post('https://api.itedu.me/user/login', {
         email: username,  password:password
     }).then((response)=>{
+        console.log(response)
         if(response.status===200){
             dispatch({type:'LOGIN_SUCCEEDED', data:response.data})
         }
@@ -20,7 +22,9 @@ export const login =(dispatch)=> (username, password) =>{
             dispatch({type:'LOGIN_FAILED'})
         }
     }).catch((error)=>{
+        console.log(error)
         dispatch({type:'LOGIN_FAILED'})
+        setError("Email or password is invalid or account is not activated")
     });
 }
 export const changeAccountInfo = (dispatch)=>(name,avatar,phone,token)=>{

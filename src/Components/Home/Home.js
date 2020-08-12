@@ -18,6 +18,7 @@ const Home = (props) => {
     const [faveList, setFaveList]=useState([])
     const[continueList,setContinueList]=useState([])
     const [isLoading,setIsLoading] = useState(true)
+    const introduction="Exceed, it means to be greater than a number,an amount,or to go past an allowed limit. With Exceed,we hope you can improve your skills,erase your knowledge's boundary by joining online courses."
     if(userInfo){
         props.navigation.setOptions({headerRight: () => (
                 <Avatar
@@ -48,10 +49,7 @@ const Home = (props) => {
             <ScrollView>
                 <View >
                     <Text style={styles.intro}>Welcome to Exceed!</Text>
-                    <Text style={styles.intro}>Exceed, it means to be greater than a number,an amount,
-                        or to go past an allowed limit. With Exceed,
-                        we hope you can improve your skills,
-                        erase your knowledge's boundary by joining online courses.
+                    <Text style={styles.intro}>{introduction}
                     </Text>
                 </View>
                 {continueList.length>0?contiList:<View></View>}
