@@ -10,7 +10,7 @@ import {
     FlatList,
     Image
 } from 'react-native';
-import {Button, SearchBar} from "react-native-elements";
+import {Button, ButtonGroup, SearchBar} from "react-native-elements";
 import SearchedAuthorList from "./SearchedAuthorList";
 import SearchedCoursesList from "./SearchedCoursesList";
 import {ThemeContext} from "../../provider/ThemeProvider";
@@ -23,11 +23,12 @@ const Search = (props) => {
     const [recentSearchesList,setRecentSearchesList] = useState([])
     const [resultCourses,setResultCourses]=useState([])
     const [resultAuthors,setResultAuthors]=useState([])
-    const [noAll,setNoAll]=useState(true)
     const [noAuthors,setNoAuthors]=useState(true)
     const [noCourses,setNoCourses]=useState(true)
     const [showHistory,setShowHistory]=useState(true)
-    const [buttonGroupID,setButtonGroupID]=useState('0')
+    const [buttonGroupID,setButtonGroupID]=useState(0)
+    const[showCourses,setShowCourses]=useState(false)
+    const[showAuthors,setShowAuthors]=useState(false)
     const history =
         <View>
             {recentSearchesList.length!==0?<Text style={{paddingLeft:10,paddingTop:10,fontSize:20,fontWeight:'bold'}}>{`Recent search (${recentSearchesList.length})`}</Text>:<View></View>}
@@ -61,10 +62,27 @@ const Search = (props) => {
         setSearching(item.content)
         setShowHistory(false)
         if(item.content!==''){
-            search(item.content,setResultCourses,setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors,setNoAll).then((r)=>{})
+            search(item.content,setResultCourses,setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors).then((r)=>{})
         }
     }
-
+    const setSelectedID=(id)=>{
+        console.log('buttonID',id)
+        setButtonGroupID(id)
+    }
+    useEffect(()=>{
+        if(buttonGroupID===0){
+            setShowCourses(true)
+            setShowAuthors(true)
+        }
+        if(buttonGroupID===1){
+            setShowCourses(true)
+            setShowAuthors(false)
+        }
+        if(buttonGroupID===2){
+            setShowCourses(false)
+            setShowAuthors(true)
+        }
+    },[buttonGroupID])
   return (
        <View style={{...styles.container,backgroundColor:theme.background}}>
           <SearchBar
@@ -80,20 +98,18 @@ const Search = (props) => {
               onSubmitEditing={()=>{
                   setShowHistory(false)
                   if(searching!==''){
-                      search(searching,setResultCourses,setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors,setNoAll).then((r)=>{})
+                      search(searching,setResultCourses,setResultAuthors,authentication.state.token,setNoCourses,setNoAuthors).then((r)=>{})
                   }
               }}
               value={searching}
           ></SearchBar>
            {showHistory?history:<View></View>}
-           {/*{nothingFound?<Text style={{alignSelf:'center'}}>Nothing found</Text>:<SearchedCoursesList navigation={props.navigation} list={result}></SearchedCoursesList>}*/}
-           {/*{result.length===0?<View></View>:<SearchedCoursesList noCourses={noCourses} navigation={props.navigation} list={result}></SearchedCoursesList>}*/}
-
-           <SearchedCoursesList noCourses={noCourses} navigation={props.navigation} list={resultCourses}></SearchedCoursesList>
-           <SearchedAuthorList noAuthors={noAuthors} navigation={props.navigation} list={resultAuthors}></SearchedAuthorList>
+           <ButtonGroup buttonStyle={{backgroundColor:theme.background,}} textStyle={{color:theme.foreground}}
+                        selectedTextStyle={{fontWeight:'bold',color:'black'}} buttons={['All','Courses','Authors']}
+                        onPress={setSelectedID} selectedIndex={buttonGroupID} selectedButtonStyle={{backgroundColor:theme.itemBackground}}></ButtonGroup>
+           {showCourses?<SearchedCoursesList noCourses={noCourses} navigation={props.navigation} list={resultCourses}></SearchedCoursesList>:<View></View>}
+           {showAuthors?<SearchedAuthorList noAuthors={noAuthors} navigation={props.navigation} list={resultAuthors}></SearchedAuthorList>:<View></View>}
        </View>
-
-
   )
 };
 

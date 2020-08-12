@@ -5,7 +5,8 @@ import ListCoursesItem from "../ListCourses/ListCoursesItem";
 const SearchedCoursesList = (props) => {
     return (
         <View style={styles.container}>
-            {props.noCourses===true?<Text style={{alignSelf:'center'}}>Nothing found</Text>:
+            {props.noCourses===true?
+                <Text style={styles.notFound}>No course found</Text>:
                 <View>
                     <View style={{flexDirection:'row'}}>
                         <Text style={styles.title}>Courses</Text>
@@ -24,6 +25,10 @@ const styles = StyleSheet.create({
         marginLeft:5,
         fontWeight:'bold',
         fontSize:20,
+    },
+    notFound:{
+        alignSelf:'center',
+        fontSize: 15,
     },
     result:{
         position:'absolute',

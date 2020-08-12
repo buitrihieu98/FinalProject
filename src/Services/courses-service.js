@@ -107,7 +107,7 @@ export const rateCourse=async (id,rating,comment,token,setComment)=>{
         }
     })
 }
-export const search = async(keyword, setCourses,setAuthors,token,setNoCourses,setNoAuthors,setNoAll)=>{
+export const search = async(keyword, setCourses,setAuthors,token,setNoCourses,setNoAuthors)=>{
     api.post('https://api.itedu.me/course/searchV2',{
         token:token,
         keyword: keyword,
@@ -134,10 +134,6 @@ export const search = async(keyword, setCourses,setAuthors,token,setNoCourses,se
                 setNoAuthors(true)
             }
             else{setNoAuthors(false)}
-            if((response.data.payload.courses.total===0)&&(response.data.payload.instructors.total===0)){
-                setNoAll(true)
-            }
-            else{setNoAll(false)}
             setCourses(response.data.payload.courses.data)
             setAuthors(response.data.payload.instructors.data)
         }

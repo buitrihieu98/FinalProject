@@ -10,7 +10,7 @@ const SearchedAuthorItem = (props) => {
     const {theme} = useContext(ThemeContext)
     return (
         <TouchableOpacity style={{...styles.container,backgroundColor:theme.itemBackground}} onPress={onPressItem}>
-            <Avatar rounded={true} avatarStyle={styles.avatar} source={{uri:props.item.avatar}}></Avatar>
+            <Avatar rounded={true} size={'large'}  source={{uri:props.item.avatar}}></Avatar>
             <Text style={styles.username}>{props.item.name}</Text>
         </TouchableOpacity>
     )
@@ -20,10 +20,8 @@ const styles = StyleSheet.create({
     container:{
         flexDirection:'row',
         margin:5,
-        height:60,
+        height:100,
         backgroundColor:'linen',
-        //width: 100,
-        //justifyContent: 'center',
         alignItems: 'center',
         paddingLeft:10,
     },
@@ -33,7 +31,8 @@ const styles = StyleSheet.create({
     },
     username:{
         margin:10,
-        fontSize: 15,
+        fontSize: 20,
+        alignItems: 'center',
         fontWeight: 'bold',
     },
 });
