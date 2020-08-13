@@ -36,7 +36,7 @@ const SectionCoursesItem2 = (props) => {
             <View style={{margin:5}}>
                 <Text style={styles.coreInfo}>{props.item.courseTitle}</Text>
                 <Text style = {styles.subInfo}>{props.item.instructorName}</Text>
-                {props.item.coursePrice===undefined?<Text style={styles.subInfo}>{`Process: ${props.item.process}%`}</Text>:<Text style={styles.subInfo}>{`Price: ${props.item.coursePrice} vnd`}</Text>}
+                {props.item.coursePrice===undefined?<Text style={styles.subInfo}>{`Process: ${(props.item.process).toFixed(1)}%`}</Text>:<Text style={styles.subInfo}>{`Price: ${props.item.coursePrice} vnd`}</Text>}
                 {props.item.courseAveragePoint===undefined?<View></View>:
                     <View style={{flexDirection:'row'}}>
                         <Rating imageSize={18} tintColor={theme.itemBackground} ratingBackgroundColor={theme.foreground} type={'custom'}

@@ -32,7 +32,7 @@ const RatingsAndComments = (props) => {
 
     return (
         <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
-            <Image style={styles.video} source={{uri: item.courseImage}}></Image>
+            {item.imageUrl?<Image style={styles.video} source={{uri: item.imageUrl}}></Image>:<Image style={styles.video} source={{uri: item.courseImage}}></Image>}
             <Text style={styles.courseTitle}>{item.courseTitle}</Text>
             <Text style={styles.loginText}>Rate this course</Text>
             <Rating imageSize={40} tintColor={theme.background} readonly={false}

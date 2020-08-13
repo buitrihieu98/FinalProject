@@ -8,7 +8,7 @@ import {
     Share,
     ScrollView,
     ActivityIndicator,
-    Dimensions, Slider,
+    Dimensions,
 } from 'react-native';
 import MyRating from "../Home/Rating";
 import ViewMoreText from 'react-native-view-more-text';
@@ -21,11 +21,12 @@ import {Video} from "expo-av";
 import getYouTubeID from 'get-youtube-id';
 import {getDetailCourse, getLastWatchedLesson} from "../../Services/courses-service";
 import {getCourseLikeStatus, getProcess, likeCourse} from "../../Services/user-service";
-import {downloadVideo} from "../../Services/download-service";
+import {updateDone, updateTime} from "../../Services/lesson-service";
 
 const CourseDetail = (props) => {
     const WINDOW_WIDTH = Dimensions.get('window').width;
     const playerRef=useRef(null)
+    const youtubeRef=useRef(null)
     let item=props.route.params.item
     const [detail,setDetail]=useState({})
     const [processCourse,setProcesCourse]=useState(0)
@@ -37,36 +38,60 @@ const CourseDetail = (props) => {
     const [video, setVideo] = useState({videoUrl:'',currentTime:0,isFinish:false})
     const [isYoutube,setIsYoutube]=useState(false)
     const [cateId,setCateId]=useState([])
-    const [canDown,setCanDown]=useState(true)
-    const [isDownloading,setIsDownloading]=useState(false)
-    const [progressDown,setProgressDown]=useState(0)
-    // const handleVideoRef = (component) => {
-    //     const playbackObject = component
-    //     if(playbackObject){
-    //         playbackObject.playFromPositionAsync(video.currentTime).then(r => {})
-    //         playbackObject.pauseAsync().then(r => {})
-    //     }
-    // }
+    const [updated,setUpdated]=useState(false)
+    const[currentLesson,setCurrentLesson]=useState()
+    const onStatusUpdate=async(status)=>{
+        console.log('status updated',status)
+        if(!status.isPlaying){
+            if(status.didJustFinish) {
+                updateDone(currentLesson, authentication.state.token).then(r => {})
+            }
+            if(status.positionMillis!=='0'){
+                if(status.positionMillis!==status.durationMillis) {
+                    if(!updated){
+                        updateTime(currentLesson,status.positionMillis,authentication.state.token).then(r => {setUpdated(true)})
+                    }
+                }
+            }
+        }
+        if(status.isPlaying){
+            setUpdated(false)
+        }
+    }
+    const onChangeStateYoutube=async (state) => {
+        console.log('state', state)
+        if (state === 'paused') {
+            console.log('youtube  2222', youtubeRef)
+            await youtubeRef.current.getCurrentTime().then((currentTime)=>{
+                console.log((currentTime).toFixed(0))
+                const curTime=(currentTime).toFixed(0)
+                if(curTime!=='0'){
+                    updateTime(currentLesson,curTime,authentication.state.token).then((r)=>{})
+                }
+            })
+        }
+        if (state === 'ended') {
+            updateDone(currentLesson, authentication.state.token).then(r =>{})
+        }
+        if (state === 'unstarted') {
+            await youtubeRef.current.seekTo(video.currentTime, true)
+        }
+    }
     useEffect(()=>{
         getDetailCourse(item, authentication.state.token, setDetail).then(r  =>{})
         getCourseLikeStatus(item, authentication.state.token, setLiked).then(r =>{} )
         getProcess(item, authentication.state.token, setProcesCourse).then(r =>{} )
-        getLastWatchedLesson(item.id,authentication.state.token,setVideo).then(r =>{} )
+        getLastWatchedLesson(item.id,authentication.state.token,setVideo,setCurrentLesson).then(r =>{
+        } )
         if(detail!=={}){
             setIsLoading(false)
-            console.log(detail)
         }
     },[])
+
     useEffect(()=>{
         if((video.videoUrl!=='')&&(video.videoUrl!==undefined)&&(video.videoUrl!==null)){
             setHasPromo(true)
             setIsYoutube(video.videoUrl.includes("youtu"))
-        }
-        if(video.videoUrl.includes("mp4")){
-            setCanDown(true)
-        }
-        else{
-            setCanDown(false)
         }
     },[video])
 
@@ -91,15 +116,10 @@ const CourseDetail = (props) => {
          } catch (error) {
              alert(error.message);
          }}
-
     const onPressLike = ()=>{
         likeCourse(item, authentication.state.token).then(r =>{})
         setLiked(!liked)
     }
-    // const onPressDownload=()=>{
-    //     downloadVideo(video, setProgressDown).then(r =>{})
-    //
-    // }
     const onPressComment=()=>{
         props.navigation.navigate("RatingsAndComments",{item:item})
     }
@@ -111,12 +131,11 @@ const CourseDetail = (props) => {
         <Image style={styles.icon} source={require('../../../assets/icon-hearted.png')}></Image>
         <Text style={styles.buttonText}>Unlike</Text>
     </TouchableOpacity>
-    const buttonDown=<TouchableOpacity onPress={onPressDownload} style={{...styles.button,backgroundColor:theme.background}}>
-        <Image style={styles.icon} source={require('../../../assets/icon-download.png')}>
-        </Image>
-        <Text style={styles.buttonText}>Download this video</Text>
-    </TouchableOpacity>
-    // const progressBar =<Progress.Bar progress={progressDown} width={'100%'} />
+    // const buttonDown=<TouchableOpacity onPress={onPressDownload} style={{...styles.button,backgroundColor:theme.background}}>
+    //     <Image style={styles.icon} source={require('../../../assets/icon-download.png')}>
+    //     </Image>
+    //     <Text style={styles.buttonText}>Download this video</Text>
+    // </TouchableOpacity>
   return (
       isLoading?
           <View>
@@ -125,23 +144,28 @@ const CourseDetail = (props) => {
       <ScrollView style={{...styles.container,backgroundColor:theme.background}}>
           {hasPromo?
               (isYoutube?
-                  <YoutubePlayer ref={playerRef}
+                  <YoutubePlayer ref={youtubeRef}
                                  height={300}
                                  width={400}
                                  videoId={getYouTubeID(video.videoUrl)}
                                  play={false}
                                  volume={80}
+                                 onChangeState={(state)=>{
+                                     onChangeStateYoutube(state).then(r => {})
+                                 }}
                                  playbackRate={1}
                                  playerParams={{
                                      cc_lang_pref: "us",
-                                     showClosedCaptions: true
+                                     showClosedCaptions: true,
                                  }}>
                   </YoutubePlayer> :
                   <Video
                       source={{ uri: video.videoUrl }}
                       rate={1.0}
-                      // ref={(component) => handleVideoRef(component)}
+                      progressUpdateIntervalMillis={50000}
+                      positionMillis={video.currentTime}
                       useNativeControls={true}
+                      onPlaybackStatusUpdate={(status)=>{onStatusUpdate(status).then(r => {})}}
                       volume={2.0}
                       isMuted={false}
                       resizeMode="cover"
@@ -181,7 +205,7 @@ const CourseDetail = (props) => {
                       <Text> {detail.description}</Text>
                   </ViewMoreText>
               </View>
-              <LessonList setState={setVideo} courseId={item.id} item={detail.section}/>
+              <LessonList setState={setVideo} setLesson={setCurrentLesson} courseId={item.id} item={detail.section}/>
       </ScrollView>
   )
 };

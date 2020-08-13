@@ -14,7 +14,6 @@ export const login =(dispatch)=> (username, password, setError) =>{
     axios.post('https://api.itedu.me/user/login', {
         email: username,  password:password
     }).then((response)=>{
-        console.log(response)
         if(response.status===200){
             dispatch({type:'LOGIN_SUCCEEDED', data:response.data})
         }

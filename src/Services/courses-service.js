@@ -1,5 +1,4 @@
 import api from "../API/api";
-
 export const deleteHistory=async (item,token)=>{
     console.log(item)
     api.delete(`https://api.itedu.me/course/delete-search-history/${item.id}`,{},token).then((response)=>{
@@ -19,7 +18,6 @@ export const getComments =async (item,setComments)=>{
 export const getDetailCourse =async(item,token,setState)=>{
     api.get(`https://api.itedu.me/course/detail-with-lesson/${item.id}`,{},token)
         .then((response)=>{
-            console.log('course detail',response)
             if(response.isSuccess){
                 setState(response.data.payload)
             }
@@ -27,10 +25,15 @@ export const getDetailCourse =async(item,token,setState)=>{
         .catch((error)=>{console.log('error',error)
             return null})
 }
-export const getLastWatchedLesson =async(courseId,token,setVideo)=>{
+export const getLastWatchedLesson =async(courseId,token,setVideo,setLesson)=>{
     api.get(`https://api.itedu.me/course/last-watched-lesson/${courseId}`,{},token).then((response)=>{
         if(response.isSuccess){
             setVideo({videoUrl:response.data.payload.videoUrl,currentTime:response.data.payload.currentTime,isFinish:response.data.payload.isFinish})
+            api.get(`https://api.itedu.me/lesson/detail/${courseId}/${response.data.payload.lessonId}`,{},token).then((response2)=>{
+                if(response2.isSuccess){
+                    setLesson(response2.data.payload)
+                }
+            })
         }
     })
 }
