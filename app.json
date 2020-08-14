@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "FinalProject",
-    "slug": "FinalProject",
+    "name": "Exceed",
+    "slug": "Exceed",
     "platforms": [
       "ios",
       "android",
@@ -9,7 +9,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo3.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -22,7 +22,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "hieu.final.exceed",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "hieu.final.exceed",
+      "versionCode": 1
     }
   }
 }

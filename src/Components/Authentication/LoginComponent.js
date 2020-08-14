@@ -25,7 +25,7 @@ const LoginComponent = (props) => {
     }
     return(
         <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
-            <Image source={require('../../../assets/logo.png')} style={styles.logo}>
+            <Image source={require('../../../assets/logo2.png')} style={styles.logo}>
             </Image>
             <TextInput onChangeText={text => setUsername(text)} defaultValue={username} style={styles.input} placeholder= {'Username'}/>
             <View style={styles.inputContainer}>

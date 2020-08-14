@@ -41,7 +41,7 @@ const CourseDetail = (props) => {
     const [updated,setUpdated]=useState(false)
     const[currentLesson,setCurrentLesson]=useState()
     const onStatusUpdate=async(status)=>{
-        console.log('status updated',status)
+        console.log('status updated')
         if(!status.isPlaying){
             if(status.didJustFinish) {
                 updateDone(currentLesson, authentication.state.token).then(r => {})
@@ -59,11 +59,9 @@ const CourseDetail = (props) => {
         }
     }
     const onChangeStateYoutube=async (state) => {
-        console.log('state', state)
+        console.log('state changed')
         if (state === 'paused') {
-            console.log('youtube  2222', youtubeRef)
             await youtubeRef.current.getCurrentTime().then((currentTime)=>{
-                console.log((currentTime).toFixed(0))
                 const curTime=(currentTime).toFixed(0)
                 if(curTime!=='0'){
                     updateTime(currentLesson,curTime,authentication.state.token).then((r)=>{})
@@ -78,9 +76,11 @@ const CourseDetail = (props) => {
         }
     }
     useEffect(()=>{
-        getDetailCourse(item, authentication.state.token, setDetail).then(r  =>{})
+        getDetailCourse(item, authentication.state.token, setDetail).then(r  =>{
+        })
         getCourseLikeStatus(item, authentication.state.token, setLiked).then(r =>{} )
-        getProcess(item, authentication.state.token, setProcesCourse).then(r =>{} )
+        getProcess(item, authentication.state.token, setProcesCourse).then(r =>{
+        } )
         getLastWatchedLesson(item.id,authentication.state.token,setVideo,setCurrentLesson).then(r =>{
         } )
         if(detail!=={}){
@@ -182,8 +182,9 @@ const CourseDetail = (props) => {
               <AuthorItems navigation={props.navigation} item={detail}></AuthorItems>
               <View style={styles.subInfoContainer}>
                   <Text style={styles.subInfo}>{`Price: ${detail.price} vnd . Total hours: ${detail.totalHours}`}</Text>
-                  <MyRating item={detail}></MyRating>
-                  <Text style={styles.subInfo}>{`Your Progress: ${processCourse}%`}</Text>
+                  {/*<MyRating item={detail}></MyRating>*/}
+                  {item.process?<Text style={styles.subInfo}>{`Your Progress: ${(item.process).toFixed(1)}% (${(parseFloat(item.process)*parseFloat(detail.totalHours)/100).toFixed(2)} hours)`}</Text>:<View></View>}
+
               </View>
               <View style={styles.buttonsContainer}>
                   {liked===false?buttonBookmark:buttonBookmarked}

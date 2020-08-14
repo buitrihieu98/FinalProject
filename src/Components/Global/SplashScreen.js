@@ -24,7 +24,7 @@ const SplashScreen = (props) => {
 
     return (
         <View source={require('../../../assets/background.jpg')} style={styles.container}>
-            <Image source={require('../../../assets/logo.png')} style={styles.logo}>
+            <Image source={require('../../../assets/logo2.png')} style={styles.logo}>
             </Image>
         </View>
         )
