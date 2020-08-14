@@ -11,13 +11,12 @@ import {getInstructorList} from "../../Services/author-service";
 
 const Browse = (props) => {
     const authentication=useContext(AuthenticationContext)
-    const avatar=authentication.state.userInfo.avatar
-    if(avatar){
+    if(authentication.state.userInfo.avatar){
         props.navigation.setOptions({headerRight: () => (
                 <Avatar
                     style={{margin:5,marginRight:10,height:25,width:25}}
                     onPress={() => props.navigation.navigate("Profile")}
-                    source={{uri:avatar}}
+                    source={{uri:authentication.state.userInfo.avatar}}
                 />
             ),})
     }
