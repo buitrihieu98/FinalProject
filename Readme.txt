@@ -8,3 +8,5 @@ Deadline 2: Xây dựng ứng dụng offline cho toàn bộ ứng dụng
 Deadline 3: Ứng dụng online
   - Commit ID: 8678f69
   - Video demo: https://youtu.be/JkVc3jKQXKU
+
+Link Video Demo ứng dụng cuối cùng: https://youtu.be/ZQTw8moCwVg
